@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #ffffff;
+  --color-foreground: #000000;
+  --color-border: #e5e7eb;
+  --color-accent: #000000;
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+
+
+@utility bento-card{
+  border:1px solid rgba(0,0,0,0.03);
+  border-radius: 12px;
+  background: #ffffff;
+  transition: all 0.2s ease;
+
+  &:hover {
+    transform: translateY(-0.2px);
+    box-shadow: 0 3px 5px rgba(0,0,0,0.03);
+  }
+}
+
+@utility animate-fade-in {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+  from{
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to{
+    opacity: 1;
+    transform: translateY(0)
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+               Roboto, Helvetica, Arial, sans-serif;
+
+}
