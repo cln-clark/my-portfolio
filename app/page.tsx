@@ -305,7 +305,7 @@ export default function Home() {
                       loading="lazy" 
                       decoding="async"   
                       fill
-                      className="object-cover transition-transform duration-200 group-hover/image:scale-105" 
+                      className="object-cover object-[center_30%] transition-transform duration-200 group-hover/image:scale-105" 
                       sizes="(max-width: 640px) 100vw, (max-width: 768px) 33vw,(max-width: 1024px) 25vw, 20vw"/>
                     </div>
                   ))}
