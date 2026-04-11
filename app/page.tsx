@@ -322,10 +322,11 @@ export default function Home() {
                       </svg>
             </button> 
             <button onClick = {() => setCurrentImageIndex(prev => Math.min(prev + 1, images.length - 4.4))} 
-                    disabled={currentImageIndex === images.length - 3}
-                    className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 sm:translate-x-4 md:translate-x-6 z-10 
+                    disabled={currentImageIndex === images.length - 4.4}
+                    className={`absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 sm:translate-x-4 md:translate-x-6 z-10 
                     p-2 rounded-full bg-background shadow-[0_1px_2px_rgba(0,0,0,0.05),0_1px_1px_rgba(0,0,0,0.06)] 
-                    hover:shadow-[0_3px_10px_rgba(0,0,0,0.08)]  transition-all duration-200 hover:scale-110" 
+                    hover:shadow-[0_3px_10px_rgba(0,0,0,0.08)]  transition-all duration-200 hover:scale-110
+                    ${currentImageIndex === images.length - 4.4 ? 'cursor-not-allowed  opacity-50'  : 'cursor-pointer'}`}
                     aria-label="Next image" /* next button*/>
                       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 5l7 7-7 7"></path>
