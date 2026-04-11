@@ -1,44 +1,74 @@
+"use client"
+import Image from "next/image"
+import { useState } from "react";
+
 export default function Home() {
+
+  const images = [
+    "/images/gallery/grad6.jpg",
+    "/images/gallery/grad5.jpg",
+    "/images/gallery/grad4.jpg",
+    "/images/gallery/grad3.jpg",
+    "/images/gallery/grad2.jpg",
+    "/images/gallery/grad1.jpg",
+    "/images/gallery/ojt1.jpg",
+    "/images/gallery/ojt2.jpg",
+    "/images/gallery/ojt3.jpg",
+    "/images/gallery/ojt4-new.jpg"];
+
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+
+
+  
+
+
   return (
     <div className="w-full max-w-4xl mx-auto px-4 py-8 text-left group animate-fade-in" /* Main div */> 
+
       <section className="mb-8" /* Upper Section */>
 
           <div className="flex items-center justify-start gap-4 md:gap-6"/* whole div inside upper section */>
 
-           <img fetchPriority="high"  /* first child */              
-                decoding="async" 
-                src="/images/myself-2.jpeg" 
-                alt="Clark Louise"
-                className="w-[160px] h-[170px] object-cover shrink-0 rounded-md"
-                >
-           </img>
+            <img fetchPriority="high"  /* first child */              
+                  decoding="async" 
+                  src="/images/myself-2.jpeg" 
+                  alt="Clark Louise"
+                  className="w-[160px] h-[170px] object-cover shrink-0 rounded-md"
+                  >
+            </img>
 
             <div className="flex-1  min-w-0"/* second child */ /* Name, Location*/>
 
-              <div>
-                <h1 className="text-lg font-bold md:text-2xl truncate">Clark Louise Navales</h1>
-              </div>
+                <div className="flex items-center gap-5 min-w-0" /* Name and Open to Work */>
+                  <h1 className="text-lg font-bold md:text-3xl truncate">Clark Louise Navales</h1>
+                  <div className="flex items-center gap-2 px-2 py-1 bg-green-100 rounded-full">
+                    <div className="w-2 h-2 bg-green-600 rounded-full animate-pulse"></div>
+                    <span className="text-xs font-medium">Open to Work</span>
+                  </div> 
+                </div>
 
-              <p className="flex items-center gap-1 text-xs md:text-sm text-foreground/70 mt-0.5 ">
-                <img src="/location-pin.svg" alt="location icon" width="13" height="13" ></img>
-                <span className="truncate">City of Imus, Cavite</span>
-              </p>
+                <p className="flex items-center gap-1 text-xs md:text-sm text-foreground/70 mt-0.5 ">
+                  <img src="/location-pin.svg" alt="location icon" width="13" height="13" ></img>
+                  <span className="truncate">City of Imus, Cavite</span>
+                </p>
 
-              <div className="mt-1.5 md:mt-2">
-                <p className="text-[10px] md:text-base">Aspiring Software Developer</p>
-              </div>
+                <div className="mt-1.5 md:mt-2">
+                  <p className="text-[10px] md:text-base">Aspiring Software Developer</p>
+                </div>
 
-              <div className="mt-1.5 md:mt-2 ">
-                
-                <a className="hidden md:inline-flex h-7 md:h-8 items-center rounded-lg shadow-[0_1px_2px_rgba(0,0,0,0.03),0_1px_1px_rgba(0,0,0,0.04)] bg-background px-2.5 md:px-4 text-[8px] md:text-xs font-medium transition-all duration-200 hover:bg-muted hover:-translate-y-0.5 hover:shadow-[0_3px_10px_rgba(0,0,0,0.06)] gap-1 md:gap-1.5 whitespace-nowrap min-h-0"
-                href="mailto:clarknvls@gmail.com">
-                <img src="email.svg"  width="17" height="17"  alt="email icon" />
-                <span>Send Email</span>
-                </a>
-              </div>
+                <div className="mt-1.5 md:mt-2 ">
+                  
+                  <button className="hidden md:inline-flex h-7 md:h-8 items-center rounded-lg shadow-[0_1px_2px_rgba(0,0,0,0.03),0_1px_1px_rgba(0,0,0,0.04)] 
+                  bg-blue-500 text-white text-2.5 md:px-4 text-[8px] md:text-xs font-medium transition-all duration-200 hover:bg-muted hover:-translate-y-0.5 
+                  hover:shadow-[0_3px_10px_rgba(0,0,0,0.06)] gap-1 md:gap-1.5 whitespace-nowrap min-h-0">
+                  <img src="email.svg"  width="17" height="17"  alt="email icon" />
+                  <span>Get In Touch</span>
+                  </button>
+                </div>
 
-            </div>
-            
+            </div>          
+
           </div>
          
       </section>
@@ -67,7 +97,7 @@ export default function Home() {
                 <h3 className="text-sm font-semibold text-accent transition-colors">
                   Data Processing Associate
                 </h3>
-                <div className="flext items-center justify-between">
+                <div className="flex items-center justify-between">
                   <span className="text-xs text-foreground/ text-accent/70">Appen</span>
                 </div>
 
@@ -81,7 +111,7 @@ export default function Home() {
                 <h3 className="text-sm font-semibold text-accent transition-colors">
                   Intern / OJT
                 </h3>
-                <div className="flext items-center justify-between">
+                <div className=" flex items-center justify-between">
                   <span className="text-xs text-foreground/70 text-accent/70">Sun Life of Canada Philippines Inc. Phoenix Palm NBO</span>
                 </div>
 
@@ -95,7 +125,7 @@ export default function Home() {
                 <h3 className="text-sm font-semibold text-accent transition-colors">
                   BS Information Technology
                 </h3>
-                <div className="flext items-center justify-between">
+                <div className="flex items-center justify-between">
                   <span className="text-xs text-foreground/70 text-accent/70">Cavite State University - Cum Laude</span>
                 </div>
 
@@ -109,7 +139,7 @@ export default function Home() {
                 <h3 className="text-sm font-semibold text-accent transition-colors">
                   ICT
                 </h3>
-                <div className="flext items-center justify-between">
+                <div className="flex items-center justify-between">
                   <span className="text-xs text-foreground/70 text-accent/70">University of Perpetual Help System Dalta</span>
                 </div>
 
@@ -163,7 +193,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="bento-card p-4 col-span-1 md:col-span-2 space-y-2 group animate-fade-in flex-1"/* Experience Card */>
+        <div className="bento-card p-4 col-span-1 md:col-span-2 space-y-2 group animate-fade-in"/* Socials Card */>
           <h2 className="text-lg font-bold">Social Links</h2>
           <div className="space-y-1.5">
             <div className="grid grid-cols-1 gap-1">
@@ -221,9 +251,7 @@ export default function Home() {
               
             
             </div>
-          </div>
-
-         
+          </div>     
                 
         </div>
 
@@ -260,6 +288,51 @@ export default function Home() {
           
         </div>
 
+        <div className="bento-card p-4 col-span-1 md:col-span-6 space-y-2 group animate-fade-in" /* Gallery Card */>
+          <h2 className="text-lg font-bold">Gallery</h2>
+          <div className="relative">
+            <div className="relative overflow-hidden">
+              <div className="flex gap-2 transition-transform duration-500 ease-in-out"
+              style={{ transform: `translateX(-${currentImageIndex * 25}%)` }}>
+                  {images.map((src, index) => (
+                    <div key={index} className="relative flex-shrink-0 aspect-square overflow-hidden rounded-lg bg-foreground/5 
+                  shadow-[0_1px_2px_rgba(0,0,0,0.03),0_1px_1px_rgba(0,0,0,0.04)] hover:shadow-[0_3px_10px_rgba(0,0,0,0.06)] 
+                  transition-all duration-200 hover:-translate-y-0.5 group/image cursor-pointer" 
+                  style={{ width: 'calc(24% - 0.375rem)'}}>
+                      <Image 
+                      src={src} 
+                      alt={`Gallery Image ${index + 1}`} 
+                      loading="lazy" 
+                      decoding="async"   
+                      fill
+                      className="object-cover transition-transform duration-200 group-hover/image:scale-105" 
+                      sizes="(max-width: 640px) 100vw, (max-width: 768px) 33vw,(max-width: 1024px) 25vw, 20vw"/>
+                    </div>
+                  ))}
+              </div>              
+            </div>
+            <button onClick ={() => setCurrentImageIndex(prev => Math.max(prev - 1,0))} 
+                    disabled = {currentImageIndex === 0}
+                    className={`absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 sm:-translate-x-4 md:-translate-x-6 z-10
+                    p-2 rounded-full bg-background shadow-[0_1px_2px_rgba(0,0,0,0.05),0_1px_1px_rgba(0,0,0,0.06)] 
+                    hover:shadow-[0_3px_10px_rgba(0,0,0,0.08)] transition-all duration-200 hover:scale-100 opacity-50
+                    ${currentImageIndex === 0 ? 'cursor-not-allowed' : 'cursor-pointer opacity-100'}` } aria-label="Previous Image" /* previous button*/>
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M 15 19 l-7 -7 7 -7"></path>
+                      </svg>
+            </button> 
+            <button onClick = {() => setCurrentImageIndex(prev => Math.min(prev + 1, images.length - 4.4))} 
+                    disabled={currentImageIndex === images.length - 3}
+                    className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 sm:translate-x-4 md:translate-x-6 z-10 
+                    p-2 rounded-full bg-background shadow-[0_1px_2px_rgba(0,0,0,0.05),0_1px_1px_rgba(0,0,0,0.06)] 
+                    hover:shadow-[0_3px_10px_rgba(0,0,0,0.08)]  transition-all duration-200 hover:scale-110" 
+                    aria-label="Next image" /* next button*/>
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 5l7 7-7 7"></path>
+                      </svg>
+            </button> 
+          </div>
+        </div>
         
        
       </section>

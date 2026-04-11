@@ -5,6 +5,7 @@
   --color-foreground: #000000;
   --color-border: #e5e7eb;
   --color-accent: #000000;
+  --color-currentcolor: #000000;
 }
 
 :root {
