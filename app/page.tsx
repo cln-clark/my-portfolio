@@ -147,7 +147,7 @@ export default function Home() {
           <h2 className="text-lg font-bold">Experience</h2>
 
           <div className="relative space-y-4 mt-4" /* List of Experience */>
-            <div className="absolute left-1.5 top-1.5 h-[calc(100%-8px)] w-px bg-accent"></div>
+            <div className="absolute left-1.5 top-1.5 h-[calc(100%-8px)] w-px bg-[var(--foreground)]/15"></div>
 
             <div className="relative pl-6 group/role">
               <div className="absolute left-0 top-1.5 w-3 h-3 border-2 border-accent bg-[var(--foreground)] transition-colors"></div>
