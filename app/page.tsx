@@ -22,7 +22,7 @@ export default function Home() {
 
   useEffect(() => {
     const saveTheme = localStorage.getItem('theme')
-    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)')
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
     
     if(saveTheme === 'dark' || (!saveTheme && systemPrefersDark)){
       setIsDark(true)
