@@ -388,8 +388,7 @@ export default function Home() {
                         <Image 
                         src={src} 
                         alt={`Gallery Image ${index + 1}`} 
-                        loading="lazy" 
-                        decoding="async"   
+                        loading={index === 0 ? "eager" : "lazy"} 
                         fill
                         className={`object-cover ${index === 7 ? 'object-bottom' : 'object-[center_30%]'} 
                         transition-transform duration-200 group-hover/image:scale-105`}              
