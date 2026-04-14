@@ -54,7 +54,7 @@ export default function Home() {
 
   useEffect(() => {
       const handleKeyDown = (e: KeyboardEvent) => {
-        if(lightboxIndex !== null) return
+        if(lightboxIndex === null) return
         if(e.key === 'ArrowLeft') {
           setLightboxIndex(prev => Math.max(prev! - 1, 0))
         }
@@ -68,7 +68,7 @@ export default function Home() {
       }
       window.addEventListener('keydown', handleKeyDown)
       return () => window.removeEventListener('keydown', handleKeyDown)
-  }), [lightboxIndex]
+  }, [lightboxIndex])
 
   return (
     <>
