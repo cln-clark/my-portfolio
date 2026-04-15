@@ -323,14 +323,14 @@ export default function Home() {
           </div>
 
           <div className="bento-card p-4 col-span-1 md:col-span-4 space-y-2 group animate-fade-in "/* Tech Stack Card */>
-              <h2 className="text-lg font-bold">Tech Stack</h2>
+            <h2 className="text-lg font-bold">Tech Stack</h2>
             <div className="space-y-4">
               {CATEGORIES.map(category => {
                 const items = techStack.filter(t => t.category === category);
                 return(
                   <div key={category}>
                     <h3 className="text-sm font-semibold mb-2">{category}</h3>
-                <div className="flex flex-wrap gap-1.5">
+                    <div className="flex flex-wrap gap-1.5">
                       {items.map(tech => (
                         <span key={tech.name} 
                               className="flex items-center gap-1 px-2 py-0.5 text-xs rounded-md bg-[var(--background)]/30 
@@ -341,8 +341,8 @@ export default function Home() {
                           {tech.name}
                         </span>
                       ))}
-                </div>
-              </div>
+                    </div>
+                  </div>
                 )
               })
               }
@@ -416,31 +416,58 @@ export default function Home() {
             <div className="flex items-center justify-start">
               <h3 className="text-lg font-bold">Projects</h3>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-              <div className="bento-card bg-[var(--background)]/30 p-3 space-y-1"/* 1st Project */>
-                <a target="_blank" rel="noopener noreferrer" className="block space-y-1" href="">
-                  <h3 className="text-sm font-semibold">NeGeShoCa</h3>
-                  <p className="text-xs text-[var(--foreground)]">Smart checkout system using Arduino, Kotlin, Firebase and QR-based payment</p>
-                  <p className="text-xs text-[var(--foreground)] font-mono bg-[var(--foreground)]/5 px-2 py-1 rounded-md inline-flex items-center gap-1 mt-1">
-                    Open project
-                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M 9 5 l7 7 -7 7"></path>
-                    </svg>
-                  </p>
-                </a>
-              </div>
-              <div className="bento-card bg-[var(--background)]/30 p-3 space-y-1"/* 2nd Project */>
-                <a target="_blank" rel="noopener noreferrer" className="block space-y-1" href="">
-                  <h3 className="text-sm font-semibold">NeGeShoCa POS & Inventory System</h3>
-                  <p className="text-xs text-[var(--foreground)]">POS and real-time inventory system for Negeshoca using Java and Firebase</p>
-                  <p className="text-xs text-[var(--foreground)]/70 font-mono bg-[var(--foreground)]/5 px-2 py-1 rounded-md inline-flex items-center gap-1 mt-1">
-                    Open project
-                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M 9 5 l7 7 -7 7"></path>
-                    </svg>
-                  </p>
-                </a>
-              </div>
+            <div className="grid grid-cols-1 gap-2">
+                {projects.map(project => (
+                  <div key={project.id} 
+                       className="bento-card bg-[var(--background)]/30 p-3 space-y-3">
+                    <button onClick={() => setExpandedProject(expandedProject === project.id ? null : project.id)}
+                            className= "w-full text-left block space-y-1">
+                      <div className="flex items-start justify-between gap-2">
+                        <div className="flex-1 space-x-2">
+                          <h3 className="text-sm font-semibold pb-2">{project.title}</h3>
+                          <p className="text-xs text-[var(--foreground)] pb-1">{project.shortDescription}</p>
+                          {project.techStack.map((tech, index) => (
+                            <a key={index} className="px-2 py-0.5 text-xs rounded-md bg-[var(--background)]/30 shadow-[0_2px_1px_rgba(0,0,0,0.03)]">
+                              {tech}
+                            </a>
+                          ))}                         
+                        </div>
+                        <svg className={`w-4 h-4  flex-shrink-0 transition-transform
+                                        ${expandedProject === project.id ? 'rotate-90' : ''}`}
+                                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M 9 5 l7 7 -7 7"></path>
+                        </svg>
+                      </div>           
+                    </button>
+
+                    {expandedProject === project.id && (
+                      <div className="border-t border-[var(--foreground)]/10 p-2 space-y-2 bg-[var(--foreground)">
+                        <div className="pt-1 flex flex-wrap gap-2">
+                          {project.demoUrl && (
+                            <a href={project.demoUrl} target="_blank" rel="noopener noreferrer" 
+                               className="font-mono px-2.5 py-1.5 text-xs rounded-md bg-[var(--foreground)]/8 shadow-[0_2px_1px_rgba(0,0,0,0.03)]
+                                          hover:bg-[var(--foreground)]/15 transition-colors">
+                              View Demo →
+                            </a>
+                          )}  
+
+                          {project.caseStudyUrl && (
+                            <a href={project.caseStudyUrl} target="_blank" rel="noopener noreferrer" 
+                               className="font-mono px-2.5 py-1.5 text-xs rounded-md bg-[var(--foreground)]/8 shadow-[0_2px_1px_rgba(0,0,0,0.03)]
+                                          hover:bg-[var(--foreground)]/15 transition-colors">
+                              View Case Study →
+                            </a>
+                          )}                       
+                        </div>
+                      </div>
+                    )}
+
+                    
+                  </div>
+
+                ))}
+
+              
             </div>
             
           </div>
@@ -453,7 +480,7 @@ export default function Home() {
                 style={{ transform: `translateX(-${currentImageIndex * 25}%)` }}>
                     {images.map((src, index) => (
                       <div key={index} 
-                      onClick={() => {
+                        onClick={() => {
                         setLightboxIndex(index)
                         document.body.style.overflow = 'hidden' }}       
                       className="relative flex-shrink-0 aspect-square overflow-hidden rounded-lg bg-foreground/5 
