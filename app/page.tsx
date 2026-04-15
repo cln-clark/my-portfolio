@@ -1,6 +1,8 @@
 "use client"
 import Image from "next/image"
-import { useEffect, useState } from "react";
+import { JSX, useEffect, useState } from "react";
+import { FaReact, FaJava, FaNodeJs, FaGit, FaGithub, FaDiscord, FaHtml5 } from 'react-icons/fa';
+import { SiTypescript, SiTailwindcss, SiKotlin, SiNestjs, SiMysql, SiFirebase, SiVscodium, SiPython } from 'react-icons/si';
 
 export default function Home() {
 
@@ -50,6 +52,57 @@ export default function Home() {
     localStorage.setItem('theme', newDark ? 'dark' : 'light')
   }
 
+  type TechCategory = 'Frontend' | 'Backend' | 'Developer Tools';
+
+  interface TechStackDetails {
+    category: TechCategory;
+    name: string;
+    icon: string;
+    color: string;
+  }
+
+  const techStack: TechStackDetails[] = [
+    // Frontend
+    { category: 'Frontend', name: 'React',        icon: 'react',      color: '#61DAFB' },
+    { category: 'Frontend', name: 'TypeScript',   icon: 'typescript', color: '#3178C6' },
+    { category: 'Frontend', name: 'Tailwind CSS', icon: 'tailwind',   color: '#06B6D4' },
+    { category: 'Frontend', name: 'HTML',         icon: 'html',       color: '#E34F26' },
+    // Backend
+    { category: 'Backend', name: 'Java',          icon: 'java',       color: '#007396' },
+    { category: 'Backend', name: 'Kotlin',        icon: 'kotlin',     color: '#7F52FF' },
+    { category: 'Backend', name: 'Python',        icon: 'python',     color: '#3776AB' },
+    { category: 'Backend', name: 'NestJS',        icon: 'nestjs',     color: '#E0234E' },
+    { category: 'Backend', name: 'Node.js',       icon: 'nodejs',     color: '#339933' },
+    { category: 'Backend', name: 'MySQL',         icon: 'mysql',      color: '#4479A1' },
+    { category: 'Backend', name: 'Firebase',      icon: 'firebase',   color: '#FFCA28' },
+    
+    // Developer Tools
+    { category: 'Developer Tools', name: 'Git',     icon: 'git',     color: '#F05032' },
+    { category: 'Developer Tools', name: 'GitHub',  icon: 'github',  color: '#000000' },
+    { category: 'Developer Tools', name: 'VS Code', icon: 'vscode',  color: '#007ACC' },
+    { category: 'Developer Tools', name: 'Discord', icon: 'discord', color: '#5865F2' },
+  ];
+
+  const techIcons: Record<string, JSX.Element> = {
+    react:      <FaReact              className="w-3 h-3" />,
+    typescript: <SiTypescript         className="w-3 h-3" />,
+    tailwind:   <SiTailwindcss        className="w-3 h-3" />,
+    html:       <FaHtml5              className="w-3 h-3" />,
+    java:       <FaJava               className="w-3 h-3" />,
+    kotlin:     <SiKotlin             className="w-3 h-3" />,
+    python:     <SiPython             className="w-3 h-3" />,
+    nestjs:     <SiNestjs             className="w-3 h-3" />,
+    nodejs:     <FaNodeJs             className="w-3 h-3" />,
+    mysql:      <SiMysql              className="w-3 h-3" />,
+    firebase:   <SiFirebase           className="w-3 h-3" />,
+    git:        <FaGit                className="w-3 h-3" />,
+    github:     <FaGithub             className="w-3 h-3" />,
+    vscode:     <SiVscodium           className="w-3 h-3" />,
+    discord:    <FaDiscord            className="w-3 h-3" />,
+  };
+
+ const CATEGORIES: TechCategory[] = ['Frontend', 'Backend', 'Developer Tools'];
+
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
 
   useEffect(() => {
@@ -69,6 +122,44 @@ export default function Home() {
       window.addEventListener('keydown', handleKeyDown)
       return () => window.removeEventListener('keydown', handleKeyDown)
   }, [lightboxIndex])
+
+  interface ProjectDetails {
+    id: string;
+    title: string;
+    shortDescription: string;
+    fullDescription: string;
+    techStack: string[];
+    caseStudyUrl?: string;
+    demoUrl?: string;
+    type: 'web' | 'IoT' | 'mobile' | 'Desktop' | 'other';
+  }
+
+  const [expandedProject, setExpandedProject] = useState<string | null>(null)
+  
+  const projects: ProjectDetails[] = [
+    {
+      id: 'negeshoca',
+      title: 'Negeshoca: Next Generation Shopping Cart Powered by Arduino Technology',
+      shortDescription: 'A smart checkout system for small businesses using Arduino, Kotlin, Firebase and QR-based payment.',
+      fullDescription: 'An IoT-based smart checkout system that integrates hardware with a mobile application. The system uses Arduino microcontrollers to manage checkout gates, Kotlin for the mobile app, and Firebase for real-time data synchronization.',
+      techStack: ['Arduino', 'Kotlin', 'Firebase Realtime Database', 'QR Code Technology'],
+      caseStudyUrl: 'example.com/negeshoca-case-study',
+      demoUrl: 'example.com/negeshoca-demo',
+      type: 'IoT'
+
+    },
+    {
+      id: 'pos-inventory',
+      title: 'Negeshoca POS & Inventory System',  
+      shortDescription: 'A comprehensive point-of-sale and inventory management system for small businesses.',
+      fullDescription: 'A web-based application designed to streamline sales processes and inventory tracking for small businesses. The system features a user-friendly interface and real-time data synchronization.',
+      techStack: ['Netbeans', 'Java', 'Firebase'],
+      caseStudyUrl: 'example.com/pos-inventory-case-study',
+      demoUrl: 'example.com/pos-inventory-demo',
+      type: 'Desktop'
+
+    }
+   ]
 
   return (
     <>
@@ -232,46 +323,30 @@ export default function Home() {
           </div>
 
           <div className="bento-card p-4 col-span-1 md:col-span-4 space-y-2 group animate-fade-in "/* Tech Stack Card */>
-            <div className="flex items-center justify-between ">
               <h2 className="text-lg font-bold">Tech Stack</h2>
-                <a className="text-xs text-foreground/70 hover:text-foreground flex items-center gap-1 transition-colors" href="/tech-stack">
-              View all
-              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path  strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M 9 5 l7 7 -7 7"></path>
-              </svg>
-              </a>
-            </div>
             <div className="space-y-4">
-              <div /* Frontend row */>
-                <h3 className="text-sm font-semibold mb-2">Frontend</h3>
+              {CATEGORIES.map(category => {
+                const items = techStack.filter(t => t.category === category);
+                return(
+                  <div key={category}>
+                    <h3 className="text-sm font-semibold mb-2">{category}</h3>
                 <div className="flex flex-wrap gap-1.5">
-                  <span className="px-2 py-0.5 text-xs rounded-md bg-[var(--background)]/30 shadow-[0_2px_1px_rgba(0,0,0,0.03)]">React</span>
-                  <span className="px-2 py-0.5 text-xs rounded-md bg-[var(--background)]/30 shadow-[0_2px_1px_rgba(0,0,0,0.03)]">Typescript</span>
-                  <span className="px-2 py-0.5 text-xs rounded-md bg-[var(--background)]/30 shadow-[0_2px_1px_rgba(0,0,0,0.03)]">Tailwind CSS</span>
-                  <span className="px-2 py-0.5 text-xs rounded-md bg-[var(--background)]/30 shadow-[0_2px_1px_rgba(0,0,0,0.03)]">HTML</span>
+                      {items.map(tech => (
+                        <span key={tech.name} 
+                              className="flex items-center gap-1 px-2 py-0.5 text-xs rounded-md bg-[var(--background)]/30 
+                                         shadow-[0_2px_1px_rgba(0,0,0,0.03)]">
+                          <span style={{ color: tech.color}}>
+                            {techIcons[tech.icon]}
+                          </span>
+                          {tech.name}
+                        </span>
+                      ))}
                 </div>
               </div>
-              <div /* Backend row */>
-                <h3 className="text-sm font-semibold mb-2">Backend</h3>
-                <div className="flex flex-wrap gap-1.5">
-                  <span className="px-2 py-0.5 text-xs rounded-md bg-[var(--background)]/30 shadow-[0_2px_1px_rgba(0,0,0,0.03)]">Java</span>
-                  <span className="px-2 py-0.5 text-xs rounded-md bg-[var(--background)]/30 shadow-[0_2px_1px_rgba(0,0,0,0.03)]">Kotlin</span>
-                  <span className="px-2 py-0.5 text-xs rounded-md bg-[var(--background)]/30 shadow-[0_2px_1px_rgba(0,0,0,0.03)]">NestJS</span>
-                  <span className="px-2 py-0.5 text-xs rounded-md bg-[var(--background)]/30 shadow-[0_2px_1px_rgba(0,0,0,0.03)]">Node.js</span>
-                  <span className="px-2 py-0.5 text-xs rounded-md bg-[var(--background)]/30 shadow-[0_2px_1px_rgba(0,0,0,0.03)]">MySQL</span>
-                  <span className="px-2 py-0.5 text-xs rounded-md bg-[var(--background)]/30 shadow-[0_2px_1px_rgba(0,0,0,0.03)]">Firebase Realtime Database</span>
-                </div>
-              </div>
-              <div /* Dev Tools row */>
-                <h3 className="text-sm font-semibold mb-2">Developer Tools</h3>
-                <div className="flex flex-wrap gap-1.5">
-                  <span className="px-2 py-0.5 text-xs rounded-md bg-[var(--background)]/30 shadow-[0_2px_1px_rgba(0,0,0,0.03)]">Git</span>
-                  <span className="px-2 py-0.5 text-xs rounded-md bg-[var(--background)]/30 shadow-[0_2px_1px_rgba(0,0,0,0.03)]">Github</span>
-                  <span className="px-2 py-0.5 text-xs rounded-md bg-[var(--background)]/30 shadow-[0_2px_1px_rgba(0,0,0,0.03)]">VS Code</span>
-                  <span className="px-2 py-0.5 text-xs rounded-md bg-[var(--background)]/30 shadow-[0_2px_1px_rgba(0,0,0,0.03)]">Discord</span>
-                  
-                </div>
-              </div>
+                )
+              })
+              }
+              
             </div>
           </div>
 
