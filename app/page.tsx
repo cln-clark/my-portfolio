@@ -1,5 +1,6 @@
 "use client"
 import Image from "next/image"
+import Link from "next/link";
 import { JSX, useEffect, useState } from "react";
 import { FaReact, FaJava, FaNodeJs, FaGit, FaGithub, FaDiscord, FaHtml5 } from 'react-icons/fa';
 import { SiTypescript, SiTailwindcss, SiKotlin, SiNestjs, SiMysql, SiFirebase, SiVscodium, SiPython } from 'react-icons/si';
@@ -101,7 +102,7 @@ export default function Home() {
     discord:    <FaDiscord            className="w-3 h-3" />,
   };
 
- const CATEGORIES: TechCategory[] = ['Frontend', 'Backend', 'Developer Tools'];
+  const CATEGORIES: TechCategory[] = ['Frontend', 'Backend', 'Developer Tools'];
 
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
 
@@ -143,8 +144,8 @@ export default function Home() {
       shortDescription: 'A smart checkout system for small businesses using Arduino, Kotlin, Firebase and QR-based payment.',
       fullDescription: 'An IoT-based smart checkout system that integrates hardware with a mobile application. The system uses Arduino microcontrollers to manage checkout gates, Kotlin for the mobile app, and Firebase for real-time data synchronization.',
       techStack: ['Arduino', 'Kotlin', 'Firebase Realtime Database', 'QR Code Technology'],
-      caseStudyUrl: 'example.com/negeshoca-case-study',
-      demoUrl: 'example.com/negeshoca-demo',
+      caseStudyUrl: '/case-studies/negeshoca',
+      demoUrl: 'https://example.com/negeshoca-demo',
       type: 'IoT'
 
     },
@@ -154,8 +155,8 @@ export default function Home() {
       shortDescription: 'A comprehensive point-of-sale and inventory management system for small businesses.',
       fullDescription: 'A web-based application designed to streamline sales processes and inventory tracking for small businesses. The system features a user-friendly interface and real-time data synchronization.',
       techStack: ['Netbeans', 'Java', 'Firebase'],
-      caseStudyUrl: 'example.com/pos-inventory-case-study',
-      demoUrl: 'example.com/pos-inventory-demo',
+      caseStudyUrl: '/case-studies/pos-inventory',
+      demoUrl: 'https://example.com/pos-inventory-demo',
       type: 'Desktop'
 
     }
@@ -426,8 +427,8 @@ export default function Home() {
                         <div className="flex-1 space-x-2">
                           <h3 className="text-sm font-semibold pb-2">{project.title}</h3>
                           <p className="text-xs text-[var(--foreground)] pb-1">{project.shortDescription}</p>
-                          {project.techStack.map((tech, index) => (
-                            <a key={index} className="px-2 py-0.5 text-xs rounded-md bg-[var(--background)]/30 shadow-[0_2px_1px_rgba(0,0,0,0.03)]">
+                          {project.techStack.map((tech) => (
+                            <a key={tech} className="px-2 py-0.5 text-xs rounded-md bg-[var(--background)]/30 shadow-[0_2px_1px_rgba(0,0,0,0.03)]">
                               {tech}
                             </a>
                           ))}                         
@@ -441,23 +442,23 @@ export default function Home() {
                     </button>
 
                     {expandedProject === project.id && (
-                      <div className="border-t border-[var(--foreground)]/10 p-2 space-y-2 bg-[var(--foreground)">
-                        <div className="pt-1 flex flex-wrap gap-2">
+                      <div className="border-t border-[var(--foreground)]/10 p-2 space-y-2 bg-[var(--border)]">
+                        <div className="pt-1 flex flex-wrap gap-2">                     
+                          {project.caseStudyUrl && (
+                            <Link href={project.caseStudyUrl}
+                               className="font-mono px-2.5 py-1.5 text-xs rounded-md bg-[var(--foreground)]/8 shadow-[0_2px_1px_rgba(0,0,0,0.03)]
+                                          hover:bg-[var(--foreground)]/15 transition-colors">
+                              Read Case Study →
+                            </Link>
+                          )}      
+
                           {project.demoUrl && (
                             <a href={project.demoUrl} target="_blank" rel="noopener noreferrer" 
                                className="font-mono px-2.5 py-1.5 text-xs rounded-md bg-[var(--foreground)]/8 shadow-[0_2px_1px_rgba(0,0,0,0.03)]
                                           hover:bg-[var(--foreground)]/15 transition-colors">
                               View Demo →
                             </a>
-                          )}  
-
-                          {project.caseStudyUrl && (
-                            <a href={project.caseStudyUrl} target="_blank" rel="noopener noreferrer" 
-                               className="font-mono px-2.5 py-1.5 text-xs rounded-md bg-[var(--foreground)]/8 shadow-[0_2px_1px_rgba(0,0,0,0.03)]
-                                          hover:bg-[var(--foreground)]/15 transition-colors">
-                              View Case Study →
-                            </a>
-                          )}                       
+                          )}                 
                         </div>
                       </div>
                     )}
