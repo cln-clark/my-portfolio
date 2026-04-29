@@ -1,6 +1,6 @@
 "use client"
 import Link from 'next/link'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft } from 'lucide-react';
 import { JSX } from "react";
 import { FaJava } from 'react-icons/fa';
 import { SiKotlin, SiFirebase, SiCplusplus, SiArduino, SiAndroidstudio } from 'react-icons/si';
