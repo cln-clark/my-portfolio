@@ -441,32 +441,33 @@ export default function Home() {
                       </div>           
                     </button>
 
-                    {expandedProject === project.id && (
-                      <div className="border-t border-[var(--foreground)]/10 p-2 space-y-2 bg-[var(--border)]">
-                        <div className="pt-1 flex flex-wrap gap-2">                     
-                          {project.caseStudyUrl && (
-                            <Link href={project.caseStudyUrl}
-                               className="font-mono px-2.5 py-1.5 text-xs rounded-md bg-[var(--foreground)]/8 shadow-[0_2px_1px_rgba(0,0,0,0.03)]
-                                          hover:bg-[var(--foreground)]/15 transition-colors">
-                              Read Case Study →
-                            </Link>
-                          )}      
-
-                          {project.demoUrl && (
-                            <a href={project.demoUrl} target="_blank" rel="noopener noreferrer" 
-                               className="font-mono px-2.5 py-1.5 text-xs rounded-md bg-[var(--foreground)]/8 shadow-[0_2px_1px_rgba(0,0,0,0.03)]
-                                          hover:bg-[var(--foreground)]/15 transition-colors">
-                              View Demo →
-                            </a>
-                          )}                 
+                      {/* Always rendered, animated via grid-rows */}
+                      <div className={`grid transition-all duration-300 ease-in-out
+                                      ${expandedProject === project.id ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}>
+                        <div className="overflow-hidden">
+                          <div className="border-t border-[var(--foreground)]/10 p-2 space-y-2">
+                            <div className="pt-1 flex flex-wrap gap-2">
+                              {project.caseStudyUrl && (
+                                <Link href={project.caseStudyUrl}
+                                      className="font-mono px-2.5 py-1.5 text-xs rounded-md bg-[var(--foreground)]/8 
+                                                hover:bg-[var(--foreground)]/15 transition-colors">
+                                  Read Case Study →
+                                </Link>
+                              )}
+                              {project.demoUrl && (
+                                <a href={project.demoUrl} target="_blank" rel="noopener noreferrer"
+                                  className="font-mono px-2.5 py-1.5 text-xs rounded-md bg-[var(--foreground)]/8 
+                                              hover:bg-[var(--foreground)]/15 transition-colors">
+                                  View Demo →
+                                </a>
+                              )}
+                            </div>
+                          </div>
                         </div>
                       </div>
-                    )}
 
-                    
-                  </div>
-
-                ))}
+                    </div>
+                  ))}
 
               
             </div>
