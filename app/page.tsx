@@ -579,7 +579,7 @@ export default function Home() {
                     sizes="(max-width: 768px) 90vw, 500px"
                   />
 
-                  <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-white/70 text-xs font-mono">
+                  <div className="absolute top-full mt-4 md:mt-2 left-1/2 -translate-x-1/2 text-white/70 text-xs font-mono">
                     Use arrow keys to navigate • ESC to close 
                   </div>
                 </div> 
