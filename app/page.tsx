@@ -1,618 +1,618 @@
-"use client"
-import { ExternalLinkIcon } from "lucide-react";
-import Image from "next/image"
-import Link from "next/link";
-import { JSX, useEffect, useState } from "react";
-import { FaReact, FaJava, FaNodeJs, FaGit, FaGithub, FaDiscord, FaHtml5 } from 'react-icons/fa';
-import { SiTypescript, SiTailwindcss, SiKotlin, SiNestjs, SiMysql, SiFirebase, SiVscodium, SiPython } from 'react-icons/si';
+  "use client"
+  import { ExternalLinkIcon } from "lucide-react";
+  import Image from "next/image"
+  import Link from "next/link";
+  import { JSX, useEffect, useState } from "react";
+  import { FaReact, FaJava, FaNodeJs, FaGit, FaGithub, FaDiscord, FaHtml5 } from 'react-icons/fa';
+  import { SiTypescript, SiTailwindcss, SiKotlin, SiNestjs, SiMysql, SiFirebase, SiVscodium, SiPython } from 'react-icons/si';
 
-export default function Home() {
+  export default function Home() {
 
-  const images = [
-    "/images/gallery/grad6.jpg",
-    "/images/gallery/grad5.jpg",
-    "/images/gallery/grad4.jpg",
-    "/images/gallery/grad3.jpg",
-    "/images/gallery/grad2.jpg",
-    "/images/gallery/grad1.jpg",
-    "/images/gallery/ojt1.jpg",
-    "/images/gallery/ojt2.jpg",
-    "/images/gallery/ojt3.jpg",
-    "/images/gallery/ojt4-new.jpg"];
+    const images = [
+      "/images/gallery/grad6.jpg",
+      "/images/gallery/grad5.jpg",
+      "/images/gallery/grad4.jpg",
+      "/images/gallery/grad3.jpg",
+      "/images/gallery/grad2.jpg",
+      "/images/gallery/grad1.jpg",
+      "/images/gallery/ojt1.jpg",
+      "/images/gallery/ojt2.jpg",
+      "/images/gallery/ojt3.jpg",
+      "/images/gallery/ojt4-new.jpg"];
 
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  const [isDark, setIsDark] = useState(false);
+    const [isDark, setIsDark] = useState(false);
 
-  useEffect(() => {
-    const saveTheme = localStorage.getItem('theme')
-    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-    
-    if(saveTheme === 'dark' || (!saveTheme && systemPrefersDark)){
-      setIsDark(true)
-      document.documentElement.classList.add('dark')
-    }
-
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
-    const handleChange = (e: MediaQueryListEvent) => {
-      if(!localStorage.getItem('theme')) {
-        setIsDark(e.matches)
-        document.documentElement.classList.toggle('dark', e.matches)  
-      }     
-    }
-
-    mediaQuery.addEventListener('change', handleChange)
-    return () => mediaQuery.removeEventListener('change', handleChange)
-    
-
-  },[])
-
-  const toggleDark = () => {
-    const newDark = !isDark
-    setIsDark(newDark)
-    document.documentElement.classList.toggle('dark')
-    localStorage.setItem('theme', newDark ? 'dark' : 'light')
-  }
-
-  type TechCategory = 'Frontend' | 'Backend' | 'Developer Tools';
-
-  interface TechStackDetails {
-    category: TechCategory;
-    name: string;
-    icon: string;
-    color: string;
-  }
-
-  const techStack: TechStackDetails[] = [
-    // Frontend
-    { category: 'Frontend', name: 'React',        icon: 'react',      color: '#61DAFB' },
-    { category: 'Frontend', name: 'TypeScript',   icon: 'typescript', color: '#3178C6' },
-    { category: 'Frontend', name: 'Tailwind CSS', icon: 'tailwind',   color: '#06B6D4' },
-    { category: 'Frontend', name: 'HTML',         icon: 'html',       color: '#E34F26' },
-    // Backend
-    { category: 'Backend', name: 'Java',          icon: 'java',       color: '#007396' },
-    { category: 'Backend', name: 'Kotlin',        icon: 'kotlin',     color: '#7F52FF' },
-    { category: 'Backend', name: 'Python',        icon: 'python',     color: '#3776AB' },
-    { category: 'Backend', name: 'NestJS',        icon: 'nestjs',     color: '#E0234E' },
-    { category: 'Backend', name: 'Node.js',       icon: 'nodejs',     color: '#339933' },
-    { category: 'Backend', name: 'MySQL',         icon: 'mysql',      color: '#4479A1' },
-    { category: 'Backend', name: 'Firebase',      icon: 'firebase',   color: '#FFCA28' },
-    
-    // Developer Tools
-    { category: 'Developer Tools', name: 'Git',     icon: 'git',     color: '#F05032' },
-    { category: 'Developer Tools', name: 'GitHub',  icon: 'github',  color: '#000000' },
-    { category: 'Developer Tools', name: 'VS Code', icon: 'vscode',  color: '#007ACC' },
-    { category: 'Developer Tools', name: 'Discord', icon: 'discord', color: '#5865F2' },
-  ];
-
-  const techIcons: Record<string, JSX.Element> = {
-    react:      <FaReact              className="w-3 h-3" />,
-    typescript: <SiTypescript         className="w-3 h-3" />,
-    tailwind:   <SiTailwindcss        className="w-3 h-3" />,
-    html:       <FaHtml5              className="w-3 h-3" />,
-    java:       <FaJava               className="w-3 h-3" />,
-    kotlin:     <SiKotlin             className="w-3 h-3" />,
-    python:     <SiPython             className="w-3 h-3" />,
-    nestjs:     <SiNestjs             className="w-3 h-3" />,
-    nodejs:     <FaNodeJs             className="w-3 h-3" />,
-    mysql:      <SiMysql              className="w-3 h-3" />,
-    firebase:   <SiFirebase           className="w-3 h-3" />,
-    git:        <FaGit                className="w-3 h-3" />,
-    github:     <FaGithub             className="w-3 h-3" />,
-    vscode:     <SiVscodium           className="w-3 h-3" />,
-    discord:    <FaDiscord            className="w-3 h-3" />,
-  };
-
-  const CATEGORIES: TechCategory[] = ['Frontend', 'Backend', 'Developer Tools'];
-
-  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
-
-  useEffect(() => {
-      const handleKeyDown = (e: KeyboardEvent) => {
-        if(lightboxIndex === null) return
-        if(e.key === 'ArrowLeft') {
-          setLightboxIndex(prev => Math.max(prev! - 1, 0))
-        }
-        if(e.key === 'ArrowRight') {
-          setLightboxIndex(prev => Math.min(prev! + 1, images.length - 1))
-        }
-        if(e.key === 'Escape') {
-          setLightboxIndex(null)
-          document.body.style.overflow = ''
-        }
-      }
-      window.addEventListener('keydown', handleKeyDown)
-      return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [lightboxIndex])
-
-  interface ProjectDetails {
-    id: string;
-    title: string;
-    shortDescription: string;
-    fullDescription: string;
-    techStack: string[];
-    caseStudyUrl?: string;
-    demoUrl?: string;
-    type: 'web' | 'IoT' | 'mobile' | 'Desktop' | 'other';
-  }
-
-  const [expandedProject, setExpandedProject] = useState<string | null>(null)
-  
-  const projects: ProjectDetails[] = [
-    {
-      id: 'negeshoca',
-      title: 'Negeshoca: Next Generation Shopping Cart Powered by Arduino Technology',
-      shortDescription: 'A smart checkout system for small businesses using Arduino, Kotlin, Firebase and QR-based payment.',
-      fullDescription: 'An IoT-based smart checkout system that integrates hardware with a mobile application. The system uses Arduino microcontrollers to manage checkout gates, Kotlin for the mobile app, and Firebase for real-time data synchronization.',
-      techStack: ['Arduino', 'Kotlin', 'Firebase Realtime Database', 'QR Code Technology'],
-      caseStudyUrl: '/case-studies/Negeshoca',
-      demoUrl: 'https://drive.google.com/drive/folders/16A_1ifhGLFP4fgBMJeN6dk38aG7_q2Vb?usp=sharing',
-      type: 'IoT'
-
-    },
-    {
-      id: 'pos-inventory',
-      title: 'Negeshoca POS & Inventory System',  
-      shortDescription: 'A comprehensive point-of-sale and inventory management system for small businesses.',
-      fullDescription: 'A web-based application designed to streamline sales processes and inventory tracking for small businesses. The system features a user-friendly interface and real-time data synchronization.',
-      techStack: ['Netbeans', 'Java', 'Firebase'],
-      caseStudyUrl: '/case-studies/pos-inventory',
-      demoUrl: 'https://example.com/pos-inventory-demo',
-      type: 'Desktop'
-
-    }
-   ]
-
-  return (
-    <>
-      <div className="w-full max-w-4xl mx-auto px-4 py-8 text-left group animate-fade-in" /* Main div */> 
-
-        <section className="mb-8 relative" /* Upper Section */>
-
-            <button
-                onClick={toggleDark}
-                aria-label="Toggle dark mode"
-                className={`absolute  top-0  right-0 w-12 h-6 rounded-full transition-colors duration-300 md:mt-5.5
-                  ${isDark ? 'bg-accent' : 'bg-foreground/20'}`}>           
-
-                <div className={`absolute top-0.5 w-5 h-5 rounded-full bg-[var(--background)] shadow-sm
-                  transition-transform duration-300 flex items-center justify-center
-                  ${isDark ? 'translate-x-6' : 'translate-x-0.5'}`}>
-                  
-                  {isDark ? (
-                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" 
-                        d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
-                    </svg>
-                  ) : (
-                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" 
-                        d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707M17.657 17.657l-.707-.707M6.343 6.343l-.707-.707M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                    </svg>
-                  )}
-                </div>
-            </button>
-
-            <div className="flex items-center justify-start gap-4 md:gap-6"/* whole div inside upper section */>
-
-              <img fetchPriority="high"  /* first child */              
-                    decoding="async" 
-                    src="/images/myself-2.jpeg" 
-                    alt="Clark Louise"
-                    className="w-[160px] h-[170px] object-cover shrink-0 rounded-md"
-                    >
-              </img>
-
-              <div className="flex-1  min-w-0 "/* Details Container */>
-
-                  <div className="flex items-start flex-col md:flex-row md:items-center gap-2 min-w-0" /* Name and Open to Work */>
-                    <h1 className="text-lg font-bold md:text-3xl truncate ">Clark Louise Navales</h1>
-                    <div className="flex items-center gap-2 px-3 py-1.5 bg-green-100 rounded-full">
-                      <div className="w-2 h-2 bg-green-600 rounded-full animate-pulse"></div>
-                      <span className="text-xs font-medium text-black">Open to Work</span>
-                    </div> 
-                  </div>
-
-                  <p className="flex items-center gap-1 text-xs mt-1 md:text-sm" /* Location */>
-                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                      <path
-                        fillRule="evenodd"
-                        d="M12 2C8.134 2 5 5.134 5 9c0 4.418 5.25 10.293 6.064 11.175a1 1 0 001.872 0C13.75 19.293 19 13.418 19 9c0-3.866-3.134-7-7-7zm0 9.5A2.5 2.5 0 1112 6a2.5 2.5 0 010 5.5z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                    <span className="truncate">City of Imus, Cavite</span>
-                  </p>
-
-                  <div className="mt-1.5 md:mt-2" /* Role */>
-                    <p className="text-[10px] md:text-base">Software Engineer</p>
-                  </div>
-
-                  <div className="mt-1.5 md:mt-5 " /* Get in Touch Button Container */>
-                    
-                    <button onClick={() => document.getElementById('lets-connect')?.scrollIntoView({ behavior: 'smooth' })}
-                            className="hidden md:inline-flex h-7 md:h-8 items-center rounded-lg shadow-[0_1px_2px_rgba(0,0,0,0.03),0_1px_1px_rgba(0,0,0,0.04)] 
-                            bg-[var(--foreground)] text-[var(--background)] text-2.5 md:px-4 text-[8px] md:text-xs font-medium transition-all duration-200 hover:-translate-y-0.5 
-                            hover:shadow-[0_3px_10px_rgba(0,0,0,0.2)] gap-1 md:gap-1.5 whitespace-nowrap min-h-0">
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <rect x="3" y="5" width="18" height="14" rx="3" strokeWidth="1.5"/>
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M3 7l9 6 9-6"/>
-                      </svg>
-                      <span>Get In Touch</span>
-                    </button>
-                  </div>
-
-              </div>  
-           
-            </div>
-          
-        </section>
-
-        <section className="grid grid-cols-1 md:grid-cols-6 gap-2" /* Lower Section */>
-          <div className="bento-card p-4 col-span-1 md:col-span-4 space-y-2 group animate-fade-in"/* About Card */>
-            <h2 className="text-lg font-bold">About</h2>
-            <p className="text-sm leading-relaxed">
-            Software Engineer with a focus on backend development. I primarily work with Java, JavaScript, and React, building server-side systems and developing user interfaces.
-            <br /><br />
-            Most of my experience comes from academic projects, where I have developed web applications, Android applications, and IoT-based systems. These projects have helped me understand how different parts of a system connect—from backend logic to user-facing interfaces and hardware integration.
-            <br /><br />
-            I am particularly interested in backend development, especially in creating APIs, handling data, and designing clean, maintainable systems. I continuously improve my skills through hands-on projects and exploring backend technologies, aiming to grow into a well-rounded software engineer.
-            </p>
-          </div>
-
-          <div className="bento-card p-4 col-span-1 md:col-span-2 space-y-2 group animate-fade-in flex-1"/* Experience Card */>
-            <h2 className="text-lg font-bold">Experience</h2>
-
-            <div className="relative space-y-4 mt-4" /* List of Experience */>
-              <div className="absolute left-1.5 top-1.5 h-[calc(100%-8px)] w-px bg-[var(--foreground)]/15"></div>
-
-              <div className="relative pl-6 group/role">
-                <div className="absolute left-0 top-1.5 w-3 h-3 border-2 border-accent bg-[var(--foreground)] transition-colors"></div>
-                <div className="space-y-1">
-                  <h3 className="text-sm font-semibold  transition-colors">
-                    Data Processing Associate
-                  </h3>
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs">Appen</span>
-                  </div>
-
-                </div>
-              
-              </div>
+    useEffect(() => {
+      const saveTheme = localStorage.getItem('theme')
+      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
       
-              <div className="relative pl-6 group/role">
-                <div className="absolute left-0 top-1.5 w-3 h-3 border-2 border-[var(--foreground)]/15 bg-[var(--background)] transition-colors"></div>
-                <div className="space-y-1">
-                  <h3 className="text-sm font-semibold transition-colors">
-                    Intern / OJT
-                  </h3>
-                  <div className=" flex items-center justify-between">
-                    <span className="text-xs">Sun Life of Canada Philippines Inc. Phoenix Palm NBO</span>
-                  </div>
+      if(saveTheme === 'dark' || (!saveTheme && systemPrefersDark)){
+        setIsDark(true)
+        document.documentElement.classList.add('dark')
+      }
 
-                </div>
-              
-              </div>
+      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
+      const handleChange = (e: MediaQueryListEvent) => {
+        if(!localStorage.getItem('theme')) {
+          setIsDark(e.matches)
+          document.documentElement.classList.toggle('dark', e.matches)  
+        }     
+      }
 
-              <div className="relative pl-6 group/role">
-                <div className="absolute left-0 top-1.5 w-3 h-3 border-2 border-[var(--foreground)]/15 bg-[var(--background)] transition-colors"></div>
-                <div className="space-y-1">
-                  <h3 className="text-sm font-semibold transition-colors">
-                    BS Information Technology
-                  </h3>
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs ">Cavite State University - Cum Laude</span>
-                  </div>
+      mediaQuery.addEventListener('change', handleChange)
+      return () => mediaQuery.removeEventListener('change', handleChange)
+      
 
-                </div>
-              
-              </div>
+    },[])
 
-              <div className="relative pl-6 group/role">
-                <div className="absolute left-0 top-1.5 w-3 h-3 border-2 border-[var(--foreground)]/15 bg-[var(--background)] transition-colors"></div>
-                <div className="space-y-1">
-                  <h3 className="text-sm font-semibold transition-colors">
-                    ICT
-                  </h3>
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs">University of Perpetual Help System Dalta</span>
-                  </div>
+    const toggleDark = () => {
+      const newDark = !isDark
+      setIsDark(newDark)
+      document.documentElement.classList.toggle('dark')
+      localStorage.setItem('theme', newDark ? 'dark' : 'light')
+    }
 
-                </div>
-              
-              </div>
-            </div>       
-          </div>
+    type TechCategory = 'Frontend' | 'Backend' | 'Developer Tools';
 
-          <div className="bento-card p-4 col-span-1 md:col-span-4 space-y-2 group animate-fade-in "/* Tech Stack Card */>
-            <h2 className="text-lg font-bold">Tech Stack</h2>
-            <div className="space-y-4">
-              {CATEGORIES.map(category => {
-                const items = techStack.filter(t => t.category === category);
-                return(
-                  <div key={category}>
-                    <h3 className="text-sm font-semibold mb-2">{category}</h3>
-                    <div className="flex flex-wrap gap-1.5">
-                      {items.map(tech => (
-                        <span key={tech.name} 
-                              className="flex items-center gap-1 px-2 py-0.5 text-xs rounded-md bg-[var(--background)]/30 
-                                         shadow-[0_2px_1px_rgba(0,0,0,0.03)]">
-                          <span style={{ color: tech.color}}>
-                            {techIcons[tech.icon.toLowerCase() as keyof typeof techIcons] || null}
-                          </span>
-                          {tech.name}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                )
-              })
-              }
-              
-            </div>
-          </div>
+    interface TechStackDetails {
+      category: TechCategory;
+      name: string;
+      icon: string;
+      color: string;
+    }
 
-          <div className="bento-card p-4 col-span-1 md:col-span-2 space-y-2 group animate-fade-in"/* Socials Card */>
-            <h2 className="text-lg font-bold">Social Links</h2>
-            <div className="space-y-1.5">
-              <div className="grid grid-cols-1 gap-1">
-                <a target="_blank" rel="noopener noreferrer" /* LinkedIn */
-                  className="flex items-center gap-2 p-1.5 rounded-lg bg-[var(--background)]/30 
-                  shadow-[0_1px_2px_rgba(0,0,0,0.03),0_1px_1px_rgba(0,0,0,0.04)] 
-                  hover:bg-[var(--foreground)]/10 hover:shadow-[0_3px_5px_rgba(0,0,0,0.06)] 
-                  transition-all duration-200 hover:-translate-y-0.5 group" aria-label="Visit LinkedIn profile" 
-                  title="Visit LinkedIn profile" href="https://linkedin.com/in/clark-louise-navales/">
-                    <div className="text-[var(--foreground)] transition-colors">
-                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z">
-                        </path>
+    const techStack: TechStackDetails[] = [
+      // Frontend
+      { category: 'Frontend', name: 'React',        icon: 'react',      color: '#61DAFB' },
+      { category: 'Frontend', name: 'TypeScript',   icon: 'typescript', color: '#3178C6' },
+      { category: 'Frontend', name: 'Tailwind CSS', icon: 'tailwind',   color: '#06B6D4' },
+      { category: 'Frontend', name: 'HTML',         icon: 'html',       color: '#E34F26' },
+      // Backend
+      { category: 'Backend', name: 'Java',          icon: 'java',       color: '#007396' },
+      { category: 'Backend', name: 'Kotlin',        icon: 'kotlin',     color: '#7F52FF' },
+      { category: 'Backend', name: 'Python',        icon: 'python',     color: '#3776AB' },
+      { category: 'Backend', name: 'NestJS',        icon: 'nestjs',     color: '#E0234E' },
+      { category: 'Backend', name: 'Node.js',       icon: 'nodejs',     color: '#339933' },
+      { category: 'Backend', name: 'MySQL',         icon: 'mysql',      color: '#4479A1' },
+      { category: 'Backend', name: 'Firebase',      icon: 'firebase',   color: '#FFCA28' },
+      
+      // Developer Tools
+      { category: 'Developer Tools', name: 'Git',     icon: 'git',     color: '#F05032' },
+      { category: 'Developer Tools', name: 'GitHub',  icon: 'github',  color: '#000000' },
+      { category: 'Developer Tools', name: 'VS Code', icon: 'vscode',  color: '#007ACC' },
+      { category: 'Developer Tools', name: 'Discord', icon: 'discord', color: '#5865F2' },
+    ];
+
+    const techIcons: Record<string, JSX.Element> = {
+      react:      <FaReact              className="w-3 h-3" />,
+      typescript: <SiTypescript         className="w-3 h-3" />,
+      tailwind:   <SiTailwindcss        className="w-3 h-3" />,
+      html:       <FaHtml5              className="w-3 h-3" />,
+      java:       <FaJava               className="w-3 h-3" />,
+      kotlin:     <SiKotlin             className="w-3 h-3" />,
+      python:     <SiPython             className="w-3 h-3" />,
+      nestjs:     <SiNestjs             className="w-3 h-3" />,
+      nodejs:     <FaNodeJs             className="w-3 h-3" />,
+      mysql:      <SiMysql              className="w-3 h-3" />,
+      firebase:   <SiFirebase           className="w-3 h-3" />,
+      git:        <FaGit                className="w-3 h-3" />,
+      github:     <FaGithub             className="w-3 h-3" />,
+      vscode:     <SiVscodium           className="w-3 h-3" />,
+      discord:    <FaDiscord            className="w-3 h-3" />,
+    };
+
+    const CATEGORIES: TechCategory[] = ['Frontend', 'Backend', 'Developer Tools'];
+
+    const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
+
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+          if(lightboxIndex === null) return
+          if(e.key === 'ArrowLeft') {
+            setLightboxIndex(prev => Math.max(prev! - 1, 0))
+          }
+          if(e.key === 'ArrowRight') {
+            setLightboxIndex(prev => Math.min(prev! + 1, images.length - 1))
+          }
+          if(e.key === 'Escape') {
+            setLightboxIndex(null)
+            document.body.style.overflow = ''
+          }
+        }
+        window.addEventListener('keydown', handleKeyDown)
+        return () => window.removeEventListener('keydown', handleKeyDown)
+    }, [lightboxIndex])
+
+    interface ProjectDetails {
+      id: string;
+      title: string;
+      shortDescription: string;
+      fullDescription: string;
+      techStack: string[];
+      caseStudyUrl?: string;
+      demoUrl?: string;
+      type: 'web' | 'IoT' | 'mobile' | 'Desktop' | 'other';
+    }
+
+    const [expandedProject, setExpandedProject] = useState<string | null>(null)
+    
+    const projects: ProjectDetails[] = [
+      {
+        id: 'negeshoca',
+        title: 'Negeshoca: Next Generation Shopping Cart Powered by Arduino Technology',
+        shortDescription: 'A smart checkout system for small businesses using Arduino, Kotlin, Firebase and QR-based payment.',
+        fullDescription: 'An IoT-based smart checkout system that integrates hardware with a mobile application. The system uses Arduino microcontrollers to manage checkout gates, Kotlin for the mobile app, and Firebase for real-time data synchronization.',
+        techStack: ['Arduino', 'Kotlin', 'Firebase Realtime Database', 'QR Code Technology'],
+        caseStudyUrl: '/case-studies/negeshoca',
+        demoUrl: 'https://drive.google.com/drive/folders/16A_1ifhGLFP4fgBMJeN6dk38aG7_q2Vb?usp=sharing',
+        type: 'IoT'
+
+      },
+      {
+        id: 'pos-inventory',
+        title: 'Negeshoca POS & Inventory System',  
+        shortDescription: 'A comprehensive point-of-sale and inventory management system for small businesses.',
+        fullDescription: 'A web-based application designed to streamline sales processes and inventory tracking for small businesses. The system features a user-friendly interface and real-time data synchronization.',
+        techStack: ['Netbeans', 'Java', 'Firebase'],
+        caseStudyUrl: '/case-studies/pos-inventory',
+        demoUrl: 'https://example.com/pos-inventory-demo',
+        type: 'Desktop'
+
+      }
+    ]
+
+    return (
+      <>
+        <div className="w-full max-w-4xl mx-auto px-4 py-8 text-left group animate-fade-in" /* Main div */> 
+
+          <section className="mb-8 relative" /* Upper Section */>
+
+              <button
+                  onClick={toggleDark}
+                  aria-label="Toggle dark mode"
+                  className={`absolute  top-0  right-0 w-12 h-6 rounded-full transition-colors duration-300 md:mt-5.5
+                    ${isDark ? 'bg-accent' : 'bg-foreground/20'}`}>           
+
+                  <div className={`absolute top-0.5 w-5 h-5 rounded-full bg-[var(--background)] shadow-sm
+                    transition-transform duration-300 flex items-center justify-center
+                    ${isDark ? 'translate-x-6' : 'translate-x-0.5'}`}>
+                    
+                    {isDark ? (
+                      <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" 
+                          d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
                       </svg>
-                    </div>
-                    <p className="text-[10px] font-medium text-[var(--foreground)] transition-colors">
-                      LinkedIn
-                    </p>
-                </a>
-
-                <a target="_blank" rel="noopener noreferrer" /* GitHub*/
-                  className="flex items-center gap-2 p-1.5 rounded-lg bg-[var(--background)]/30 
-                  shadow-[0_1px_2px_rgba(0,0,0,0.03),0_1px_1px_rgba(0,0,0,0.04)] 
-                  hover:bg-[var(--foreground)]/10 hover:shadow-[0_3px_5px_rgba(0,0,0,0.06)] 
-                  transition-all duration-200 hover:-translate-y-0.5 group" aria-label="Visit GitHub profile" 
-                  title="Visit GitHub profile" href="https://github.com/cln-clark">
-                    <div className="text-[var(--foreground)] transition-colors">
-                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 
-                        9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd">
-                        </path>
+                    ) : (
+                      <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" 
+                          d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707M17.657 17.657l-.707-.707M6.343 6.343l-.707-.707M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                       </svg>
-                    </div>
-                    <p className="text-[10px] font-medium text-[var(--foreground)] transition-colors">
-                      GitHub
-                    </p>
-                  </a>
+                    )}
+                  </div>
+              </button>
 
-                  <a target="_blank" rel="noopener noreferrer" /* Facebook*/
-                  className="flex items-center gap-2 p-1.5 rounded-lg bg-[var(--background)]/30 
-                  shadow-[0_1px_2px_rgba(0,0,0,0.03),0_1px_1px_rgba(0,0,0,0.04)] 
-                  hover:bg-[var(--foreground)]/10 hover:shadow-[0_3px_5px_rgba(0,0,0,0.06)] 
-                  transition-all duration-200 hover:-translate-y-0.5 group" aria-label="Visit Facebook profile" 
-                  title="Visit Facebook profile" href="https://www.facebook.com/clrkyy09">
-                    <div className="text-[var(--foreground)] transition-colors">
-                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M22 12.073C22 6.504 17.523 2 12 2S2 6.504 2 12.073c0 5.017 3.657 9.167 8.438 9.927v-7.025H7.898v-2.902h2.54V9.845c0-2.506 1.492-3.89 
-                        3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562v1.877h2.773l-.443 2.902h-2.33V22c4.78-.76 8.437-4.91 8.437-9.927z"/>
+              <div className="flex items-center justify-start gap-4 md:gap-6"/* whole div inside upper section */>
+
+                <img fetchPriority="high"  /* first child */              
+                      decoding="async" 
+                      src="/images/myself-2.jpeg" 
+                      alt="Clark Louise"
+                      className="w-[160px] h-[170px] object-cover shrink-0 rounded-md"
+                      >
+                </img>
+
+                <div className="flex-1  min-w-0 "/* Details Container */>
+
+                    <div className="flex items-start flex-col md:flex-row md:items-center gap-2 min-w-0" /* Name and Open to Work */>
+                      <h1 className="text-lg font-bold md:text-3xl truncate ">Clark Louise Navales</h1>
+                      <div className="flex items-center gap-2 px-3 py-1.5 bg-green-100 rounded-full">
+                        <div className="w-2 h-2 bg-green-600 rounded-full animate-pulse"></div>
+                        <span className="text-xs font-medium text-black">Open to Work</span>
+                      </div> 
+                    </div>
+
+                    <p className="flex items-center gap-1 text-xs mt-1 md:text-sm" /* Location */>
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                          fillRule="evenodd"
+                          d="M12 2C8.134 2 5 5.134 5 9c0 4.418 5.25 10.293 6.064 11.175a1 1 0 001.872 0C13.75 19.293 19 13.418 19 9c0-3.866-3.134-7-7-7zm0 9.5A2.5 2.5 0 1112 6a2.5 2.5 0 010 5.5z"
+                          clipRule="evenodd"
+                        />
                       </svg>
-                    </div>
-                    <p className="text-[10px] font-medium text-[var(--foreground)] transition-colors">
-                      Facebook
+                      <span className="truncate">City of Imus, Cavite</span>
                     </p>
-                  </a>
-                
-              
-              </div>
-            </div>     
-                  
-          </div>
 
-          <div className="bento-card p-4 col-span-1 md:col-span-6 space-y-2 group animate-fade-in "/* Projects Card */>
-            <div className="flex items-center justify-start">
-              <h3 className="text-lg font-bold">Projects</h3>
-            </div>
-            <div className="grid grid-cols-1 gap-2">
-                {projects.map(project => (
-                    <div key={project.id} className="bento-card bg-[var(--background)]/30 p-3 space-y-3">
-                      <button onClick={() => setExpandedProject(expandedProject === project.id ? null : project.id)}
-                              className="w-full text-left block space-y-1">
-                        <div className="flex items-start justify-between gap-2">
-                          <div className="flex-1 space-x-2">
-                            <h3 className="text-sm font-semibold pb-2">{project.title}</h3>
-                            <p className="text-xs text-[var(--foreground)] pb-1">{project.shortDescription}</p>
-                            {project.techStack.map((tech) => (
-                              <a key={tech} className="px-2 py-0.5 text-xs rounded-md bg-[var(--background)]/30 shadow-[0_2px_1px_rgba(0,0,0,0.03)]">
-                                {tech}
-                              </a>
-                            ))}
-                          </div>
-                          <svg className={`w-4 h-4 flex-shrink-0 transition-transform duration-300
-                                          ${expandedProject === project.id ? 'rotate-90' : ''}`}
-                              fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M 9 5 l7 7 -7 7"/>
-                          </svg>
-                        </div>
+                    <div className="mt-1.5 md:mt-2" /* Role */>
+                      <p className="text-[10px] md:text-base">Software Engineer</p>
+                    </div>
+
+                    <div className="mt-1.5 md:mt-5 " /* Get in Touch Button Container */>
+                      
+                      <button onClick={() => document.getElementById('lets-connect')?.scrollIntoView({ behavior: 'smooth' })}
+                              className="hidden md:inline-flex h-7 md:h-8 items-center rounded-lg shadow-[0_1px_2px_rgba(0,0,0,0.03),0_1px_1px_rgba(0,0,0,0.04)] 
+                              bg-[var(--foreground)] text-[var(--background)] text-2.5 md:px-4 text-[8px] md:text-xs font-medium transition-all duration-200 hover:-translate-y-0.5 
+                              hover:shadow-[0_3px_10px_rgba(0,0,0,0.2)] gap-1 md:gap-1.5 whitespace-nowrap min-h-0">
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <rect x="3" y="5" width="18" height="14" rx="3" strokeWidth="1.5"/>
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M3 7l9 6 9-6"/>
+                        </svg>
+                        <span>Get In Touch</span>
                       </button>
+                    </div>
 
-                      {/* Always rendered, animated via grid-rows */}
-                      <div className={`grid transition-all duration-300 ease-in-out
-                                      ${expandedProject === project.id ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}>
-                        <div className="overflow-hidden">
-                          <div className="border-t border-[var(--foreground)]/10 p-2 space-y-2">
-                            <div className="pt-1 flex flex-wrap gap-2">
-                              {project.caseStudyUrl && (
-                                <Link href={project.caseStudyUrl}
-                                      className="font-mono px-2.5 py-1.5 text-xs rounded-md bg-[var(--foreground)]/5 
-                                                hover:bg-[var(--foreground)]/10 transition-colors">
-                                  Read Case Study →
-                                </Link>
-                              )}
-                              {project.demoUrl && (
-                                <a href={project.demoUrl} target="_blank" rel="noopener noreferrer"
-                                  className="flex items-center gap-1.5 px-2.5 py-1.5 text-xs rounded-md 
-                                              bg-blue-500/10 text-blue-500 hover:bg-blue-500/20 transition-colors font-medium">
-                                  <ExternalLinkIcon className="w-3 h-3" />
-                                  <p>View Demo</p>
+                </div>  
+            
+              </div>
+            
+          </section>
+
+          <section className="grid grid-cols-1 md:grid-cols-6 gap-2" /* Lower Section */>
+            <div className="bento-card p-4 col-span-1 md:col-span-4 space-y-2 group animate-fade-in"/* About Card */>
+              <h2 className="text-lg font-bold">About</h2>
+              <p className="text-sm leading-relaxed">
+              Software Engineer with a focus on backend development. I primarily work with Java, JavaScript, and React, building server-side systems and developing user interfaces.
+              <br /><br />
+              Most of my experience comes from academic projects, where I have developed web applications, Android applications, and IoT-based systems. These projects have helped me understand how different parts of a system connect—from backend logic to user-facing interfaces and hardware integration.
+              <br /><br />
+              I am particularly interested in backend development, especially in creating APIs, handling data, and designing clean, maintainable systems. I continuously improve my skills through hands-on projects and exploring backend technologies, aiming to grow into a well-rounded software engineer.
+              </p>
+            </div>
+
+            <div className="bento-card p-4 col-span-1 md:col-span-2 space-y-2 group animate-fade-in flex-1"/* Experience Card */>
+              <h2 className="text-lg font-bold">Experience</h2>
+
+              <div className="relative space-y-4 mt-4" /* List of Experience */>
+                <div className="absolute left-1.5 top-1.5 h-[calc(100%-8px)] w-px bg-[var(--foreground)]/15"></div>
+
+                <div className="relative pl-6 group/role">
+                  <div className="absolute left-0 top-1.5 w-3 h-3 border-2 border-accent bg-[var(--foreground)] transition-colors"></div>
+                  <div className="space-y-1">
+                    <h3 className="text-sm font-semibold  transition-colors">
+                      Data Processing Associate
+                    </h3>
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs">Appen</span>
+                    </div>
+
+                  </div>
+                
+                </div>
+        
+                <div className="relative pl-6 group/role">
+                  <div className="absolute left-0 top-1.5 w-3 h-3 border-2 border-[var(--foreground)]/15 bg-[var(--background)] transition-colors"></div>
+                  <div className="space-y-1">
+                    <h3 className="text-sm font-semibold transition-colors">
+                      Intern / OJT
+                    </h3>
+                    <div className=" flex items-center justify-between">
+                      <span className="text-xs">Sun Life of Canada Philippines Inc. Phoenix Palm NBO</span>
+                    </div>
+
+                  </div>
+                
+                </div>
+
+                <div className="relative pl-6 group/role">
+                  <div className="absolute left-0 top-1.5 w-3 h-3 border-2 border-[var(--foreground)]/15 bg-[var(--background)] transition-colors"></div>
+                  <div className="space-y-1">
+                    <h3 className="text-sm font-semibold transition-colors">
+                      BS Information Technology
+                    </h3>
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs ">Cavite State University - Cum Laude</span>
+                    </div>
+
+                  </div>
+                
+                </div>
+
+                <div className="relative pl-6 group/role">
+                  <div className="absolute left-0 top-1.5 w-3 h-3 border-2 border-[var(--foreground)]/15 bg-[var(--background)] transition-colors"></div>
+                  <div className="space-y-1">
+                    <h3 className="text-sm font-semibold transition-colors">
+                      ICT
+                    </h3>
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs">University of Perpetual Help System Dalta</span>
+                    </div>
+
+                  </div>
+                
+                </div>
+              </div>       
+            </div>
+
+            <div className="bento-card p-4 col-span-1 md:col-span-4 space-y-2 group animate-fade-in "/* Tech Stack Card */>
+              <h2 className="text-lg font-bold">Tech Stack</h2>
+              <div className="space-y-4">
+                {CATEGORIES.map(category => {
+                  const items = techStack.filter(t => t.category === category);
+                  return(
+                    <div key={category}>
+                      <h3 className="text-sm font-semibold mb-2">{category}</h3>
+                      <div className="flex flex-wrap gap-1.5">
+                        {items.map(tech => (
+                          <span key={tech.name} 
+                                className="flex items-center gap-1 px-2 py-0.5 text-xs rounded-md bg-[var(--background)]/30 
+                                          shadow-[0_2px_1px_rgba(0,0,0,0.03)]">
+                            <span style={{ color: tech.color}}>
+                              {techIcons[tech.icon.toLowerCase() as keyof typeof techIcons] || null}
+                            </span>
+                            {tech.name}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )
+                })
+                }
+                
+              </div>
+            </div>
+
+            <div className="bento-card p-4 col-span-1 md:col-span-2 space-y-2 group animate-fade-in"/* Socials Card */>
+              <h2 className="text-lg font-bold">Social Links</h2>
+              <div className="space-y-1.5">
+                <div className="grid grid-cols-1 gap-1">
+                  <a target="_blank" rel="noopener noreferrer" /* LinkedIn */
+                    className="flex items-center gap-2 p-1.5 rounded-lg bg-[var(--background)]/30 
+                    shadow-[0_1px_2px_rgba(0,0,0,0.03),0_1px_1px_rgba(0,0,0,0.04)] 
+                    hover:bg-[var(--foreground)]/10 hover:shadow-[0_3px_5px_rgba(0,0,0,0.06)] 
+                    transition-all duration-200 hover:-translate-y-0.5 group" aria-label="Visit LinkedIn profile" 
+                    title="Visit LinkedIn profile" href="https://linkedin.com/in/clark-louise-navales/">
+                      <div className="text-[var(--foreground)] transition-colors">
+                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z">
+                          </path>
+                        </svg>
+                      </div>
+                      <p className="text-[10px] font-medium text-[var(--foreground)] transition-colors">
+                        LinkedIn
+                      </p>
+                  </a>
+
+                  <a target="_blank" rel="noopener noreferrer" /* GitHub*/
+                    className="flex items-center gap-2 p-1.5 rounded-lg bg-[var(--background)]/30 
+                    shadow-[0_1px_2px_rgba(0,0,0,0.03),0_1px_1px_rgba(0,0,0,0.04)] 
+                    hover:bg-[var(--foreground)]/10 hover:shadow-[0_3px_5px_rgba(0,0,0,0.06)] 
+                    transition-all duration-200 hover:-translate-y-0.5 group" aria-label="Visit GitHub profile" 
+                    title="Visit GitHub profile" href="https://github.com/cln-clark">
+                      <div className="text-[var(--foreground)] transition-colors">
+                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                          <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 
+                          9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd">
+                          </path>
+                        </svg>
+                      </div>
+                      <p className="text-[10px] font-medium text-[var(--foreground)] transition-colors">
+                        GitHub
+                      </p>
+                    </a>
+
+                    <a target="_blank" rel="noopener noreferrer" /* Facebook*/
+                    className="flex items-center gap-2 p-1.5 rounded-lg bg-[var(--background)]/30 
+                    shadow-[0_1px_2px_rgba(0,0,0,0.03),0_1px_1px_rgba(0,0,0,0.04)] 
+                    hover:bg-[var(--foreground)]/10 hover:shadow-[0_3px_5px_rgba(0,0,0,0.06)] 
+                    transition-all duration-200 hover:-translate-y-0.5 group" aria-label="Visit Facebook profile" 
+                    title="Visit Facebook profile" href="https://www.facebook.com/clrkyy09">
+                      <div className="text-[var(--foreground)] transition-colors">
+                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M22 12.073C22 6.504 17.523 2 12 2S2 6.504 2 12.073c0 5.017 3.657 9.167 8.438 9.927v-7.025H7.898v-2.902h2.54V9.845c0-2.506 1.492-3.89 
+                          3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562v1.877h2.773l-.443 2.902h-2.33V22c4.78-.76 8.437-4.91 8.437-9.927z"/>
+                        </svg>
+                      </div>
+                      <p className="text-[10px] font-medium text-[var(--foreground)] transition-colors">
+                        Facebook
+                      </p>
+                    </a>
+                  
+                
+                </div>
+              </div>     
+                    
+            </div>
+
+            <div className="bento-card p-4 col-span-1 md:col-span-6 space-y-2 group animate-fade-in "/* Projects Card */>
+              <div className="flex items-center justify-start">
+                <h3 className="text-lg font-bold">Projects</h3>
+              </div>
+              <div className="grid grid-cols-1 gap-2">
+                  {projects.map(project => (
+                      <div key={project.id} className="bento-card bg-[var(--background)]/30 p-3 space-y-3">
+                        <button onClick={() => setExpandedProject(expandedProject === project.id ? null : project.id)}
+                                className="w-full text-left block space-y-1">
+                          <div className="flex items-start justify-between gap-2">
+                            <div className="flex-1 space-x-2">
+                              <h3 className="text-sm font-semibold pb-2">{project.title}</h3>
+                              <p className="text-xs text-[var(--foreground)] pb-1">{project.shortDescription}</p>
+                              {project.techStack.map((tech) => (
+                                <a key={tech} className="px-2 py-0.5 text-xs rounded-md bg-[var(--background)]/30 shadow-[0_2px_1px_rgba(0,0,0,0.03)]">
+                                  {tech}
                                 </a>
-                              )}
+                              ))}
+                            </div>
+                            <svg className={`w-4 h-4 flex-shrink-0 transition-transform duration-300
+                                            ${expandedProject === project.id ? 'rotate-90' : ''}`}
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M 9 5 l7 7 -7 7"/>
+                            </svg>
+                          </div>
+                        </button>
+
+                        {/* Always rendered, animated via grid-rows */}
+                        <div className={`grid transition-all duration-300 ease-in-out
+                                        ${expandedProject === project.id ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}>
+                          <div className="overflow-hidden">
+                            <div className="border-t border-[var(--foreground)]/10 p-2 space-y-2">
+                              <div className="pt-1 flex flex-wrap gap-2">
+                                {project.caseStudyUrl && (
+                                  <Link href={project.caseStudyUrl}
+                                        className="font-mono px-2.5 py-1.5 text-xs rounded-md bg-[var(--foreground)]/5 
+                                                  hover:bg-[var(--foreground)]/10 transition-colors">
+                                    Read Case Study →
+                                  </Link>
+                                )}
+                                {project.demoUrl && (
+                                  <a href={project.demoUrl} target="_blank" rel="noopener noreferrer"
+                                    className="flex items-center gap-1.5 px-2.5 py-1.5 text-xs rounded-md 
+                                                bg-blue-500/10 text-blue-500 hover:bg-blue-500/20 transition-colors font-medium">
+                                    <ExternalLinkIcon className="w-3 h-3" />
+                                    <p>View Demo</p>
+                                  </a>
+                                )}
+                              </div>
                             </div>
                           </div>
                         </div>
+
                       </div>
+                    ))}
 
-                    </div>
-                  ))}
-
+                
+              </div>
               
             </div>
-            
-          </div>
 
-          <div className="bento-card p-4 col-span-1 md:col-span-6 space-y-2 group animate-fade-in" /* Gallery Card */>
-            <h2 className="text-lg font-bold">Gallery</h2>
-            <div className="relative">
-              <div className="relative overflow-hidden">
-                <div className="flex gap-2 transition-transform duration-500 ease-in-out"
-                style={{ transform: `translateX(-${currentImageIndex * 25}%)` }}>
-                    {images.map((src, index) => (
-                      <div key={index} 
-                        onClick={() => {
-                        setLightboxIndex(index)
-                        document.body.style.overflow = 'hidden' }}       
-                        className="relative flex-shrink-0 aspect-square overflow-hidden rounded-lg bg-foreground/5 
-                        shadow-[0_1px_2px_rgba(0,0,0,0.03),0_1px_1px_rgba(0,0,0,0.04)] hover:shadow-[0_3px_10px_rgba(0,0,0,0.06)] 
-                        transition-all duration-200 hover:-translate-y-0.5 group/image cursor-pointer" 
-                        style={{ width: 'calc(24% - 0.375rem)'}}>
-                          <Image 
-                          src={src} 
-                          alt={`Gallery Image ${index + 1}`} 
-                          loading={index === 0 ? "eager" : "lazy"} 
-                          fill
-                          className={`object-cover ${index === 7 ? 'object-bottom' : 'object-[center_30%]'} 
-                          transition-transform duration-200 group-hover/image:scale-105`}              
-                          sizes="(max-width: 640px) 100vw, (max-width: 768px) 33vw,(max-width: 1024px) 25vw, 20vw"/>
-                        </div>
-                    ))}
-                </div>              
+            <div className="bento-card p-4 col-span-1 md:col-span-6 space-y-2 group animate-fade-in" /* Gallery Card */>
+              <h2 className="text-lg font-bold">Gallery</h2>
+              <div className="relative">
+                <div className="relative overflow-hidden">
+                  <div className="flex gap-2 transition-transform duration-500 ease-in-out"
+                  style={{ transform: `translateX(-${currentImageIndex * 25}%)` }}>
+                      {images.map((src, index) => (
+                        <div key={index} 
+                          onClick={() => {
+                          setLightboxIndex(index)
+                          document.body.style.overflow = 'hidden' }}       
+                          className="relative flex-shrink-0 aspect-square overflow-hidden rounded-lg bg-foreground/5 
+                          shadow-[0_1px_2px_rgba(0,0,0,0.03),0_1px_1px_rgba(0,0,0,0.04)] hover:shadow-[0_3px_10px_rgba(0,0,0,0.06)] 
+                          transition-all duration-200 hover:-translate-y-0.5 group/image cursor-pointer" 
+                          style={{ width: 'calc(24% - 0.375rem)'}}>
+                            <Image 
+                            src={src} 
+                            alt={`Gallery Image ${index + 1}`} 
+                            loading={index === 0 ? "eager" : "lazy"} 
+                            fill
+                            className={`object-cover ${index === 7 ? 'object-bottom' : 'object-[center_30%]'} 
+                            transition-transform duration-200 group-hover/image:scale-105`}              
+                            sizes="(max-width: 640px) 100vw, (max-width: 768px) 33vw,(max-width: 1024px) 25vw, 20vw"/>
+                          </div>
+                      ))}
+                  </div>              
+                </div>
+                <button onClick ={() => setCurrentImageIndex(prev => Math.max(prev - 1,0))} 
+                        disabled = {currentImageIndex === 0}
+                        className={`absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 sm:-translate-x-4 md:-translate-x-6 z-10
+                        p-2 rounded-full bg-[var(--background)] shadow-[0_1px_2px_rgba(0,0,0,0.05),0_1px_1px_rgba(0,0,0,0.06)] 
+                        hover:shadow-[0_3px_10px_rgba(0,0,0,0.08)] transition-all duration-200 hover:scale-110 opacity-50
+                        ${currentImageIndex === 0 ? 'cursor-not-allowed' : 'cursor-pointer opacity-100'}` } aria-label="Previous Image" /* previous button*/>
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M 15 19 l-7 -7 7 -7"></path>
+                          </svg>
+                </button> 
+                <button onClick = {() => setCurrentImageIndex(prev => Math.min(prev + 1, images.length - 4.33))} 
+                        disabled={currentImageIndex === images.length - 4.33}
+                        className={`absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 sm:translate-x-4 md:translate-x-6 z-10 
+                        p-2 rounded-full bg-[var(--background)] shadow-[0_1px_2px_rgba(0,0,0,0.05),0_1px_1px_rgba(0,0,0,0.06)] 
+                        hover:shadow-[0_3px_10px_rgba(0,0,0,0.08)]  transition-all duration-200 hover:scale-110
+                        ${currentImageIndex === images.length - 4.33 ? 'cursor-not-allowed  opacity-50'  : 'cursor-pointer'}`}
+                        aria-label="Next image" /* next button*/>
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 5l7 7-7 7"></path>
+                          </svg>
+                </button> 
               </div>
-              <button onClick ={() => setCurrentImageIndex(prev => Math.max(prev - 1,0))} 
-                      disabled = {currentImageIndex === 0}
-                      className={`absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 sm:-translate-x-4 md:-translate-x-6 z-10
-                      p-2 rounded-full bg-[var(--background)] shadow-[0_1px_2px_rgba(0,0,0,0.05),0_1px_1px_rgba(0,0,0,0.06)] 
-                      hover:shadow-[0_3px_10px_rgba(0,0,0,0.08)] transition-all duration-200 hover:scale-110 opacity-50
-                      ${currentImageIndex === 0 ? 'cursor-not-allowed' : 'cursor-pointer opacity-100'}` } aria-label="Previous Image" /* previous button*/>
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M 15 19 l-7 -7 7 -7"></path>
-                        </svg>
-              </button> 
-              <button onClick = {() => setCurrentImageIndex(prev => Math.min(prev + 1, images.length - 4.33))} 
-                      disabled={currentImageIndex === images.length - 4.33}
-                      className={`absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 sm:translate-x-4 md:translate-x-6 z-10 
-                      p-2 rounded-full bg-[var(--background)] shadow-[0_1px_2px_rgba(0,0,0,0.05),0_1px_1px_rgba(0,0,0,0.06)] 
-                      hover:shadow-[0_3px_10px_rgba(0,0,0,0.08)]  transition-all duration-200 hover:scale-110
-                      ${currentImageIndex === images.length - 4.33 ? 'cursor-not-allowed  opacity-50'  : 'cursor-pointer'}`}
-                      aria-label="Next image" /* next button*/>
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 5l7 7-7 7"></path>
-                        </svg>
-              </button> 
-            </div>
-          </div>       
-        
-        </section>
+            </div>       
+          
+          </section>
 
-        <section id="lets-connect" className="bg-gradient-to-r from-blue-600 to-blue-700 py-16 my-12">
-          <div className="max-w-4xl mx-auto px-4">
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-4 text-center">Let's Connect!</h2>
-            <p className="text-white/90 text-center mb-8">I'm always open to new opportunities and collaborations. Feel free to reach out!</p>
-            <div className="flex justify-center gap-4"></div>
-                  
-          </div>
-
-        </section>
-
-      </div>
-
-      {lightboxIndex !== null && (
-          <div className="fixed inset-0 z-50 bg-black/90 overflow-hidden"
-            onClick={() => {setLightboxIndex(null)
-              document.body.style.overflow = ''
-            }}>
-
-            {/* previous button - outside image container */}
-            <button 
-              onClick={(e) => {
-                e.stopPropagation()
-                setLightboxIndex(prev => Math.max(prev! - 1, 0))
-              }}
-              disabled={lightboxIndex === 0}
-              className={`absolute left-4 top-1/2 -translate-y-1/2 z-10 p-2 text-white/70 hover:text-white hover:scale-110 transition-colors
-                ${lightboxIndex === 0 ? 'opacity-30 cursor-not-allowed hidden' : 'opacity-100 cursor-pointer visible'}`}
-              aria-label="Previous image">
-              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M15 19l-7-7 7-7"/>
-              </svg>
-            </button>
-
-            {/* counter */}
-            <div className="absolute top-4 left-7 z-10 text-white/70 text-xs font-mono">
-              {lightboxIndex + 1} / {images.length}                 
+          <section id="lets-connect" className="bg-gradient-to-r from-blue-600 to-blue-700 py-16 my-12">
+            <div className="max-w-4xl mx-auto px-4">
+              <h2 className="text-2xl md:text-3xl font-bold text-white mb-4 text-center">Let's Connect!</h2>
+              <p className="text-white/90 text-center mb-8">I'm always open to new opportunities and collaborations. Feel free to reach out!</p>
+              <div className="flex justify-center gap-4"></div>
+                    
             </div>
 
-            {/* exit button */}
-            <button
+          </section>
+
+        </div>
+
+        {lightboxIndex !== null && (
+            <div className="fixed inset-0 z-50 bg-black/90 overflow-hidden"
               onClick={() => {setLightboxIndex(null)
-              document.body.style.overflow = '' }}
-              className="absolute top-4 right-7 z-10 text-white/70 hover:text-white hover:scale-110 transition-colors"
-              aria-label="Close">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M6 18L18 6M6 6l12 12"/>
-                </svg>  
-            </button>
+                document.body.style.overflow = ''
+              }}>
 
-            {/* image container */}
-            <div className="absolute inset-0 flex items-center justify-center">
+              {/* previous button - outside image container */}
+              <button 
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setLightboxIndex(prev => Math.max(prev! - 1, 0))
+                }}
+                disabled={lightboxIndex === 0}
+                className={`absolute left-4 top-1/2 -translate-y-1/2 z-10 p-2 text-white/70 hover:text-white hover:scale-110 transition-colors
+                  ${lightboxIndex === 0 ? 'opacity-30 cursor-not-allowed hidden' : 'opacity-100 cursor-pointer visible'}`}
+                aria-label="Previous image">
+                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M15 19l-7-7 7-7"/>
+                </svg>
+              </button>
 
-                <div className="relative w-[80vw] h-[80vw] md:w-[600px] md:h-[600px]"
-                      onClick={e => e.stopPropagation()}>
+              {/* counter */}
+              <div className="absolute top-4 left-7 z-10 text-white/70 text-xs font-mono">
+                {lightboxIndex + 1} / {images.length}                 
+              </div>
 
-                  <Image
-                    src={images[lightboxIndex]}
-                    alt={`Gallery Image ${lightboxIndex + 1}`}
-                    fill
-                    className="object-contain"
-                    sizes="(max-width: 768px) 90vw, 500px"
-                  />
+              {/* exit button */}
+              <button
+                onClick={() => {setLightboxIndex(null)
+                document.body.style.overflow = '' }}
+                className="absolute top-4 right-7 z-10 text-white/70 hover:text-white hover:scale-110 transition-colors"
+                aria-label="Close">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M6 18L18 6M6 6l12 12"/>
+                  </svg>  
+              </button>
 
-                  <div className="absolute top-full mt-4 md:mt-2 left-1/2 -translate-x-1/2 text-white/70 text-xs font-mono">
-                    Use arrow keys to navigate • ESC to close 
-                  </div>
-                </div> 
+              {/* image container */}
+              <div className="absolute inset-0 flex items-center justify-center">
+
+                  <div className="relative w-[80vw] h-[80vw] md:w-[600px] md:h-[600px]"
+                        onClick={e => e.stopPropagation()}>
+
+                    <Image
+                      src={images[lightboxIndex]}
+                      alt={`Gallery Image ${lightboxIndex + 1}`}
+                      fill
+                      className="object-contain"
+                      sizes="(max-width: 768px) 90vw, 500px"
+                    />
+
+                    <div className="absolute top-full mt-4 md:mt-2 left-1/2 -translate-x-1/2 text-white/70 text-xs font-mono">
+                      Use arrow keys to navigate • ESC to close 
+                    </div>
+                  </div> 
+
+              </div>
+
+              {/* next button - outside image container */}
+              <button
+                onClick={(e) => {e.stopPropagation()
+                setLightboxIndex(prev => Math.min(prev! + 1, images.length - 1))}}
+                disabled={lightboxIndex === images.length - 1}
+                className={`absolute right-4 top-1/2 -translate-y-1/2 z-10 p-2 text-white/70 hover:text-white hover:scale-110 transition-colors
+                ${lightboxIndex === images.length - 1 ? 'opacity-30 cursor-not-allowed hidden' : 'opacity-100 cursor-pointer visible'}`}
+                aria-label="Next image">
+                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 5l7 7-7 7"/>
+                </svg>
+              </button>
 
             </div>
-
-            {/* next button - outside image container */}
-            <button
-              onClick={(e) => {e.stopPropagation()
-              setLightboxIndex(prev => Math.min(prev! + 1, images.length - 1))}}
-              disabled={lightboxIndex === images.length - 1}
-              className={`absolute right-4 top-1/2 -translate-y-1/2 z-10 p-2 text-white/70 hover:text-white hover:scale-110 transition-colors
-              ${lightboxIndex === images.length - 1 ? 'opacity-30 cursor-not-allowed hidden' : 'opacity-100 cursor-pointer visible'}`}
-              aria-label="Next image">
-              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 5l7 7-7 7"/>
-              </svg>
-            </button>
-
-          </div>
-      )}
-    </>
-  );
-}
+        )}
+      </>
+    );
+  }
