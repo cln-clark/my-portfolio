@@ -259,15 +259,15 @@
           </section>
 
           <section className="grid grid-cols-1 md:grid-cols-6 gap-2" /* Lower Section */>
-            <div className="bento-card p-4 col-span-1 md:col-span-4 space-y-2 group animate-fade-in"/* About Card */>
-              <h2 className="text-lg font-bold">About</h2>
-              <p className="text-sm leading-relaxed">
-              Software Engineer with a focus on backend development. I primarily work with Java, JavaScript, and React, building server-side systems and developing user interfaces.
-              <br /><br />
-              Most of my experience comes from academic projects, where I have developed web applications, Android applications, and IoT-based systems. These projects have helped me understand how different parts of a system connect—from backend logic to user-facing interfaces and hardware integration.
-              <br /><br />
-              I am particularly interested in backend development, especially in creating APIs, handling data, and designing clean, maintainable systems. I continuously improve my skills through hands-on projects and exploring backend technologies, aiming to grow into a well-rounded software engineer.
-              </p>
+            <div className="bento-card p-4 col-span-1 md:col-span-4 space-y-2 group animate-fade-in">
+                <h2 className="text-lg font-bold">About</h2>
+                <p className="text-sm leading-relaxed">
+                    Software Engineer with a focus on backend development. I primarily work with Java, JavaScript, and React, building server-side systems and developing user interfaces.
+                    <br /><br />
+                    I recently joined a new role as a Software Engineer and am currently in my onboarding and training period. Most of my hands-on experience comes from academic projects, where I have developed web applications, Android applications, and IoT-based systems — helping me understand how different parts of a system connect, from backend logic to user-facing interfaces and hardware integration.
+                    <br /><br />
+                    I am particularly interested in backend development, especially in creating APIs, handling data, and designing clean, maintainable systems. I continuously improve my skills through hands-on projects and exploring backend technologies, aiming to grow into a well-rounded software engineer.
+                </p>
             </div>
 
             <div className="bento-card p-4 col-span-1 md:col-span-2 space-y-2 group animate-fade-in flex-1"/* Experience Card */>
