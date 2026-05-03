@@ -227,11 +227,12 @@ export default function Home() {
                     <p className="text-[10px] md:text-base">Software Engineer</p>
                   </div>
 
-                  <div className="mt-1.5 md:mt-5 ">
+                  <div className="mt-1.5 md:mt-5 " /* Get in Touch Button Container */>
                     
-                    <button className="hidden md:inline-flex h-7 md:h-8 items-center rounded-lg shadow-[0_1px_2px_rgba(0,0,0,0.03),0_1px_1px_rgba(0,0,0,0.04)] 
-                    bg-[var(--foreground)] text-[var(--background)] text-2.5 md:px-4 text-[8px] md:text-xs font-medium transition-all duration-200 hover:-translate-y-0.5 
-                    hover:shadow-[0_3px_10px_rgba(0,0,0,0.2)] gap-1 md:gap-1.5 whitespace-nowrap min-h-0">
+                    <button onClick={() => document.getElementById('lets-connect')?.scrollIntoView({ behavior: 'smooth' })}
+                            className="hidden md:inline-flex h-7 md:h-8 items-center rounded-lg shadow-[0_1px_2px_rgba(0,0,0,0.03),0_1px_1px_rgba(0,0,0,0.04)] 
+                            bg-[var(--foreground)] text-[var(--background)] text-2.5 md:px-4 text-[8px] md:text-xs font-medium transition-all duration-200 hover:-translate-y-0.5 
+                            hover:shadow-[0_3px_10px_rgba(0,0,0,0.2)] gap-1 md:gap-1.5 whitespace-nowrap min-h-0">
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <rect x="3" y="5" width="18" height="14" rx="3" strokeWidth="1.5"/>
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M3 7l9 6 9-6"/>
@@ -526,6 +527,16 @@ export default function Home() {
         
         </section>
 
+        <section id="lets-connect" className="bg-gradient-to-r from-blue-600 to-blue-700 py-16 my-12">
+          <div className="max-w-4xl mx-auto px-4">
+            <h2 className="text-2xl md:text-3xl font-bold text-white mb-4 text-center">Let's Connect!</h2>
+            <p className="text-white/90 text-center mb-8">I'm always open to new opportunities and collaborations. Feel free to reach out!</p>
+            <div className="flex justify-center gap-4"></div>
+                  
+          </div>
+
+        </section>
+
       </div>
 
       {lightboxIndex !== null && (
@@ -600,7 +611,7 @@ export default function Home() {
             </button>
 
           </div>
-        )}
+      )}
     </>
   );
 }
