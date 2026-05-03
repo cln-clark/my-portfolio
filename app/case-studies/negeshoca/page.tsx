@@ -1,60 +1,77 @@
 "use client"
 import Link from 'next/link'
-import { ArrowLeft } from 'lucide-react';
-import { JSX } from "react";
+import Image from "next/image"
+import { ArrowLeft, ExternalLinkIcon } from 'lucide-react';
+import { JSX, useState, useEffect } from "react";
 import { FaJava } from 'react-icons/fa';
 import { SiKotlin, SiFirebase, SiCplusplus, SiArduino, SiAndroidstudio } from 'react-icons/si';
 
 
 
-interface TechStackItem {
-    name: string;
-}
+export default function Negeshoca() {
 
-const techStack: TechStackItem[] = [
-    { name: 'Arduino' },
-    { name: 'Kotlin' },
-    { name: 'Firebase' },
-    { name: 'QR Code Technology' }
-];
-
-
-interface TechStackDetails {
+    interface TechStackDetails {
     name: string;
     icon: string;
     color: string;
-  }
+    }
 
-const techStackItems: TechStackDetails[] = [
-    
-    {  name: 'Kotlin',          icon: 'kotlin',     color: '#7F52FF' },
-    {  name: 'Android Studio',  icon: 'androidstudio',     color: '#3DDC84' },  
-    {  name: 'C++',             icon: 'cplusplus',     color: '#00599C' },
-    
-    {  name: 'Arduino',         icon:'arduino',     color: '#00979D' },
-    {  name: 'Firebase',        icon: 'firebase',   color: '#FFCA28' }
+    const techStackItems: TechStackDetails[] = [
+        
+        {  name: 'Kotlin',          icon: 'kotlin',     color: '#7F52FF' },
+        {  name: 'Android Studio',  icon: 'androidstudio',     color: '#3DDC84' },  
+        {  name: 'C++',             icon: 'cplusplus',     color: '#00599C' },
+        
+        {  name: 'Arduino',         icon:'arduino',     color: '#00979D' },
+        {  name: 'Firebase',        icon: 'firebase',   color: '#FFCA28' }
 
-  ];
+    ];
 
-const techIcons: Record<string, JSX.Element> = {
+    const techIcons: Record<string, JSX.Element> = {
 
-    java:           <FaJava               className="w-3 h-3" />,
-    kotlin:         <SiKotlin             className="w-3 h-3" />,
-    cplusplus:      <SiCplusplus         className="w-3 h-3" />,
-    androidstudio:  <SiAndroidstudio     className="w-3 h-3" />,    
-    firebase:       <SiFirebase           className="w-3 h-3" />,
-    arduino:        <SiArduino            className="w-3 h-3" />,
+        java:           <FaJava               className="w-3 h-3" />,
+        kotlin:         <SiKotlin             className="w-3 h-3" />,
+        cplusplus:      <SiCplusplus         className="w-3 h-3" />,
+        androidstudio:  <SiAndroidstudio     className="w-3 h-3" />,    
+        firebase:       <SiFirebase           className="w-3 h-3" />,
+        arduino:        <SiArduino            className="w-3 h-3" />,
 
-  };
+    };
 
-export default function Negeshoca() {
+    const buildImages = [
+        "/images/behind-the-scene/bts1.jpg",
+        "/images/behind-the-scene/bts2.jpg",
+        "/images/behind-the-scene/bts3.jpg",
+        "/images/behind-the-scene/bts4.jpg",
+        "/images/behind-the-scene/bts5.jpg",
+    ];
+
+    const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
+
+    useEffect(() => {
+        const handleKey = (e:KeyboardEvent) => {
+            if (lightboxIndex === null) return;
+            if (e.key === 'ArrowRight') setLightboxIndex(i => i !== null ? Math.min(i + 1, buildImages.length - 1) : null);
+            if (e.key === 'ArrowLeft') setLightboxIndex(i => i !== null ? Math.max(i - 1, 0) : null);
+            if (e.key === 'Escape') {
+                setLightboxIndex(null) 
+                document.body.style.overflow = '';
+            }
+        };
+
+        window.addEventListener('keydown', handleKey);
+        return () => window.removeEventListener('keydown', handleKey);
+    }, [lightboxIndex]);
+        
+
+
     return (
         <>  
 
         <div className="w-full max-w-4xl mx-auto px-4 py-8 text-left group animate-fade-in">
 
             <section className="mb-8 relative"  /* upper section*/>
-                <Link href="/" className="inline-flex items-center gap-2 text-slate-600 hover:text-slate-900 transition-colors mb-8">
+                <Link href="/" className="inline-flex items-center gap-2 text-[var(--foreground)]/50 hover:text-[var(--foreground)] transition-colors mb-8">
                     <ArrowLeft className="w-4 h-4" />
                     <span className="text-sm font-medium">Back to Portfolio</span>
                 </Link>
@@ -64,9 +81,9 @@ export default function Negeshoca() {
                     <p className="text-sm md:text-base">Next Generation Shopping Cart Powered by Arduino Technology</p>
                 </div>
                  <div className="flex flex-wrap gap-3 mt-2">
-                    <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-md text-xs font-medium">IoT Capstone Project</span>
-                    <span className="px-3 py-1 bg-green-100 text-green-700 rounded-md text-xs font-medium">Hardware + Software</span>
-                    <span className="px-3 py-1 bg-purple-100 text-purple-700 rounded-md text-xs font-medium">Full Stack</span>
+                    <span className="px-3 py-1 bg-blue-500/10 text-blue-500 rounded-md text-xs font-medium">IoT Capstone Project</span>
+                    <span className="px-3 py-1 bg-green-500/10 text-green-500 rounded-md text-xs font-medium">Hardware + Software</span>
+                    <span className="px-3 py-1 bg-purple-500/10 text-purple-500 rounded-md text-xs font-medium">Full Stack</span>
                 </div>               
             </section>
 
@@ -152,8 +169,6 @@ export default function Negeshoca() {
                                 <p className="text-xs opacity-50">Team Leader</p>
                             </div>
                         </div>
-                        
-
                     </div>
 
                     {/* Tech Stack */}
@@ -247,51 +262,51 @@ export default function Negeshoca() {
                         <div>
                             <h3 className="text-sm md:text-lg font-semibold mb-3">Hardware Layer</h3>
                             <div className="space-y-3">
-                                <div className="flex items-start gap-3 pb-3 border-b border-slate-200 last:border-b-0">
-                                    <span className="px-3 py-1 bg-purple-100 text-purple-700 rounded font-mono text-xs font-bold flex-shrink-0">Hardware</span>
+                                <div className="flex items-start gap-3 pb-3 border-b border-[var(--foreground)]/10 last:border-b-0">
+                                    <span className="px-3 py-1 bg-purple-500/10 text-purple-500 rounded font-mono text-xs font-bold flex-shrink-0">Hardware</span>
                                     <div>
                                         <p className="text-sm font-bold">Microcontroller</p>
                                         <p className="text-xs">ESP32 Wifi & Bluetooth Soc, Jumper Wires, Thermal Printer, & Power supply</p>
                                     </div>
                                 </div>
-                                <div className="flex items-start gap-3 pb-3 border-b border-slate-200 last:border-b-0">
-                                    <span className="px-3 py-1 bg-purple-100 text-purple-700 rounded font-mono text-xs font-bold flex-shrink-0">Hardware</span>
+                                <div className="flex items-start gap-3 pb-3 border-b border-[var(--foreground)]/10 last:border-b-0">
+                                    <span className="px-3 py-1 bg-purple-500/10 text-purple-500 rounded font-mono text-xs font-bold flex-shrink-0">Hardware</span>
                                     <div>
                                         <p className="text-sm font-bold">Sensors</p>
-                                        <p className="text-xs"> GM67 Barcode Scannner, QR Scanner</p>
+                                        <p className="text-xs"> GM67 Barcode Scanner, QR Scanner</p>
                                     </div>
                                 </div>                     
                             </div>
                         </div>
                                            
                         <div>
-                            <h3 className="text-sm md:text-lg font-semibold mb-3    ">Software Stack</h3>
+                            <h3 className="text-sm md:text-lg font-semibold mb-3">Software Stack</h3>
                             <div className="space-y-3">
-                                <div className="flex items-start gap-3 pb-3 border-b border-slate-200 last:border-b-0">
-                                    <span className="flex items-center px-3 py-1 bg-blue-100 text-blue-700 rounded font-mono text-xs font-bold flex-shrink-0 w-19">Frontend</span>
+                                <div className="flex items-start gap-3 pb-3 border-b border-[var(--foreground)]/10 last:border-b-0">
+                                    <span className="flex items-center px-3 py-1 bg-blue-500/10 text-blue-500 rounded font-mono text-xs font-bold flex-shrink-0 w-20">Frontend</span>
                                     <div>
                                         <p className="text-sm font-bold">Kotlin Mobile App</p>
                                         <p className="text-xs">Android mobile app for checkout management and real-time monitoring</p>
                                     </div>
                                 </div>
-                                <div className="flex items-start gap-3 pb-3 border-b border-slate-200 last:border-b-0">
-                                    <span className="flex items-center px-3 py-1 bg-green-100 text-green-700 rounded font-mono text-xs font-bold flex-shrink-0 w-19">Backend</span>
+                                <div className="flex items-start gap-3 pb-3 border-b border-[var(--foreground)]/10 last:border-b-0">
+                                    <span className="flex items-center px-3 py-1 bg-green-500/10 text-green-500 rounded font-mono text-xs font-bold flex-shrink-0 w-20">Backend</span>
                                     <div>
                                         <p className="text-sm font-bold">C++, Kotlin & REST API</p>
                                         <p className="text-xs">Server-side business logic</p>
                                     </div>
                                 </div>
-                                <div className="flex items-start gap-3 pb-3 border-b border-slate-200 last:border-b-0">
-                                    <span className="flex items-center px-3 py-1 bg-green-100 text-green-700 rounded font-mono text-xs font-bold flex-shrink-0 w-19">Tools</span>
+                                <div className="flex items-start gap-3 pb-3 border-b border-[var(--foreground)]/10 last:border-b-0">
+                                    <span className="flex items-center px-3 py-1 bg-green-500/10 text-green-500 rounded font-mono text-xs font-bold flex-shrink-0 w-20">Tools</span>
                                     <div>
                                         <p className="text-sm font-bold">Android Studio & Arduino IDE</p>
                                         <p className="text-xs">Development environment for mobile and hardware development</p>
                                     </div>
                                 </div>
-                                <div className="flex items-start gap-3 pb-3 border-b border-slate-200 last:border-b-0">
-                                    <span className="flex items-center px-3 py-1 bg-yellow-100 text-yellow-700 rounded font-mono text-xs font-bold flex-shrink-0 w-19">Database</span>
+                                <div className="flex items-start gap-3 pb-3 border-b border-[var(--foreground)]/10 last:border-b-0">
+                                    <span className="flex items-center px-3 py-1 bg-yellow-500/10 text-yellow-500 rounded font-mono text-xs font-bold flex-shrink-0 w-20">Database</span>
                                     <div>
-                                        <p className="text-sm font-bold text-slate-900">Firebase Realtime Database</p>
+                                        <p className="text-sm font-bold">Firebase Realtime Database</p>
                                         <p className="text-xs">Cloud-based real-time synchronization of inventory and transactions</p>
                                     </div>
                                 </div>
@@ -303,11 +318,11 @@ export default function Negeshoca() {
                             <ul className="space-y-2">
                                 <li className="flex gap-2">
                                 <span className="text-blue-600 font-semibold">→</span>
-                                <span className="text-xs"><strong className="text-sm">Arduino to Firebase:</strong> Hardware sends sensor data and gate status</span>
+                                <span className="text-xs"><strong className="text-sm">ESP32 to Firebase:</strong> Hardware sends barcode data directly via REST API</span>
                                 </li>
                                 <li className="flex gap-2">
                                 <span className="text-blue-600 font-semibold">→</span>
-                                <span className="text-xs"><strong className="text-sm">Mobile to Backend:</strong> Kotlin app communicates with Java REST API</span>
+                                <span className="text-xs"><strong className="text-sm">Mobile to Backend:</strong> Kotlin app communicates with Firebase REST API</span>
                                 </li>
                                 <li className="flex gap-2">
                                 <span className="text-blue-600 font-semibold">→</span>
@@ -385,8 +400,80 @@ export default function Negeshoca() {
             </section>
         </div>
 
+        {lightboxIndex !== null && (
+                  <div className="fixed inset-0 z-50 bg-black/90 overflow-hidden"
+                    onClick={() => {setLightboxIndex(null)
+                      document.body.style.overflow = ''
+                    }}>
+        
+                    {/* previous button - outside image container */}
+                    <button 
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        setLightboxIndex(prev => Math.max(prev! - 1, 0))
+                      }}
+                      disabled={lightboxIndex === 0}
+                      className={`absolute left-4 top-1/2 -translate-y-1/2 z-10 p-2 text-white/70 hover:text-white hover:scale-110 transition-colors
+                        ${lightboxIndex === 0 ? 'opacity-30 cursor-not-allowed hidden' : 'opacity-100 cursor-pointer visible'}`}
+                      aria-label="Previous image">
+                      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M15 19l-7-7 7-7"/>
+                      </svg>
+                    </button>
+        
+                    {/* counter */}
+                    <div className="absolute top-4 left-7 z-10 text-white/70 text-xs font-mono">
+                      {lightboxIndex + 1} / {buildImages.length}                 
+                    </div>
+        
+                    {/* exit button */}
+                    <button
+                      onClick={() => {setLightboxIndex(null)
+                      document.body.style.overflow = '' }}
+                      className="absolute top-4 right-7 z-10 text-white/70 hover:text-white hover:scale-110 transition-colors"
+                      aria-label="Close">
+                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>  
+                    </button>
+        
+                    {/* image container */}
+                    <div className="absolute inset-0 flex items-center justify-center">
+        
+                        <div className="relative w-[80vw] h-[80vw] md:w-[600px] md:h-[600px]"
+                              onClick={e => e.stopPropagation()}>
+        
+                          <Image
+                            src={buildImages[lightboxIndex]}
+                            alt={`Gallery Image ${lightboxIndex + 1}`}
+                            fill
+                            className="object-contain"
+                            sizes="(max-width: 768px) 90vw, 500px"
+                          />
+        
+                          <div className="absolute top-full mt-4 md:mt-2 left-1/2 -translate-x-1/2 text-white/70 text-xs font-mono">
+                            Use arrow keys to navigate • ESC to close 
+                          </div>
+                        </div> 
+        
+                    </div>
+        
+                    {/* next button - outside image container */}
+                    <button
+                      onClick={(e) => {e.stopPropagation()
+                      setLightboxIndex(prev => Math.min(prev! + 1, buildImages.length - 1))}}
+                      disabled={lightboxIndex === buildImages.length - 1}
+                      className={`absolute right-4 top-1/2 -translate-y-1/2 z-10 p-2 text-white/70 hover:text-white hover:scale-110 transition-colors
+                      ${lightboxIndex === buildImages.length - 1 ? 'opacity-30 cursor-not-allowed hidden' : 'opacity-100 cursor-pointer visible'}`}
+                      aria-label="Next image">
+                      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 5l7 7-7 7"/>
+                      </svg>
+                    </button>
+        
+                  </div>
+              )}
 
-
-
+        </>
     )
 }

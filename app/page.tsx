@@ -1,4 +1,5 @@
 "use client"
+import { ExternalLinkIcon } from "lucide-react";
 import Image from "next/image"
 import Link from "next/link";
 import { JSX, useEffect, useState } from "react";
@@ -144,8 +145,8 @@ export default function Home() {
       shortDescription: 'A smart checkout system for small businesses using Arduino, Kotlin, Firebase and QR-based payment.',
       fullDescription: 'An IoT-based smart checkout system that integrates hardware with a mobile application. The system uses Arduino microcontrollers to manage checkout gates, Kotlin for the mobile app, and Firebase for real-time data synchronization.',
       techStack: ['Arduino', 'Kotlin', 'Firebase Realtime Database', 'QR Code Technology'],
-      caseStudyUrl: '/case-studies/negeshoca',
-      demoUrl: 'https://example.com/negeshoca-demo',
+      caseStudyUrl: '/case-studies/Negeshoca',
+      demoUrl: 'https://drive.google.com/drive/folders/16A_1ifhGLFP4fgBMJeN6dk38aG7_q2Vb?usp=sharing',
       type: 'IoT'
 
     },
@@ -337,7 +338,7 @@ export default function Home() {
                               className="flex items-center gap-1 px-2 py-0.5 text-xs rounded-md bg-[var(--background)]/30 
                                          shadow-[0_2px_1px_rgba(0,0,0,0.03)]">
                           <span style={{ color: tech.color}}>
-                            {techIcons[tech.icon]}
+                            {techIcons[tech.icon.toLowerCase() as keyof typeof techIcons] || null}
                           </span>
                           {tech.name}
                         </span>
@@ -358,7 +359,7 @@ export default function Home() {
                 <a target="_blank" rel="noopener noreferrer" /* LinkedIn */
                   className="flex items-center gap-2 p-1.5 rounded-lg bg-[var(--background)]/30 
                   shadow-[0_1px_2px_rgba(0,0,0,0.03),0_1px_1px_rgba(0,0,0,0.04)] 
-                  hover:bg-[var(--foreground)]/7 hover:shadow-[0_3px_5px_rgba(0,0,0,0.06)] 
+                  hover:bg-[var(--foreground)]/10 hover:shadow-[0_3px_5px_rgba(0,0,0,0.06)] 
                   transition-all duration-200 hover:-translate-y-0.5 group" aria-label="Visit LinkedIn profile" 
                   title="Visit LinkedIn profile" href="https://linkedin.com/in/clark-louise-navales/">
                     <div className="text-[var(--foreground)] transition-colors">
@@ -375,7 +376,7 @@ export default function Home() {
                 <a target="_blank" rel="noopener noreferrer" /* GitHub*/
                   className="flex items-center gap-2 p-1.5 rounded-lg bg-[var(--background)]/30 
                   shadow-[0_1px_2px_rgba(0,0,0,0.03),0_1px_1px_rgba(0,0,0,0.04)] 
-                  hover:bg-[var(--foreground)]/7 hover:shadow-[0_3px_5px_rgba(0,0,0,0.06)] 
+                  hover:bg-[var(--foreground)]/10 hover:shadow-[0_3px_5px_rgba(0,0,0,0.06)] 
                   transition-all duration-200 hover:-translate-y-0.5 group" aria-label="Visit GitHub profile" 
                   title="Visit GitHub profile" href="https://github.com/cln-clark">
                     <div className="text-[var(--foreground)] transition-colors">
@@ -393,7 +394,7 @@ export default function Home() {
                   <a target="_blank" rel="noopener noreferrer" /* Facebook*/
                   className="flex items-center gap-2 p-1.5 rounded-lg bg-[var(--background)]/30 
                   shadow-[0_1px_2px_rgba(0,0,0,0.03),0_1px_1px_rgba(0,0,0,0.04)] 
-                  hover:bg-[var(--foreground)]/7 hover:shadow-[0_3px_5px_rgba(0,0,0,0.06)] 
+                  hover:bg-[var(--foreground)]/10 hover:shadow-[0_3px_5px_rgba(0,0,0,0.06)] 
                   transition-all duration-200 hover:-translate-y-0.5 group" aria-label="Visit Facebook profile" 
                   title="Visit Facebook profile" href="https://www.facebook.com/clrkyy09">
                     <div className="text-[var(--foreground)] transition-colors">
@@ -485,19 +486,19 @@ export default function Home() {
                         onClick={() => {
                         setLightboxIndex(index)
                         document.body.style.overflow = 'hidden' }}       
-                      className="relative flex-shrink-0 aspect-square overflow-hidden rounded-lg bg-foreground/5 
-                      shadow-[0_1px_2px_rgba(0,0,0,0.03),0_1px_1px_rgba(0,0,0,0.04)] hover:shadow-[0_3px_10px_rgba(0,0,0,0.06)] 
-                      transition-all duration-200 hover:-translate-y-0.5 group/image cursor-pointer" 
-                      style={{ width: 'calc(24% - 0.375rem)'}}>
-                        <Image 
-                        src={src} 
-                        alt={`Gallery Image ${index + 1}`} 
-                        loading={index === 0 ? "eager" : "lazy"} 
-                        fill
-                        className={`object-cover ${index === 7 ? 'object-bottom' : 'object-[center_30%]'} 
-                        transition-transform duration-200 group-hover/image:scale-105`}              
-                        sizes="(max-width: 640px) 100vw, (max-width: 768px) 33vw,(max-width: 1024px) 25vw, 20vw"/>
-                      </div>
+                        className="relative flex-shrink-0 aspect-square overflow-hidden rounded-lg bg-foreground/5 
+                        shadow-[0_1px_2px_rgba(0,0,0,0.03),0_1px_1px_rgba(0,0,0,0.04)] hover:shadow-[0_3px_10px_rgba(0,0,0,0.06)] 
+                        transition-all duration-200 hover:-translate-y-0.5 group/image cursor-pointer" 
+                        style={{ width: 'calc(24% - 0.375rem)'}}>
+                          <Image 
+                          src={src} 
+                          alt={`Gallery Image ${index + 1}`} 
+                          loading={index === 0 ? "eager" : "lazy"} 
+                          fill
+                          className={`object-cover ${index === 7 ? 'object-bottom' : 'object-[center_30%]'} 
+                          transition-transform duration-200 group-hover/image:scale-105`}              
+                          sizes="(max-width: 640px) 100vw, (max-width: 768px) 33vw,(max-width: 1024px) 25vw, 20vw"/>
+                        </div>
                     ))}
                 </div>              
               </div>
@@ -573,7 +574,7 @@ export default function Home() {
               aria-label="Close">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M6 18L18 6M6 6l12 12"/>
-                </svg>
+                </svg>  
             </button>
 
             {/* image container */}
