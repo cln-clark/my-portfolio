@@ -548,29 +548,43 @@
           
           </section>
 
-          <section id="lets-connect" className="bg-gradient-to-r from-blue-600 to-blue-700 py-16 my-12">
-              <div className="max-w-4xl mx-auto px-4">
-                  <h2 className="text-2xl md:text-3xl font-bold text-white mb-4 text-center">Let's Connect!</h2>
-                  <p className="text-white/90 text-center mb-8">I'm always open to new opportunities and collaborations. Feel free to reach out!</p>
-                  <div className="flex justify-center gap-4">
-                      <a href="mailto:your@email.com"
-                          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-white text-blue-600 
-                                    text-sm font-semibold hover:bg-white/90 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <rect x="3" y="5" width="18" height="14" rx="3" strokeWidth="1.5"/>
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M3 7l9 6 9-6"/>
-                          </svg>
-                          Send a Message
-                      </a>
-                      <a href="https://linkedin.com/in/clark-louise-navales/" target="_blank" rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-white/40 text-white 
-                                    text-sm font-semibold hover:bg-white/10 transition-all duration-200 hover:-translate-y-0.5">
-                          LinkedIn
-                      </a>
-                  </div>
-              </div>
+          <section id="lets-connect" 
+                  className="bento-card max-w-4xl mx-auto px-8 py-12 my-12 text-center group animate-fade-in" /* Let's Connect Section */>
 
-          </section>
+                  <div className="absolute inset-0 [background-image:radial-gradient(circle,_var(--foreground)_1px,_transparent_1px)] [background-size:18px_18px] opacity-10" />
+                  
+                  <div className="relative">
+                    <h2 className="text-2xl md:text-3xl font-bold mb-3">Let's Connect</h2>
+                    <p className="text-sm text-[var(--foreground)]/60 mb-8">
+                        I'm open to new opportunities and collaborations. Feel free to reach out.
+                    </p>
+                    <div className="flex justify-center gap-3">
+                          <a href="https://mail.google.com/mail/?view=cm&to=clarknvls@gmail.com"
+                              target="_blank" rel="noopener noreferrer"
+                              className="bento-card inline-flex items-center gap-2 px-5 py-2.5 rounded-lg
+                                        bg-[var(--foreground)] text-[var(--background)] text-xs font-semibold
+                                        transition-all duration-200 hover:shadow-[0_3px_10px_rgba(0,0,0,0.2)]">
+                              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <rect x="3" y="5" width="18" height="14" rx="3" strokeWidth="1.5"/>
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M3 7l9 6 9-6"/>
+                              </svg>
+                              Send an Email
+                          </a>
+                          <a href="https://linkedin.com/in/clark-louise-navales/"
+                              target="_blank" rel="noopener noreferrer"
+                              className="bento-card inline-flex items-center gap-2 px-5 py-2.5 rounded-lg
+                                        bg-[var(--background)] hover:shadow-[0_3px_10px_rgba(0,0,0,0.2)] 
+                                        text-xs font-semibold transition-all duration-200">
+                              <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+                                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                              </svg>
+                              LinkedIn
+                          </a>
+                    </div>
+
+                  </div>
+                 
+            </section>
 
         </div>
 
