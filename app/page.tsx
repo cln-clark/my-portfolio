@@ -549,9 +549,8 @@
           </section>
 
           <section id="lets-connect" 
-                  className="bento-card max-w-4xl mx-auto px-8 py-12 my-12 text-center group animate-fade-in" /* Let's Connect Section */>
-
-                  <div className="absolute inset-0 [background-image:radial-gradient(circle,_var(--foreground)_1px,_transparent_1px)] [background-size:18px_18px] opacity-10" />
+                  className="bento-card max-w-4xl mx-auto px-8 py-12 my-12 text-center relative overflow-hidden
+                             bg-[var(--background)] group animate-fade-in" /* Let's Connect Section */>
                   
                   <div className="relative">
                     <h2 className="text-2xl md:text-3xl font-bold mb-3">Let's Connect</h2>
@@ -584,7 +583,15 @@
 
                   </div>
                  
-            </section>
+          </section>
+
+          <footer className="max-w-4xl mx-auto px-4 py-8 border-t border-[var(--border)] mt-4">
+              <div className="flex justify-center items-center">
+                  <p className="text-xs text-[var(--foreground)]/50">
+                      © 2026 Clark Louise Navales. All rights reserved.
+                  </p>
+              </div>
+          </footer> 
 
         </div>
 
