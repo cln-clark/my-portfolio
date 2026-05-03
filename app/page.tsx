@@ -4,7 +4,7 @@
   import Link from "next/link";
   import { JSX, useEffect, useState } from "react";
   import { FaReact, FaJava, FaNodeJs, FaGit, FaGithub, FaDiscord, FaHtml5 } from 'react-icons/fa';
-  import { SiTypescript, SiTailwindcss, SiKotlin, SiNestjs, SiMysql, SiFirebase, SiVscodium, SiPython } from 'react-icons/si';
+  import { SiTypescript, SiTailwindcss, SiKotlin, SiNestjs, SiMysql, SiFirebase, SiVscodium, SiPython, SiArduino, SiCplusplus, SiAndroidstudio } from 'react-icons/si';
 
   export default function Home() {
 
@@ -71,6 +71,7 @@
       { category: 'Frontend', name: 'HTML',         icon: 'html',       color: '#E34F26' },
       // Backend
       { category: 'Backend', name: 'Java',          icon: 'java',       color: '#007396' },
+      { category: 'Backend', name: 'C++',           icon: 'cplusplus',     color: '#00599C' },
       { category: 'Backend', name: 'Kotlin',        icon: 'kotlin',     color: '#7F52FF' },
       { category: 'Backend', name: 'Python',        icon: 'python',     color: '#3776AB' },
       { category: 'Backend', name: 'NestJS',        icon: 'nestjs',     color: '#E0234E' },
@@ -79,13 +80,19 @@
       { category: 'Backend', name: 'Firebase',      icon: 'firebase',   color: '#FFCA28' },
       
       // Developer Tools
-      { category: 'Developer Tools', name: 'Git',     icon: 'git',     color: '#F05032' },
-      { category: 'Developer Tools', name: 'GitHub',  icon: 'github',  color: '#000000' },
-      { category: 'Developer Tools', name: 'VS Code', icon: 'vscode',  color: '#007ACC' },
-      { category: 'Developer Tools', name: 'Discord', icon: 'discord', color: '#5865F2' },
+      
+      { category: 'Developer Tools', name: 'Git',             icon: 'git',               color: '#F05032' },
+      { category: 'Developer Tools', name: 'GitHub',          icon: 'github',            color: '#000000' },
+      { category: 'Developer Tools', name: 'VS Code',         icon: 'vscode',            color: '#007ACC' },
+      { category: 'Developer Tools', name: 'Android Studio',  icon: 'androidstudio',     color: '#3DDC84' }, 
+      { category: 'Developer Tools', name: 'Arduino',         icon: 'arduino',           color: '#00979D' },
+      { category: 'Developer Tools', name: 'Discord',          icon: 'discord',           color: '#5865F2' },
     ];
 
     const techIcons: Record<string, JSX.Element> = {
+      androidstudio:  <SiAndroidstudio     className="w-3 h-3" />,    
+      arduino:    <SiArduino            className="w-3 h-3" />,
+      cplusplus:  <SiCplusplus          className="w-3 h-3" />,
       react:      <FaReact              className="w-3 h-3" />,
       typescript: <SiTypescript         className="w-3 h-3" />,
       tailwind:   <SiTailwindcss        className="w-3 h-3" />,
@@ -130,6 +137,7 @@
       title: string;
       shortDescription: string;
       fullDescription: string;
+      techStackName: string[]; // For display purposes
       techStack: string[];
       caseStudyUrl?: string;
       demoUrl?: string;
@@ -144,7 +152,8 @@
         title: 'Negeshoca: Next Generation Shopping Cart Powered by Arduino Technology',
         shortDescription: 'A smart checkout system for small businesses using Arduino, Kotlin, Firebase and QR-based payment.',
         fullDescription: 'An IoT-based smart checkout system that integrates hardware with a mobile application. The system uses Arduino microcontrollers to manage checkout gates, Kotlin for the mobile app, and Firebase for real-time data synchronization.',
-        techStack: ['Arduino', 'Kotlin', 'Firebase Realtime Database', 'QR Code Technology'],
+        techStackName: ['Arduino, Kotlin, Firebase', 'C++'],
+        techStack: ['arduino', 'kotlin', 'firebase', 'cplusplus'],
         caseStudyUrl: '/case-studies/negeshoca',
         demoUrl: 'https://drive.google.com/drive/folders/16A_1ifhGLFP4fgBMJeN6dk38aG7_q2Vb?usp=sharing',
         type: 'IoT'
@@ -155,7 +164,8 @@
         title: 'Negeshoca POS & Inventory System',  
         shortDescription: 'A comprehensive point-of-sale and inventory management system for small businesses.',
         fullDescription: 'A web-based application designed to streamline sales processes and inventory tracking for small businesses. The system features a user-friendly interface and real-time data synchronization.',
-        techStack: ['Netbeans', 'Java', 'Firebase'],
+        techStackName: ['Netbeans', 'Java', 'Firebase'],
+        techStack: ['netbeans', 'java', 'firebase'],
         caseStudyUrl: '/case-studies/pos-inventory',
         demoUrl: 'https://example.com/pos-inventory-demo',
         type: 'Desktop'
@@ -424,14 +434,24 @@
                         <button onClick={() => setExpandedProject(expandedProject === project.id ? null : project.id)}
                                 className="w-full text-left block space-y-1">
                           <div className="flex items-start justify-between gap-2">
-                            <div className="flex-1 space-x-2">
+                            <div className="flex-1">
                               <h3 className="text-sm font-semibold pb-2">{project.title}</h3>
                               <p className="text-xs text-[var(--foreground)] pb-1">{project.shortDescription}</p>
-                              {project.techStack.map((tech) => (
-                                <a key={tech} className="px-2 py-0.5 text-xs rounded-md bg-[var(--background)]/30 shadow-[0_2px_1px_rgba(0,0,0,0.03)]">
-                                  {tech}
-                                </a>
-                              ))}
+                              <div className="flex flex-wrap gap-1.5 pt-1">
+                                {project.techStack.map((tech) => {
+                                  const techColor = techStack.find(t => t.icon === tech)?.color;
+
+                                  return(
+                                    <span key={tech} 
+                                          className="inline-flex items-center gap-1 px-2 py-0.5 text-xs rounded-md bg-[var(--background)]/30 shadow-[0_2px_1px_rgba(0,0,0,0.03)]">
+                                          <span style={{ color: techColor }}>{techIcons[tech] || null}</span>     
+                                          <span className="capitalize">{tech === 'cplusplus' ? 'C++' : tech}</span>
+                                    </span>
+
+                                  )
+
+                                })}
+                              </div>                             
                             </div>
                             <svg className={`w-4 h-4 flex-shrink-0 transition-transform duration-300
                                             ${expandedProject === project.id ? 'rotate-90' : ''}`}
@@ -529,12 +549,26 @@
           </section>
 
           <section id="lets-connect" className="bg-gradient-to-r from-blue-600 to-blue-700 py-16 my-12">
-            <div className="max-w-4xl mx-auto px-4">
-              <h2 className="text-2xl md:text-3xl font-bold text-white mb-4 text-center">Let's Connect!</h2>
-              <p className="text-white/90 text-center mb-8">I'm always open to new opportunities and collaborations. Feel free to reach out!</p>
-              <div className="flex justify-center gap-4"></div>
-                    
-            </div>
+              <div className="max-w-4xl mx-auto px-4">
+                  <h2 className="text-2xl md:text-3xl font-bold text-white mb-4 text-center">Let's Connect!</h2>
+                  <p className="text-white/90 text-center mb-8">I'm always open to new opportunities and collaborations. Feel free to reach out!</p>
+                  <div className="flex justify-center gap-4">
+                      <a href="mailto:your@email.com"
+                          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-white text-blue-600 
+                                    text-sm font-semibold hover:bg-white/90 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <rect x="3" y="5" width="18" height="14" rx="3" strokeWidth="1.5"/>
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M3 7l9 6 9-6"/>
+                          </svg>
+                          Send a Message
+                      </a>
+                      <a href="https://linkedin.com/in/clark-louise-navales/" target="_blank" rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-white/40 text-white 
+                                    text-sm font-semibold hover:bg-white/10 transition-all duration-200 hover:-translate-y-0.5">
+                          LinkedIn
+                      </a>
+                  </div>
+              </div>
 
           </section>
 

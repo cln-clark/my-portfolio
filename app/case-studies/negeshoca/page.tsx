@@ -20,8 +20,7 @@ export default function Negeshoca() {
         
         {  name: 'Kotlin',          icon: 'kotlin',     color: '#7F52FF' },
         {  name: 'Android Studio',  icon: 'androidstudio',     color: '#3DDC84' },  
-        {  name: 'C++',             icon: 'cplusplus',     color: '#00599C' },
-        
+        {  name: 'C++',             icon: 'cplusplus',     color: '#00599C' },     
         {  name: 'Arduino',         icon:'arduino',     color: '#00979D' },
         {  name: 'Firebase',        icon: 'firebase',   color: '#FFCA28' }
 
