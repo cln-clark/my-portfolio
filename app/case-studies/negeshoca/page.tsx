@@ -109,36 +109,133 @@ export default function Negeshoca() {
 
                 </div >
 
-                <div className="md:sticky md:top-2 md:self-start bento-card p-4 col-span-1 md:col-span-2" /* right sidebar*/>
-                    <h2 className="text-sm md:text-lg font-bold">Project Details</h2>
-                    <div className="space-y-4 mt-4">
-                        <div>
-                        <p className="text-xs md:text-sm uppercase font-bold mb-1 opacity-60">Type</p>
-                        <p className="text-sm md:text-md">IoT Hardware + Software</p>
-                        </div>
-                        
-                        <div>
-                        <p className="text-xs md:text-sm uppercase font-bold mb-1 opacity-60">Duration</p>
-                        <p className="text-sm md:text-md">1 year (design to deployment)</p>
+                <div className="md:sticky md:top-2 md:self-start bento-card p-4 col-span-1 md:col-span-2" /* Project Details */>
+                    <h2 className="text-sm md:text-lg font-bold mb-4">Project Details</h2>
+
+                    <div className="space-y-0">
+                        <div className="flex items-start gap-3 py-3 border-b border-[var(--foreground)]/10">
+                            <span className="text-[var(--foreground)]/40 mt-0.5">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2v-4M9 21H5a2 2 0 01-2-2v-4m0 0h18" />
+                                </svg>
+                            </span>
+                            <div>
+                                <p className="text-xs uppercase font-bold opacity-50 mb-0.5">Type</p>
+                                <p className="text-xs md:text-sm">IoT Hardware + Software</p>
+                            </div>
                         </div>
 
-                        <div>
-                        <p className="text-xs md:text-sm uppercase font-bold mb-1 opacity-60">Team Size</p>
-                        <p className="text-sm md:text-md">3 members</p>
+                        <div className="flex items-start gap-3 py-3 border-b border-[var(--foreground)]/10">
+                            <span className="text-[var(--foreground)]/40 mt-0.5">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                            </span>
+                            <div>
+                                <p className="text-xs uppercase font-bold opacity-50 mb-0.5">Duration</p>
+                                <p className="text-xs md:text-sm">1 year</p>
+                                <p className="text-xs opacity-50">Design to defense</p>
+                            </div>
+                        </div>
+
+                        <div className="flex items-start gap-3 py-3">
+                            <span className="text-[var(--foreground)]/40 mt-0.5">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                            </span>
+                            <div>
+                                <p className="text-xs uppercase font-bold opacity-50 mb-0.5">Team Size</p>
+                                <p className="text-xs md:text-sm">3 members</p>
+                                <p className="text-xs opacity-50">Team Leader</p>
+                            </div>
                         </div>
                         
 
                     </div>
-                    <div className="flex flex-wrap gap-2 p-2 pl-0 border-t border-[var(--foreground)]/10 mt-3">
-                        {techStackItems.map(tech => (
-                            <a  key={tech.name} 
-                                className="flex items-center gap-1 px-2 py-0.5 text-xs rounded-md bg-[var(--background)]/30 shadow-[0_2px_1px_rgba(0,0,0,0.03)]">
-                                <span style={{ color: tech.color}}>
-                                    {techIcons[tech.icon.toLowerCase() as keyof typeof techIcons] || null}
+
+                    {/* Tech Stack */}
+                    <div className="border-t border-[var(--foreground)]/10 pt-3 mt-1">
+                        <p className="text-xs uppercase font-bold opacity-50 mb-2">Tech Stack</p>
+                        <div className="flex flex-wrap gap-2">
+                            {techStackItems.map(tech => (
+                                <span key={tech.name}
+                                    className="flex items-center gap-1 px-2 py-0.5 text-xs rounded-md bg-[var(--background)]/30 shadow-[0_2px_1px_rgba(0,0,0,0.03)]">
+                                    <span style={{ color: tech.color }}>
+                                        {techIcons[tech.icon.toLowerCase() as keyof typeof techIcons] || null}
+                                    </span>
+                                    <span>{tech.name}</span>
                                 </span>
-                                <span>{tech.name}</span>
-                            </a>
-                         ))}
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* CTA */}
+                    <div className="border-t border-[var(--foreground)]/10 pt-4 mt-4 hidden md:block">
+                        <a href="https://drive.google.com/drive/folders/16A_1ifhGLFP4fgBMJeN6dk38aG7_q2Vb?usp=sharing"
+                            target="_blank" rel="noopener noreferrer"
+                            aria-label="View Demo Video"
+                            className="flex items-center justify-center gap-2 w-full px-3 py-2 rounded-lg
+                                    bg-blue-500 hover:bg-blue-600 text-white text-xs font-semibold
+                                    transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
+                            <ExternalLinkIcon className="w-3 h-3" />
+                            <span>View Demo Video</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div className="bento-card p-4 col-span-1 md:col-span-4 space-y-4" /* My Role */>
+                    <h2 className="text-sm md:text-xl font-bold">My Role</h2>
+                    
+                    <div className="space-y-3">
+                        <p className="text-xs md:text-sm leading-relaxed">
+                            As team leader, I was solely responsible for all programming and database work across the entire system — from the Arduino firmware to the Kotlin mobile app and Firebase integration. My teammates assisted in building and assembling the physical prototype.
+                        </p>
+
+                        <div className="space-y-2">
+                            <div className="flex items-start gap-3">
+                                <span className="text-blue-500 font-bold flex-shrink-0">→</span>
+                                <span className="text-xs md:text-sm"><strong>Hardware Programming</strong> — Wrote the C++ firmware for the ESP32, handling barcode scanning, HTTP requests, and gate control logic.</span>
+                            </div>
+                            <div className="flex items-start gap-3">
+                                <span className="text-blue-500 font-bold flex-shrink-0">→</span>
+                                <span className="text-xs md:text-sm"><strong>Mobile Development</strong> — Built the entire Kotlin Android app for checkout management and real-time monitoring, including a RecyclerView implementation for live cart updates.</span>
+                            </div>
+                            <div className="flex items-start gap-3">
+                                <span className="text-blue-500 font-bold flex-shrink-0">→</span>
+                                <span className="text-xs md:text-sm"><strong>Database Integration</strong> — Designed and implemented the Firebase Realtime Database structure and connected it to both the hardware and mobile layers via REST API after the Arduino Firebase library proved unreliable.</span>
+                            </div>
+                            <div className="flex items-start gap-3">
+                                <span className="text-blue-500 font-bold flex-shrink-0">→</span>
+                                <span className="text-xs md:text-sm"><strong>System Integration</strong> — Bridged all three layers together — hardware, app, and cloud — into one working system.</span>
+                            </div>
+                        </div>
+
+                        <div className="border-t border-[var(--foreground)]/10 pt-4 mt-2">
+                            <p className="text-xs md:text-sm leading-relaxed text-[var(--foreground)]/70 italic border-l-2 border-[var(--foreground)]/20 pl-3">
+                                The most defining moment of this project was solving a week-long blocker where the Arduino Firebase library simply refused to work no matter what I tried. After several sleepless nights and eventually stepping away to rest, it hit me — connecting the ESP32 to Firebase via REST API directly would bypass the problem entirely. It worked on the first try. That relief was indescribable. The project also tested me personally — I was hospitalized and confined for nearly a week just before our defense, discharged only two days prior, and still pushed through to finish the remaining POS features in time. We defended at around 85% completion, received only minor revision notes, completed them, and got the project approved. Looking back, this project taught me more about persistence and problem-solving under pressure than any classroom ever could.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div className='bento-card p-4 col-span-1 md:col-span-4 space-y-4' /* Behind the Scenes */>
+                    <h2 className="text-sm md:text-xl font-bold">Behind the Scenes</h2>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                        {buildImages.map((src, index) => (
+                            <div key={index}
+                                onClick={() => { setLightboxIndex(index); document.body.style.overflow = 'hidden'; }}
+                                className="relative aspect-square overflow-hidden rounded-lg cursor-pointer
+                                            hover:shadow-[0_3px_10px_rgba(0,0,0,0.06)] transition-all duration-200 hover:-translate-y-0.5 group/image">
+                                <Image 
+                                    src={src} 
+                                    alt={`Build photo ${index + 1}`} 
+                                    loading={index === 0 ? "eager" : "lazy"} 
+                                    fill
+                                    className={`object-cover transition-transform duration-200 group-hover/image:scale-105`}
+                                    sizes="(max-width: 640px) 50vw, 33vw"/>
+                            </div>
+                        ))}
                     </div>
                 </div>
 

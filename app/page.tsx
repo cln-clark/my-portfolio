@@ -419,27 +419,26 @@ export default function Home() {
             </div>
             <div className="grid grid-cols-1 gap-2">
                 {projects.map(project => (
-                  <div key={project.id} 
-                       className="bento-card bg-[var(--background)]/30 p-3 space-y-3">
-                    <button onClick={() => setExpandedProject(expandedProject === project.id ? null : project.id)}
-                            className= "w-full text-left block space-y-1">
-                      <div className="flex items-start justify-between gap-2">
-                        <div className="flex-1 space-x-2">
-                          <h3 className="text-sm font-semibold pb-2">{project.title}</h3>
-                          <p className="text-xs text-[var(--foreground)] pb-1">{project.shortDescription}</p>
-                          {project.techStack.map((tech) => (
-                            <a key={tech} className="px-2 py-0.5 text-xs rounded-md bg-[var(--background)]/30 shadow-[0_2px_1px_rgba(0,0,0,0.03)]">
-                              {tech}
-                            </a>
-                          ))}                         
+                    <div key={project.id} className="bento-card bg-[var(--background)]/30 p-3 space-y-3">
+                      <button onClick={() => setExpandedProject(expandedProject === project.id ? null : project.id)}
+                              className="w-full text-left block space-y-1">
+                        <div className="flex items-start justify-between gap-2">
+                          <div className="flex-1 space-x-2">
+                            <h3 className="text-sm font-semibold pb-2">{project.title}</h3>
+                            <p className="text-xs text-[var(--foreground)] pb-1">{project.shortDescription}</p>
+                            {project.techStack.map((tech) => (
+                              <a key={tech} className="px-2 py-0.5 text-xs rounded-md bg-[var(--background)]/30 shadow-[0_2px_1px_rgba(0,0,0,0.03)]">
+                                {tech}
+                              </a>
+                            ))}
+                          </div>
+                          <svg className={`w-4 h-4 flex-shrink-0 transition-transform duration-300
+                                          ${expandedProject === project.id ? 'rotate-90' : ''}`}
+                              fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M 9 5 l7 7 -7 7"/>
+                          </svg>
                         </div>
-                        <svg className={`w-4 h-4  flex-shrink-0 transition-transform
-                                        ${expandedProject === project.id ? 'rotate-90' : ''}`}
-                                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M 9 5 l7 7 -7 7"></path>
-                        </svg>
-                      </div>           
-                    </button>
+                      </button>
 
                       {/* Always rendered, animated via grid-rows */}
                       <div className={`grid transition-all duration-300 ease-in-out
@@ -449,16 +448,17 @@ export default function Home() {
                             <div className="pt-1 flex flex-wrap gap-2">
                               {project.caseStudyUrl && (
                                 <Link href={project.caseStudyUrl}
-                                      className="font-mono px-2.5 py-1.5 text-xs rounded-md bg-[var(--foreground)]/8 
-                                                hover:bg-[var(--foreground)]/15 transition-colors">
+                                      className="font-mono px-2.5 py-1.5 text-xs rounded-md bg-[var(--foreground)]/5 
+                                                hover:bg-[var(--foreground)]/10 transition-colors">
                                   Read Case Study →
                                 </Link>
                               )}
                               {project.demoUrl && (
                                 <a href={project.demoUrl} target="_blank" rel="noopener noreferrer"
-                                  className="font-mono px-2.5 py-1.5 text-xs rounded-md bg-[var(--foreground)]/8 
-                                              hover:bg-[var(--foreground)]/15 transition-colors">
-                                  View Demo →
+                                  className="flex items-center gap-1.5 px-2.5 py-1.5 text-xs rounded-md 
+                                              bg-blue-500/10 text-blue-500 hover:bg-blue-500/20 transition-colors font-medium">
+                                  <ExternalLinkIcon className="w-3 h-3" />
+                                  <p>View Demo</p>
                                 </a>
                               )}
                             </div>
