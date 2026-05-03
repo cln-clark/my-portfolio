@@ -49,6 +49,8 @@ const techIcons: Record<string, JSX.Element> = {
 
 export default function Negeshoca() {
     return (
+        <>  
+
         <div className="w-full max-w-4xl mx-auto px-4 py-8 text-left group animate-fade-in">
 
             <section className="mb-8 relative"  /* upper section*/>
@@ -314,7 +316,7 @@ export default function Negeshoca() {
                             </ul>
                         </div>
                     </div>
-                </div>     
+                </div>              
 
                 <div className="bento-card p-4 col-span-1 md:col-span-4 space-y-2" /* Challenge & Outcome */>
                     <h2 className="text-md  md:text-xl font-bold mb-4">Challenges & Outcomes</h2>
@@ -366,6 +368,19 @@ export default function Negeshoca() {
                        
 
                     </div>   
+                </div>
+
+                {/* Mobile-only CTA */}
+                <div className="col-span-1 md:hidden">
+                    <a href="https://drive.google.com/drive/folders/16A_1ifhGLFP4fgBMJeN6dk38aG7_q2Vb?usp=sharing"
+                        target="_blank" rel="noopener noreferrer"
+                        aria-label="View Demo Video"
+                        className="flex items-center justify-center gap-2 w-full px-3 py-2 rounded-lg
+                                bg-blue-500 hover:bg-blue-600 text-white text-xs font-semibold
+                                transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
+                        <ExternalLinkIcon className="w-3 h-3" />
+                        <span>View Demo Video</span>
+                    </a>
                 </div>
             </section>
         </div>
