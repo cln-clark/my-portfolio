@@ -202,7 +202,7 @@ export default function Home() {
                     >
               </img>
 
-              <div className="flex-1  min-w-0 "/* second child */ /* Name, Location*/>
+              <div className="flex-1  min-w-0 "/* Details Container */>
 
                   <div className="flex items-start flex-col md:flex-row md:items-center gap-2 min-w-0" /* Name and Open to Work */>
                     <h1 className="text-lg font-bold md:text-3xl truncate ">Clark Louise Navales</h1>
@@ -212,7 +212,7 @@ export default function Home() {
                     </div> 
                   </div>
 
-                  <p className="flex items-center gap-1 text-xs mt-1 md:text-sm">
+                  <p className="flex items-center gap-1 text-xs mt-1 md:text-sm" /* Location */>
                     <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                       <path
                         fillRule="evenodd"
@@ -223,8 +223,8 @@ export default function Home() {
                     <span className="truncate">City of Imus, Cavite</span>
                   </p>
 
-                  <div className="mt-1.5 md:mt-2">
-                    <p className="text-[10px] md:text-base">Aspiring Software Developer</p>
+                  <div className="mt-1.5 md:mt-2" /* Role */>
+                    <p className="text-[10px] md:text-base">Software Engineer</p>
                   </div>
 
                   <div className="mt-1.5 md:mt-5 ">
@@ -241,17 +241,16 @@ export default function Home() {
                   </div>
 
               </div>  
-
-              
+           
             </div>
           
         </section>
 
-        <section className="grid grid-cols-1 md:grid-cols-6 gap-2">
+        <section className="grid grid-cols-1 md:grid-cols-6 gap-2" /* Lower Section */>
           <div className="bento-card p-4 col-span-1 md:col-span-4 space-y-2 group animate-fade-in"/* About Card */>
             <h2 className="text-lg font-bold">About</h2>
-            <p className="text-sm  leading-relaxed">
-            Aspiring software developer with a focus on backend development. I primarily work with Java, JavaScript, and React, building server-side systems and developing user interfaces.
+            <p className="text-sm leading-relaxed">
+            Software Engineer with a focus on backend development. I primarily work with Java, JavaScript, and React, building server-side systems and developing user interfaces.
             <br /><br />
             Most of my experience comes from academic projects, where I have developed web applications, Android applications, and IoT-based systems. These projects have helped me understand how different parts of a system connect—from backend logic to user-facing interfaces and hardware integration.
             <br /><br />
