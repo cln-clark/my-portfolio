@@ -549,8 +549,8 @@
           </section>
 
           <section id="lets-connect" 
-                  className="bento-card max-w-4xl mx-auto px-8 py-12 my-12 text-center relative overflow-hidden
-                             bg-[var(--background)] group animate-fade-in" /* Let's Connect Section */>
+                  className="bento-card max-w-4xl mx-auto px-8 py-12 my-8 text-center relative overflow-hidden
+                             group animate-fade-in" /* Let's Connect Section */>
                   
                   <div className="relative">
                     <h2 className="text-2xl md:text-3xl font-bold mb-3">Let's Connect</h2>
