@@ -175,7 +175,7 @@
 
     return (
       <>
-        <div className="w-full max-w-4xl mx-auto px-4 py-8 text-left group animate-fade-in" /* Main div */> 
+        <div className="w-full max-w-4xl mx-auto px-4 py-8 text-left group animate-fade-in" /* Main body */> 
 
           <section className="mb-8 relative" /* Upper Section */>
 
@@ -258,8 +258,13 @@
             
           </section>
 
-          <section className="grid grid-cols-1 md:grid-cols-6 gap-2" /* Lower Section */>
-            <div className="bento-card p-4 col-span-1 md:col-span-4 space-y-2 group animate-fade-in">
+          <section className="flex flex-col gap-2" /* Lower Section */>
+
+            <div className="grid grid-cols-1 md:grid-cols-[4fr_2fr] gap-2 items-start w-full" /* Two column wrapper */>
+
+                    <div className="flex flex-col gap-2" /* Left Column  */>
+
+                          <div className="bento-card p-4 col-span-1 md:col-span-4 space-y-2 group animate-fade-in" /* About Card */>
                 <h2 className="text-lg font-bold">About</h2>
                 <p className="text-sm leading-relaxed">
                     Software Engineer with a focus on backend development. I primarily work with Java, JavaScript, and React, building server-side systems and developing user interfaces.
@@ -359,13 +364,77 @@
                 })
                 }
                 
+                            </div>
+                          </div>                             
+                            
+                    </div>
+
+                    <div className="flex flex-col gap-2" /* Right Column */>
+
+                          <div className="bento-card p-4 col-span-1 md:col-span-2 space-y-2 group animate-fade-in flex-1"/* Experience Card */>
+                              <h2 className="text-lg font-bold">Experience</h2>
+
+                              <div className="relative space-y-4 mt-4" /* List of Experience */>
+                                <div className="absolute left-1.5 top-1.5 h-[calc(100%-8px)] w-px bg-[var(--foreground)]/15"></div>
+
+                                <div className="relative pl-6 group/role" >
+                                  <div className="absolute left-0 top-1.5 w-3 h-3 border-2 border-accent bg-[var(--foreground)] transition-colors"></div>
+                                  <div className="space-y-0.5">
+                                    <h3 className="text-sm font-semibold  transition-colors">Software Engineer</h3>
+                                    <span className="text-xs">Divergent Technologies Philippines, Inc.</span>                   
+                                    <p className="text-xs font-mono opacity-50">Present</p>
+
+                                  </div>
+                                </div>
+                                
+
+                                <div className="relative pl-6 group/role">
+                                  <div className="absolute left-0 top-1.5 w-3 h-3 border-2 border-[var(--foreground)]/15 bg-[var(--background)] transition-colors"></div>
+                                  <div className="space-y-0.5">
+                                    <h3 className="text-sm font-semibold  transition-colors">Data Processing Associate</h3>
+                                    <span className="text-xs">Appen</span>                   
+                                    <p className="text-xs font-mono opacity-50">2025 - 2026</p>
+                                  </div>
+                                
+                                </div>
+                        
+                                <div className="relative pl-6 group/role">
+                                  <div className="absolute left-0 top-1.5 w-3 h-3 border-2 border-[var(--foreground)]/15 bg-[var(--background)] transition-colors"></div>
+                                  <div className="space-y-0.5">
+                                    <h3 className="text-sm font-semibold transition-colors">Intern / OJT</h3>
+                                    <span className="text-xs">Sun Life of Canada Philippines Inc. Phoenix Palm NBO</span>                   
+                                    <p className="text-xs font-mono opacity-50">2025</p>
+                                  </div>
+                                
+                                </div>
+
+                                <div className="relative pl-6 group/role">
+                                  <div className="absolute left-0 top-1.5 w-3 h-3 border-2 border-[var(--foreground)]/15 bg-[var(--background)] transition-colors"></div>
+                                  <div className="space-y-1">
+                                    <h3 className="text-sm font-semibold transition-colors">BS Information Technology</h3>
+                                    <span className="text-xs">Cavite State University - Cum Laude</span>                   
+                                    <p className="text-xs font-mono opacity-50">2021 - 2025</p>
+                                  </div>
+                                
+                                </div>
+
+                                <div className="relative pl-6 group/role">
+                                  <div className="absolute left-0 top-1.5 w-3 h-3 border-2 border-[var(--foreground)]/15 bg-[var(--background)] transition-colors"></div>
+                                  <div className="space-y-0.5">
+                                    <h3 className="text-sm font-semibold transition-colors">ICT</h3>
+                                    <span className="text-xs">University of Perpetual Help System Dalta</span>                   
+                                    <p className="text-xs font-mono opacity-50">2018 - 2020</p>
+
+                                  </div>
+                                
+                                </div>
               </div>
             </div>
 
             <div className="bento-card p-4 col-span-1 md:col-span-2 space-y-2 group animate-fade-in"/* Socials Card */>
               <h2 className="text-lg font-bold">Social Links</h2>
               <div className="space-y-1.5">
-                <div className="grid grid-cols-1 gap-1">
+                                <div className="grid grid-cols-1 gap-1.5">
                   <a target="_blank" rel="noopener noreferrer" /* LinkedIn */
                     className="flex items-center gap-2 p-1.5 rounded-lg bg-[var(--background)]/30 
                     shadow-[0_1px_2px_rgba(0,0,0,0.03),0_1px_1px_rgba(0,0,0,0.04)] 
@@ -582,6 +651,7 @@
                     </div>
 
                   </div>
+                  
                  
           </section>
 
@@ -590,6 +660,7 @@
                   <p className="text-xs text-[var(--foreground)]/50">
                       © 2026 Clark Louise Navales. All rights reserved.
                   </p>
+                  
               </div>
           </footer> 
 
