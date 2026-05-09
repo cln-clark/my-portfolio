@@ -142,6 +142,7 @@
       caseStudyUrl?: string;
       demoUrl?: string;
       type: 'web' | 'IoT' | 'mobile' | 'Desktop' | 'other';
+      status: 'completed' | 'in-progress'; 
     }
 
     const [expandedProject, setExpandedProject] = useState<string | null>(null)
@@ -156,8 +157,8 @@
         techStack: ['arduino', 'kotlin', 'firebase', 'cplusplus'],
         caseStudyUrl: '/case-studies/negeshoca',
         demoUrl: 'https://drive.google.com/drive/folders/16A_1ifhGLFP4fgBMJeN6dk38aG7_q2Vb?usp=sharing',
-        type: 'IoT'
-
+        type: 'IoT',
+        status: 'completed'
       },
       {
         id: 'pos-inventory',
@@ -168,8 +169,8 @@
         techStack: ['netbeans', 'java', 'firebase'],
         caseStudyUrl: '/case-studies/pos-inventory',
         demoUrl: 'https://example.com/pos-inventory-demo',
-        type: 'Desktop'
-
+        type: 'Desktop',
+        status: 'in-progress'
       }
     ]
 
@@ -219,7 +220,7 @@
                       <h1 className="text-lg font-bold md:text-3xl truncate ">Clark Louise Navales</h1>
                       <div className="flex items-center gap-2 px-3 py-1.5 bg-green-100 rounded-full">
                         <div className="w-2 h-2 bg-green-600 rounded-full animate-pulse"></div>
-                        <span className="text-xs font-medium text-black">Open to Work</span>
+                        <span className="text-xs font-medium text-black">Software Engineering Trainee</span>
                       </div> 
                     </div>
 
@@ -454,7 +455,7 @@
                 <h3 className="text-lg font-bold">Projects</h3>
               </div>
               <div className="grid grid-cols-1 gap-2">
-                  {projects.map(project => (
+                  { projects.map(project => (
                       <div key={project.id} className="bento-card bg-[var(--background)]/30 p-3 space-y-3">
                         <button onClick={() => setExpandedProject(expandedProject === project.id ? null : project.id)}
                                 className="w-full text-left block space-y-1">
@@ -493,27 +494,33 @@
                             <div className="border-t border-[var(--foreground)]/10 p-2 space-y-2">
                               <div className="pt-1 flex flex-wrap gap-2">
                                 {project.caseStudyUrl && (
-                                  <Link href={project.caseStudyUrl}
-                                        className="font-mono px-2.5 py-1.5 text-xs rounded-md bg-[var(--foreground)]/5 
-                                                  hover:bg-[var(--foreground)]/10 transition-colors">
-                                    Read Case Study →
-                                  </Link>
-                                )}
-                                {project.demoUrl && (
-                                  <a href={project.demoUrl} target="_blank" rel="noopener noreferrer"
-                                    className="flex items-center gap-1.5 px-2.5 py-1.5 text-xs rounded-md 
-                                                bg-blue-500/10 text-blue-500 hover:bg-blue-500/20 transition-colors font-medium">
-                                    <ExternalLinkIcon className="w-3 h-3" />
-                                    <p>View Demo</p>
-                                  </a>
-                                )}
+                                  project.status === 'completed' ? (
+                                    <Link href={project.caseStudyUrl}
+                                          className="font-mono px-2.5 py-1.5 text-xs rounded-md bg-[var(--foreground)]/5 
+                                                    hover:bg-[var(--foreground)]/10 transition-colors">
+                                      Read Case Study →
+                                    </Link>
+                                  ) : (
+                                    <span className="font-mono px-2.5 py-1.5 text-xs rounded-md bg-yellow-500/10 text-yellow-500">
+                                      Case Study Coming Soon
+                                    </span> 
+                                  )
+
+                                )} {project.demoUrl && project.status === 'completed' && (
+                                          <a href={project.demoUrl} target="_blank" rel="noopener noreferrer"
+                                              className="flex items-center gap-1.5 px-2.5 py-1.5 text-xs rounded-md 
+                                                        bg-blue-500/10 text-blue-500 hover:bg-blue-500/20 transition-colors font-medium">
+                                              <ExternalLinkIcon className="w-3 h-3" />
+                                              <p>View Demo</p>
+                                          </a>
+                                      )}
                               </div>
                             </div>
-                          </div>
+                          </div>  
                         </div>
 
                       </div>
-                    ))}
+                ))}
 
                 
               </div>
