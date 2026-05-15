@@ -163,7 +163,7 @@
       {
         id: 'pos-inventory',
         title: 'Negeshoca POS & Inventory System',  
-        shortDescription: 'A comprehensive point-of-sale and inventory management system for small businesses.',
+        shortDescription: 'A supplementary desktop system built for our capstone defense, handling product management and sales records for the NeGeShoCa smart shopping cart.',
         fullDescription: 'A web-based application designed to streamline sales processes and inventory tracking for small businesses. The system features a user-friendly interface and real-time data synchronization.',
         techStackName: ['Netbeans', 'Java', 'Firebase'],
         techStack: ['netbeans', 'java', 'firebase'],
