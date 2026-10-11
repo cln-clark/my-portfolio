@@ -1,707 +1,311 @@
-  "use client"
-  import { ExternalLinkIcon } from "lucide-react";
-  import Image from "next/image"
-  import Link from "next/link";
-  import { JSX, useEffect, useState } from "react";
-  import { FaReact, FaJava, FaNodeJs, FaGit, FaGithub, FaDiscord, FaHtml5 } from 'react-icons/fa';
-  import { SiTypescript, SiTailwindcss, SiKotlin, SiNestjs, SiMysql, SiFirebase, SiVscodium, SiPython, SiArduino, SiCplusplus, SiAndroidstudio } from 'react-icons/si';
+import Image from "next/image";
+import Link from "next/link";
+import type { CSSProperties } from "react";
+import { ArrowRight, ArrowUpRight, Mail } from "lucide-react";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { CopyEmail } from "@/components/CopyEmail";
+import { Gallery } from "@/components/Gallery";
+import { Section } from "@/components/Section";
+import { TechIcon } from "@/components/TechIcon";
+import { experience, type TimelineItem } from "@/content/experience";
+import { gallery } from "@/content/gallery";
+import { projects } from "@/content/projects";
+import { site } from "@/content/site";
+import { stack } from "@/content/stack";
 
-  export default function Home() {
+const delay = (ms: number) => ({ "--rise-delay": `${ms}ms` }) as CSSProperties;
 
-    const images = [
-      "/images/gallery/grad6.jpg",
-      "/images/gallery/grad5.jpg",
-      "/images/gallery/grad4.jpg",
-      "/images/gallery/grad3.jpg",
-      "/images/gallery/grad2.jpg",
-      "/images/gallery/grad1.jpg",
-      "/images/gallery/ojt1.jpg",
-      "/images/gallery/ojt2.jpg",
-      "/images/gallery/ojt3.jpg",
-      "/images/gallery/ojt4-new.jpg"];
+export default function Home() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: site.name,
+    jobTitle: site.role,
+    url: site.url,
+    sameAs: [site.linkedin, site.github],
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Imus",
+      addressRegion: "Cavite",
+      addressCountry: "PH",
+    },
+  };
 
-    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
 
-    const [isDark, setIsDark] = useState(false);
-
-    useEffect(() => {
-      const saveTheme = localStorage.getItem('theme')
-      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-      
-      if(saveTheme === 'dark' || (!saveTheme && systemPrefersDark)){
-        setIsDark(true)
-        document.documentElement.classList.add('dark')
-      }
-
-      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
-      const handleChange = (e: MediaQueryListEvent) => {
-        if(!localStorage.getItem('theme')) {
-          setIsDark(e.matches)
-          document.documentElement.classList.toggle('dark', e.matches)  
-        }     
-      }
-
-      mediaQuery.addEventListener('change', handleChange)
-      return () => mediaQuery.removeEventListener('change', handleChange)
-      
-
-    },[])
-
-    const toggleDark = () => {
-      const newDark = !isDark
-      setIsDark(newDark)
-      document.documentElement.classList.toggle('dark')
-      localStorage.setItem('theme', newDark ? 'dark' : 'light')
-    }
-
-    type TechCategory = 'Frontend' | 'Backend' | 'Developer Tools';
-
-    interface TechStackDetails {
-      category: TechCategory;
-      name: string;
-      icon: string;
-      color: string;
-    }
-
-    const techStack: TechStackDetails[] = [
-      // Frontend
-      { category: 'Frontend', name: 'React',        icon: 'react',      color: '#61DAFB' },
-      { category: 'Frontend', name: 'TypeScript',   icon: 'typescript', color: '#3178C6' },
-      { category: 'Frontend', name: 'Tailwind CSS', icon: 'tailwind',   color: '#06B6D4' },
-      { category: 'Frontend', name: 'HTML',         icon: 'html',       color: '#E34F26' },
-      // Backend
-      { category: 'Backend', name: 'Java',          icon: 'java',       color: '#007396' },
-      { category: 'Backend', name: 'C++',           icon: 'cplusplus',     color: '#00599C' },
-      { category: 'Backend', name: 'Kotlin',        icon: 'kotlin',     color: '#7F52FF' },
-      { category: 'Backend', name: 'Python',        icon: 'python',     color: '#3776AB' },
-      { category: 'Backend', name: 'NestJS',        icon: 'nestjs',     color: '#E0234E' },
-      { category: 'Backend', name: 'Node.js',       icon: 'nodejs',     color: '#339933' },
-      { category: 'Backend', name: 'MySQL',         icon: 'mysql',      color: '#4479A1' },
-      { category: 'Backend', name: 'Firebase',      icon: 'firebase',   color: '#FFCA28' },
-      
-      // Developer Tools
-      
-      { category: 'Developer Tools', name: 'Git',             icon: 'git',               color: '#F05032' },
-      { category: 'Developer Tools', name: 'GitHub',          icon: 'github',            color: '#000000' },
-      { category: 'Developer Tools', name: 'VS Code',         icon: 'vscode',            color: '#007ACC' },
-      { category: 'Developer Tools', name: 'Android Studio',  icon: 'androidstudio',     color: '#3DDC84' }, 
-      { category: 'Developer Tools', name: 'Arduino',         icon: 'arduino',           color: '#00979D' },
-      { category: 'Developer Tools', name: 'Discord',          icon: 'discord',           color: '#5865F2' },
-    ];
-
-    const techIcons: Record<string, JSX.Element> = {
-      androidstudio:  <SiAndroidstudio     className="w-3 h-3" />,    
-      arduino:    <SiArduino            className="w-3 h-3" />,
-      cplusplus:  <SiCplusplus          className="w-3 h-3" />,
-      react:      <FaReact              className="w-3 h-3" />,
-      typescript: <SiTypescript         className="w-3 h-3" />,
-      tailwind:   <SiTailwindcss        className="w-3 h-3" />,
-      html:       <FaHtml5              className="w-3 h-3" />,
-      java:       <FaJava               className="w-3 h-3" />,
-      kotlin:     <SiKotlin             className="w-3 h-3" />,
-      python:     <SiPython             className="w-3 h-3" />,
-      nestjs:     <SiNestjs             className="w-3 h-3" />,
-      nodejs:     <FaNodeJs             className="w-3 h-3" />,
-      mysql:      <SiMysql              className="w-3 h-3" />,
-      firebase:   <SiFirebase           className="w-3 h-3" />,
-      git:        <FaGit                className="w-3 h-3" />,
-      github:     <FaGithub             className="w-3 h-3" />,
-      vscode:     <SiVscodium           className="w-3 h-3" />,
-      discord:    <FaDiscord            className="w-3 h-3" />,
-    };
-
-    const CATEGORIES: TechCategory[] = ['Frontend', 'Backend', 'Developer Tools'];
-
-    const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
-
-    useEffect(() => {
-        const handleKeyDown = (e: KeyboardEvent) => {
-          if(lightboxIndex === null) return
-          if(e.key === 'ArrowLeft') {
-            setLightboxIndex(prev => Math.max(prev! - 1, 0))
-          }
-          if(e.key === 'ArrowRight') {
-            setLightboxIndex(prev => Math.min(prev! + 1, images.length - 1))
-          }
-          if(e.key === 'Escape') {
-            setLightboxIndex(null)
-            document.body.style.overflow = ''
-          }
-        }
-        window.addEventListener('keydown', handleKeyDown)
-        return () => window.removeEventListener('keydown', handleKeyDown)
-    }, [lightboxIndex])
-
-    interface ProjectDetails {
-      id: string;
-      title: string;
-      shortDescription: string;
-      fullDescription: string;
-      techStackName: string[]; // For display purposes
-      techStack: string[];
-      caseStudyUrl?: string;
-      demoUrl?: string;
-      type: 'web' | 'IoT' | 'mobile' | 'Desktop' | 'other';
-      status: 'completed' | 'in-progress'; 
-    }
-
-    const [expandedProject, setExpandedProject] = useState<string | null>(null)
-    
-    const projects: ProjectDetails[] = [
-      {
-        id: 'negeshoca',
-        title: 'Negeshoca: Next Generation Shopping Cart Powered by Arduino Technology',
-        shortDescription: 'A smart checkout system for small businesses using Arduino, Kotlin, Firebase and QR-based payment.',
-        fullDescription: 'An IoT-based smart checkout system that integrates hardware with a mobile application. The system uses Arduino microcontrollers to manage checkout gates, Kotlin for the mobile app, and Firebase for real-time data synchronization.',
-        techStackName: ['Arduino, Kotlin, Firebase', 'C++'],
-        techStack: ['arduino', 'kotlin', 'firebase', 'cplusplus'],
-        caseStudyUrl: '/case-studies/negeshoca',
-        demoUrl: 'https://drive.google.com/drive/folders/16A_1ifhGLFP4fgBMJeN6dk38aG7_q2Vb?usp=sharing',
-        type: 'IoT',
-        status: 'completed'
-      },
-      {
-        id: 'pos-inventory',
-        title: 'Negeshoca POS & Inventory System',  
-        shortDescription: 'A supplementary desktop system built for our capstone defense, handling product management and sales records for the NeGeShoCa smart shopping cart.',
-        fullDescription: 'A web-based application designed to streamline sales processes and inventory tracking for small businesses. The system features a user-friendly interface and real-time data synchronization.',
-        techStackName: ['Netbeans', 'Java', 'Firebase'],
-        techStack: ['netbeans', 'java', 'firebase'],
-        caseStudyUrl: '/case-studies/pos-inventory',
-        demoUrl: 'https://example.com/pos-inventory-demo',
-        type: 'Desktop',
-        status: 'in-progress'
-      }
-    ]
-
-    return (
-      <>
-        <div className="w-full max-w-4xl mx-auto px-4 py-8 text-left group animate-fade-in" /* Main body */> 
-
-          <section className="mb-8 relative" /* Upper Section */>
-
-              <button
-                  onClick={toggleDark}
-                  aria-label="Toggle dark mode"
-                  className={`absolute  top-0  right-0 w-12 h-6 rounded-full transition-colors duration-300 md:mt-5.5
-                    ${isDark ? 'bg-accent' : 'bg-foreground/20'}`}>           
-
-                  <div className={`absolute top-0.5 w-5 h-5 rounded-full bg-[var(--background)] shadow-sm
-                    transition-transform duration-300 flex items-center justify-center
-                    ${isDark ? 'translate-x-6' : 'translate-x-0.5'}`}>
-                    
-                    {isDark ? (
-                      <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" 
-                          d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
-                      </svg>
-                    ) : (
-                      <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" 
-                          d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707M17.657 17.657l-.707-.707M6.343 6.343l-.707-.707M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                      </svg>
-                    )}
-                  </div>
-              </button>
-
-              <div className="flex items-center justify-start gap-4 md:gap-6"/* whole div inside upper section */>
-
-                <img fetchPriority="high"  /* first child */              
-                      decoding="async" 
-                      src="/images/myself-2.jpeg" 
-                      alt="Clark Louise"
-                      className="w-[160px] h-[170px] object-cover shrink-0 rounded-md"
-                      >
-                </img>
-
-                <div className="flex-1  min-w-0 "/* Details Container */>
-
-                    <div className="flex items-start flex-col md:flex-row md:items-center gap-2 min-w-0" /* Name and Open to Work */>
-                      <h1 className="text-lg font-bold md:text-3xl truncate ">Clark Louise Navales</h1>
-                      <div className="flex items-center gap-2 px-3 py-1.5 bg-green-100 rounded-full">
-                        <div className="w-2 h-2 bg-green-600 rounded-full animate-pulse"></div>
-                        <span className="text-xs font-medium text-black">Software Engineering Trainee</span>
-                      </div> 
-                    </div>
-
-                    <p className="flex items-center gap-1 text-xs mt-1 md:text-sm" /* Location */>
-                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                        <path
-                          fillRule="evenodd"
-                          d="M12 2C8.134 2 5 5.134 5 9c0 4.418 5.25 10.293 6.064 11.175a1 1 0 001.872 0C13.75 19.293 19 13.418 19 9c0-3.866-3.134-7-7-7zm0 9.5A2.5 2.5 0 1112 6a2.5 2.5 0 010 5.5z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                      <span className="truncate">City of Imus, Cavite</span>
-                    </p>
-
-                    <div className="mt-1.5 md:mt-2" /* Role */>
-                      <p className="text-[10px] md:text-base">Software Engineer</p>
-                    </div>
-
-                    <div className="mt-1.5 md:mt-5 " /* Get in Touch Button Container */>
-                      
-                      <button onClick={() => document.getElementById('lets-connect')?.scrollIntoView({ behavior: 'smooth' })}
-                              className="hidden md:inline-flex h-7 md:h-8 items-center rounded-lg shadow-[0_1px_2px_rgba(0,0,0,0.03),0_1px_1px_rgba(0,0,0,0.04)] 
-                              bg-[var(--foreground)] text-[var(--background)] text-2.5 md:px-4 text-[8px] md:text-xs font-medium transition-all duration-200 hover:-translate-y-0.5 
-                              hover:shadow-[0_3px_10px_rgba(0,0,0,0.2)] gap-1 md:gap-1.5 whitespace-nowrap min-h-0">
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <rect x="3" y="5" width="18" height="14" rx="3" strokeWidth="1.5"/>
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M3 7l9 6 9-6"/>
-                        </svg>
-                        <span>Get In Touch</span>
-                      </button>
-                    </div>
-
-                </div>  
-            
-              </div>
-            
-          </section>
-
-          <section className="flex flex-col gap-2" /* Lower Section */>
-
-            <div className="grid grid-cols-1 md:grid-cols-[4fr_2fr] gap-2 items-start w-full" /* Two column wrapper */>
-
-                    <div className="flex flex-col gap-2" /* Left Column  */>
-
-                          <div className="bento-card p-4 col-span-1 md:col-span-4 space-y-2 group animate-fade-in" /* About Card */>
-                            <h2 className="text-lg font-bold">About</h2>
-                            <p className="text-sm leading-relaxed">
-                                Software Engineer with a focus on backend development. I primarily work with Java, JavaScript, and React, building server-side systems and developing user interfaces.
-                                <br /><br />
-                                I recently joined a new role as a Software Engineer and am currently in my onboarding and training period. Most of my hands-on experience comes from academic projects, where I have developed web applications, Android applications, and IoT-based systems — helping me understand how different parts of a system connect, from backend logic to user-facing interfaces and hardware integration.
-                                <br /><br />
-                                I am particularly interested in backend development, especially in creating APIs, handling data, and designing clean, maintainable systems. I continuously improve my skills through hands-on projects and exploring backend technologies, aiming to grow into a well-rounded software engineer.
-                            </p>
-                          </div>
-
-                          <div className="bento-card p-4 col-span-1 md:col-span-4 space-y-2 group animate-fade-in "/* Tech Stack Card */>
-                            <h2 className="text-lg font-bold">Tech Stack</h2>
-                            <div className="space-y-4">
-                              {CATEGORIES.map(category => {
-                                const items = techStack.filter(t => t.category === category);
-                                return(
-                                  <div key={category}>
-                                    <h3 className="text-sm font-semibold mb-2">{category}</h3>
-                                    <div className="flex flex-wrap gap-1.5">
-                                      {items.map(tech => (
-                                        <span key={tech.name} 
-                                              className="flex items-center gap-1 px-2 py-0.5 text-xs rounded-md bg-[var(--background)]/30 
-                                                        shadow-[0_2px_1px_rgba(0,0,0,0.03)]">
-                                          <span style={{ color: tech.color}}>
-                                            {techIcons[tech.icon.toLowerCase() as keyof typeof techIcons] || null}
-                                          </span>
-                                          {tech.name}
-                                        </span>
-                                      ))}
-                                    </div>
-                                  </div>
-                                )
-                              })
-                              }
-                              
-                            </div>
-                          </div>                             
-                            
-                    </div>
-
-                    <div className="flex flex-col gap-2" /* Right Column */>
-
-                          <div className="bento-card p-4 col-span-1 md:col-span-2 space-y-2 group animate-fade-in flex-1"/* Experience Card */>
-                              <h2 className="text-lg font-bold">Experience</h2>
-
-                              <div className="relative space-y-4 mt-4" /* List of Experience */>
-                                <div className="absolute left-1.5 top-1.5 h-[calc(100%-8px)] w-px bg-[var(--foreground)]/15"></div>
-
-                                <div className="relative pl-6 group/role" >
-                                  <div className="absolute left-0 top-1.5 w-3 h-3 border-2 border-accent bg-[var(--foreground)] transition-colors"></div>
-                                  <div className="space-y-0.5">
-                                    <h3 className="text-sm font-semibold  transition-colors">Software Engineer</h3>
-                                    <span className="text-xs">Divergent Technologies Philippines, Inc.</span>                   
-                                    <p className="text-xs font-mono opacity-50">Present</p>
-
-                                  </div>
-                                </div>
-                                
-
-                                <div className="relative pl-6 group/role">
-                                  <div className="absolute left-0 top-1.5 w-3 h-3 border-2 border-[var(--foreground)]/15 bg-[var(--background)] transition-colors"></div>
-                                  <div className="space-y-0.5">
-                                    <h3 className="text-sm font-semibold  transition-colors">Data Processing Associate</h3>
-                                    <span className="text-xs">Appen</span>                   
-                                    <p className="text-xs font-mono opacity-50">2025 - 2026</p>
-                                  </div>
-                                
-                                </div>
-                        
-                                <div className="relative pl-6 group/role">
-                                  <div className="absolute left-0 top-1.5 w-3 h-3 border-2 border-[var(--foreground)]/15 bg-[var(--background)] transition-colors"></div>
-                                  <div className="space-y-0.5">
-                                    <h3 className="text-sm font-semibold transition-colors">Intern / OJT</h3>
-                                    <span className="text-xs">Sun Life of Canada Philippines Inc. Phoenix Palm NBO</span>                   
-                                    <p className="text-xs font-mono opacity-50">2025</p>
-                                  </div>
-                                
-                                </div>
-
-                                <div className="relative pl-6 group/role">
-                                  <div className="absolute left-0 top-1.5 w-3 h-3 border-2 border-[var(--foreground)]/15 bg-[var(--background)] transition-colors"></div>
-                                  <div className="space-y-1">
-                                    <h3 className="text-sm font-semibold transition-colors">BS Information Technology</h3>
-                                    <span className="text-xs">Cavite State University - Cum Laude</span>                   
-                                    <p className="text-xs font-mono opacity-50">2021 - 2025</p>
-                                  </div>
-                                
-                                </div>
-
-                                <div className="relative pl-6 group/role">
-                                  <div className="absolute left-0 top-1.5 w-3 h-3 border-2 border-[var(--foreground)]/15 bg-[var(--background)] transition-colors"></div>
-                                  <div className="space-y-0.5">
-                                    <h3 className="text-sm font-semibold transition-colors">ICT</h3>
-                                    <span className="text-xs">University of Perpetual Help System Dalta</span>                   
-                                    <p className="text-xs font-mono opacity-50">2018 - 2020</p>
-
-                                  </div>
-                                
-                                </div>
-                              </div>       
-                          </div>
-                                        
-                          <div className="bento-card p-4 col-span-1 md:col-span-2 space-y-2 group animate-fade-in"/* Socials Card */>
-                            <h2 className="text-lg font-bold">Social Links</h2>
-                            <div className="space-y-1.5">
-                                <div className="grid grid-cols-1 gap-1.5">
-                                  <a target="_blank" rel="noopener noreferrer" /* LinkedIn */
-                                    className="flex items-center gap-2 p-1.5 rounded-lg bg-[var(--background)]/30 
-                                    shadow-[0_1px_2px_rgba(0,0,0,0.03),0_1px_1px_rgba(0,0,0,0.04)] 
-                                    hover:bg-[var(--foreground)]/10 hover:shadow-[0_3px_5px_rgba(0,0,0,0.06)] 
-                                    transition-all duration-200 hover:-translate-y-0.5 group" aria-label="Visit LinkedIn profile" 
-                                    title="Visit LinkedIn profile" href="https://linkedin.com/in/clark-louise-navales/">
-                                      <div className="text-[var(--foreground)] transition-colors">
-                                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z">
-                                          </path>
-                                        </svg>
-                                      </div>
-                                      <p className="text-[10px] font-medium text-[var(--foreground)] transition-colors">
-                                        LinkedIn
-                                      </p>
-                                  </a>
-
-                                  <a target="_blank" rel="noopener noreferrer" /* GitHub*/
-                                    className="flex items-center gap-2 p-1.5 rounded-lg bg-[var(--background)]/30 
-                                    shadow-[0_1px_2px_rgba(0,0,0,0.03),0_1px_1px_rgba(0,0,0,0.04)] 
-                                    hover:bg-[var(--foreground)]/10 hover:shadow-[0_3px_5px_rgba(0,0,0,0.06)] 
-                                    transition-all duration-200 hover:-translate-y-0.5 group" aria-label="Visit GitHub profile" 
-                                    title="Visit GitHub profile" href="https://github.com/cln-clark">
-                                      <div className="text-[var(--foreground)] transition-colors">
-                                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                          <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 
-                                          9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd">
-                                          </path>
-                                        </svg>
-                                      </div>
-                                      <p className="text-[10px] font-medium text-[var(--foreground)] transition-colors">
-                                        GitHub
-                                      </p>
-                                  </a>
-
-                                  <a target="_blank" rel="noopener noreferrer" /* Facebook*/
-                                    className="flex items-center gap-2 p-1.5 rounded-lg bg-[var(--background)]/30 
-                                    shadow-[0_1px_2px_rgba(0,0,0,0.03),0_1px_1px_rgba(0,0,0,0.04)] 
-                                    hover:bg-[var(--foreground)]/10 hover:shadow-[0_3px_5px_rgba(0,0,0,0.06)] 
-                                    transition-all duration-200 hover:-translate-y-0.5 group" aria-label="Visit Facebook profile" 
-                                    title="Visit Facebook profile" href="https://www.facebook.com/clrkyy09">
-                                      <div className="text-[var(--foreground)] transition-colors">
-                                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                          <path d="M22 12.073C22 6.504 17.523 2 12 2S2 6.504 2 12.073c0 5.017 3.657 9.167 8.438 9.927v-7.025H7.898v-2.902h2.54V9.845c0-2.506 1.492-3.89 
-                                          3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562v1.877h2.773l-.443 2.902h-2.33V22c4.78-.76 8.437-4.91 8.437-9.927z"/>
-                                        </svg>
-                                      </div>
-                                      <p className="text-[10px] font-medium text-[var(--foreground)] transition-colors">
-                                        Facebook
-                                      </p>
-                                  </a>
-
-                                  <a target="_blank" rel="noopener noreferrer" /* Instagram */
-                                    className="flex items-center gap-2 p-1.5 rounded-lg bg-[var(--background)]/30 
-                                    shadow-[0_1px_2px_rgba(0,0,0,0.03),0_1px_1px_rgba(0,0,0,0.04)] 
-                                    hover:bg-[var(--foreground)]/10 hover:shadow-[0_3px_5px_rgba(0,0,0,0.06)] 
-                                    transition-all duration-200 hover:-translate-y-0.5 group" aria-label="Visit Instagram profile" 
-                                    title="Visit Instagram profile" href="https://www.instagram.com/clrkyy/">
-                                      <div className="text-[var(--foreground)] transition-colors">
-                                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                          <path d="M7.75 2C4.574 2 2 4.574 2 7.75v8.5C2 19.426 4.574 22 7.75 22h8.5C19.426 22 22 19.426 22 16.25v-8.5C22 4.574 19.426 2 16.25 2h-8.5zm0 2h8.5C18.485 4 20 5.515 20 7.75v8.5c0 2.235-1.515 3.75-3.75 3.75h-8.5C5.515 20 4 18.485 4 16.25v-8.5C4 5.515 5.515 4 7.75 4zm4.25 2.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zm0 2a3.5 3.5 0 110 7 3.5 3.5 0 010-7zm5.25-.75a1.25 1.25 0 110 2.5 1.25 1.25 0 010-2.5z"/>
-                                        </svg>
-                                      </div>
-                                      <p className="text-[10px] font-medium text-[var(--foreground)] transition-colors">
-                                        Instagram
-                                      </p>
-                                  </a>
-                        
-                              
-                              </div>
-                            </div>     
-                                  
-                          </div>                      
-                    
-                    </div>
-
+      <section className="mx-auto max-w-5xl px-6 pt-14 pb-16 md:pt-20 md:pb-24">
+        <div className="grid grid-cols-1 items-start gap-10 md:grid-cols-[1fr_280px] md:gap-14">
+          <div>
+            <p className="hero-rise inline-flex items-center gap-2 rounded-full border border-line px-3 py-1 text-xs text-muted">
+              <span className="relative flex h-2 w-2" aria-hidden="true">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
+              </span>
+              Open to collaborations
+            </p>
+            <h1
+              style={delay(60)}
+              className="hero-rise mt-5 text-4xl font-semibold tracking-tight text-balance md:text-6xl"
+            >
+              {site.name}
+            </h1>
+            <p style={delay(120)} className="hero-rise mt-4 font-mono text-sm text-muted">
+              {site.role} · {site.location}
+            </p>
+            <p
+              style={delay(180)}
+              className="hero-rise mt-6 max-w-prose text-lg leading-relaxed text-pretty whitespace-pre-line"
+            >
+              {site.statement}
+            </p>
+            <div style={delay(240)} className="hero-rise mt-8 flex flex-wrap items-center gap-3">
+              <a
+                href={`mailto:${site.email}`}
+                className="inline-flex h-11 items-center gap-2 rounded-md bg-accent px-5 text-sm font-medium text-accent-ink transition-colors hover:bg-accent/90"
+              >
+                <Mail className="h-4 w-4" aria-hidden="true" />
+                Email me
+              </a>
+              <a
+                href={site.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn profile"
+                className="inline-flex h-11 w-11 items-center justify-center rounded-md border border-line text-muted transition-colors hover:border-ink/30 hover:text-ink"
+              >
+                <FaLinkedin className="h-4 w-4" aria-hidden="true" />
+              </a>
+              <a
+                href={site.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="GitHub profile"
+                className="inline-flex h-11 w-11 items-center justify-center rounded-md border border-line text-muted transition-colors hover:border-ink/30 hover:text-ink"
+              >
+                <FaGithub className="h-4 w-4" aria-hidden="true" />
+              </a>
             </div>
-
-            <div className="bento-card p-4 col-span-1 md:col-span-6 space-y-2 group animate-fade-in "/* Projects Card */>
-              <div className="flex items-center justify-start">
-                <h3 className="text-lg font-bold">Projects</h3>
-              </div>
-              <div className="grid grid-cols-1 gap-2">
-                  { projects.map(project => (
-                      <div key={project.id} className="bento-card bg-[var(--background)]/30 p-3 space-y-3">
-                        <button onClick={() => setExpandedProject(expandedProject === project.id ? null : project.id)}
-                                className="w-full text-left block space-y-1">
-                          <div className="flex items-start justify-between gap-2">
-                            <div className="flex-1">
-                              <h3 className="text-sm font-semibold pb-2">{project.title}</h3>
-                              <p className="text-xs text-[var(--foreground)] pb-1">{project.shortDescription}</p>
-                              <div className="flex flex-wrap gap-1.5 pt-1">
-                                {project.techStack.map((tech) => {
-                                  const techColor = techStack.find(t => t.icon === tech)?.color;
-
-                                  return(
-                                    <span key={tech} 
-                                          className="inline-flex items-center gap-1 px-2 py-0.5 text-xs rounded-md bg-[var(--background)]/30 shadow-[0_2px_1px_rgba(0,0,0,0.03)]">
-                                          <span style={{ color: techColor }}>{techIcons[tech] || null}</span>     
-                                          <span className="capitalize">{tech === 'cplusplus' ? 'C++' : tech}</span>
-                                    </span>
-
-                                  )
-
-                                })}
-                              </div>                             
-                            </div>
-                            <svg className={`w-4 h-4 flex-shrink-0 transition-transform duration-300
-                                            ${expandedProject === project.id ? 'rotate-90' : ''}`}
-                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M 9 5 l7 7 -7 7"/>
-                            </svg>
-                          </div>
-                        </button>
-
-                        {/* Always rendered, animated via grid-rows */}
-                        <div className={`grid transition-all duration-300 ease-in-out
-                                        ${expandedProject === project.id ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}>
-                          <div className="overflow-hidden">
-                            <div className="border-t border-[var(--foreground)]/10 p-2 space-y-2">
-                              <div className="pt-1 flex flex-wrap gap-2">
-                                {project.caseStudyUrl && (
-                                  project.status === 'completed' ? (
-                                    <Link href={project.caseStudyUrl}
-                                          className="font-mono px-2.5 py-1.5 text-xs rounded-md bg-[var(--foreground)]/5 
-                                                    hover:bg-[var(--foreground)]/10 transition-colors">
-                                      Read Case Study →
-                                    </Link>
-                                  ) : (
-                                    <span className="font-mono px-2.5 py-1.5 text-xs rounded-md bg-yellow-500/10 text-yellow-500">
-                                      Case Study Coming Soon
-                                    </span> 
-                                  )
-
-                                )} {project.demoUrl && project.status === 'completed' && (
-                                          <a href={project.demoUrl} target="_blank" rel="noopener noreferrer"
-                                              className="flex items-center gap-1.5 px-2.5 py-1.5 text-xs rounded-md 
-                                                        bg-blue-500/10 text-blue-500 hover:bg-blue-500/20 transition-colors font-medium">
-                                              <ExternalLinkIcon className="w-3 h-3" />
-                                              <p>View Demo</p>
-                                          </a>
-                                      )}
-                              </div>
-                            </div>
-                          </div>  
-                        </div>
-
-                      </div>
-                ))}
-
-                
-              </div>
-              
-            </div>       
-
-            <div className="bento-card p-4 col-span-1 md:col-span-6 space-y-2 group animate-fade-in" /* Gallery Card */>
-                    <h2 className="text-lg font-bold">Gallery</h2>
-                    <div className="relative">
-                      <div className="relative overflow-hidden">
-                        <div className="flex gap-2 transition-transform duration-500 ease-in-out"
-                        style={{ transform: `translateX(-${currentImageIndex * 25}%)` }}>
-                            {images.map((src, index) => (
-                              <div key={index} 
-                                onClick={() => {
-                                setLightboxIndex(index)
-                                document.body.style.overflow = 'hidden' }}       
-                                className="relative flex-shrink-0 aspect-square overflow-hidden rounded-lg bg-foreground/5 
-                                shadow-[0_1px_2px_rgba(0,0,0,0.03),0_1px_1px_rgba(0,0,0,0.04)] hover:shadow-[0_3px_10px_rgba(0,0,0,0.06)] 
-                                transition-all duration-200 hover:-translate-y-0.5 group/image cursor-pointer" 
-                                style={{ width: 'calc(24% - 0.375rem)'}}>
-                                  <Image 
-                                  src={src} 
-                                  alt={`Gallery Image ${index + 1}`} 
-                                  loading={index === 0 ? "eager" : "lazy"} 
-                                  fill
-                                  className={`object-cover ${index === 7 ? 'object-bottom' : 'object-[center_30%]'} 
-                                  transition-transform duration-200 group-hover/image:scale-105`}              
-                                  sizes="(max-width: 640px) 100vw, (max-width: 768px) 33vw,(max-width: 1024px) 25vw, 20vw"/>
-                                </div>
-                            ))}
-                        </div>              
-                      </div>
-                      <button onClick ={() => setCurrentImageIndex(prev => Math.max(prev - 1,0))} 
-                              disabled = {currentImageIndex === 0}
-                              className={`absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 sm:-translate-x-4 md:-translate-x-6 z-10
-                              p-2 rounded-full bg-[var(--background)] shadow-[0_1px_2px_rgba(0,0,0,0.05),0_1px_1px_rgba(0,0,0,0.06)] 
-                              hover:shadow-[0_3px_10px_rgba(0,0,0,0.08)] transition-all duration-200 hover:scale-110 opacity-50
-                              ${currentImageIndex === 0 ? 'cursor-not-allowed' : 'cursor-pointer opacity-100'}` } aria-label="Previous Image" /* previous button*/>
-                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M 15 19 l-7 -7 7 -7"></path>
-                                </svg>
-                      </button> 
-                      <button onClick = {() => setCurrentImageIndex(prev => Math.min(prev + 1, images.length - 4.33))} 
-                              disabled={currentImageIndex === images.length - 4.33}
-                              className={`absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 sm:translate-x-4 md:translate-x-6 z-10 
-                              p-2 rounded-full bg-[var(--background)] shadow-[0_1px_2px_rgba(0,0,0,0.05),0_1px_1px_rgba(0,0,0,0.06)] 
-                              hover:shadow-[0_3px_10px_rgba(0,0,0,0.08)]  transition-all duration-200 hover:scale-110
-                              ${currentImageIndex === images.length - 4.33 ? 'cursor-not-allowed  opacity-50'  : 'cursor-pointer'}`}
-                              aria-label="Next image" /* next button*/>
-                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 5l7 7-7 7"></path>
-                                </svg>
-                      </button> 
-                    </div>
-            </div>
-      
-          </section>
-
-          <section id="lets-connect" 
-                  className="bento-card max-w-4xl mx-auto px-8 py-12 my-8 text-center relative overflow-hidden
-                             group animate-fade-in" /* Let's Connect Section */>
-                  
-                  <div className="relative">
-                    <h2 className="text-2xl md:text-3xl font-bold mb-3">Let's Connect</h2>
-                    <p className="text-sm text-[var(--foreground)]/60 mb-8">
-                        I'm open to new opportunities and collaborations. Feel free to reach out.
-                    </p>
-                    <div className="flex justify-center gap-3">
-                          <a href="https://mail.google.com/mail/?view=cm&to=clarknvls@gmail.com"
-                              target="_blank" rel="noopener noreferrer"
-                              className="bento-card inline-flex items-center gap-2 px-5 py-2.5 rounded-lg
-                                        bg-[var(--foreground)] text-[var(--background)] text-xs font-semibold
-                                        transition-all duration-200 hover:shadow-[0_3px_10px_rgba(0,0,0,0.2)]">
-                              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <rect x="3" y="5" width="18" height="14" rx="3" strokeWidth="1.5"/>
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M3 7l9 6 9-6"/>
-                              </svg>
-                              Send an Email
-                          </a>
-                          <a href="https://linkedin.com/in/clark-louise-navales/"
-                              target="_blank" rel="noopener noreferrer"
-                              className="bento-card inline-flex items-center gap-2 px-5 py-2.5 rounded-lg
-                                        bg-[var(--background)] hover:shadow-[0_3px_10px_rgba(0,0,0,0.2)] 
-                                        text-xs font-semibold transition-all duration-200">
-                              <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
-                                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                              </svg>
-                              LinkedIn
-                          </a>
-                    </div>
-
-                  </div>
-                  
-                 
-          </section>
-
-          <footer className="max-w-4xl mx-auto px-4 py-8 border-t border-[var(--border)] mt-4">
-              <div className="flex justify-center items-center">
-                  <p className="text-xs text-[var(--foreground)]/50">
-                      © 2026 Clark Louise Navales. All rights reserved.
-                  </p>
-                  
-              </div>
-          </footer> 
-
+          </div>
+          <div style={delay(200)} className="hero-rise md:justify-self-end">
+            <Image
+              src="/images/myself-2.jpeg"
+              alt="Clark Louise Navales smiling in front of mountains at an overlook"
+              width={2671}
+              height={2298}
+              sizes="(min-width: 768px) 280px, 60vw"
+              loading="eager"
+              fetchPriority="high"
+              className="w-full max-w-[280px] rounded-lg border border-line"
+            />
+          </div>
         </div>
+      </section>
 
-        {lightboxIndex !== null && (
-            <div className="fixed inset-0 z-50 bg-black/90 overflow-hidden"
-              onClick={() => {setLightboxIndex(null)
-                document.body.style.overflow = ''
-              }}>
+      <Section id="about" index={1} title="About">
+        <div className="max-w-prose space-y-4 text-sm leading-relaxed md:text-base">
+          <p>
+            I’m a full-stack software engineer. At work, I build features end to end on a production POS platform, from the UI down to the database, 
+            and I work on integrations between business systems. My main tools are React, Next.js, TypeScript, Rust, Supabase, and SQLite.
+          </p>
+          <p>
+            I started out with school projects in web, Android, and IoT, which taught me how the pieces of a system connect, 
+            from backend logic to the screen to the hardware. Now I get to apply that to something real merchants use every day.
+          </p>
+          <p>
+            I get the most out of taking an idea from sketch to shipped, and then watching it get used.
+          </p>
+        </div>
+      </Section>
 
-              {/* previous button - outside image container */}
-              <button 
-                onClick={(e) => {
-                  e.stopPropagation()
-                  setLightboxIndex(prev => Math.max(prev! - 1, 0))
-                }}
-                disabled={lightboxIndex === 0}
-                className={`absolute left-4 top-1/2 -translate-y-1/2 z-10 p-2 text-white/70 hover:text-white hover:scale-110 transition-colors
-                  ${lightboxIndex === 0 ? 'opacity-30 cursor-not-allowed hidden' : 'opacity-100 cursor-pointer visible'}`}
-                aria-label="Previous image">
-                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M15 19l-7-7 7-7"/>
-                </svg>
-              </button>
+      <Section id="experience" index={2} title="Experience">
+        <Timeline items={experience} />
+      </Section>
 
-              {/* counter */}
-              <div className="absolute top-4 left-7 z-10 text-white/70 text-xs font-mono">
-                {lightboxIndex + 1} / {images.length}                 
+      <Section id="projects" index={3} title="Projects">
+        <div className="space-y-4">
+          {projects.map((project) => (
+            <article
+              key={project.id}
+              className="rounded-lg border border-line p-5 transition-colors hover:border-ink/25 md:p-6"
+            >
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+                <h3 className="text-base font-semibold">{project.title}</h3>
+                <span
+                  className={
+                    project.status === "completed"
+                      ? "rounded-full border border-accent/40 px-2.5 py-0.5 font-mono text-xs text-accent"
+                      : "rounded-full border border-line px-2.5 py-0.5 font-mono text-xs text-muted"
+                  }
+                >
+                  {project.status === "completed" ? "Completed" : "In progress"}
+                </span>
               </div>
+              {project.subtitle && <p className="mt-1 text-sm text-muted">{project.subtitle}</p>}
+              <p className="mt-3 max-w-prose text-sm leading-relaxed">{project.description}</p>
+              <ul className="mt-4 flex flex-wrap gap-2">
+                {project.stack.map((item) => (
+                  <li
+                    key={item.name}
+                    className="inline-flex items-center gap-1.5 rounded-full border border-line px-2.5 py-1 text-xs text-muted"
+                  >
+                    <TechIcon name={item.icon} />
+                    {item.name}
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-5 flex flex-wrap items-center gap-5">
+                {project.caseStudyUrl ? (
+                  <Link
+                    href={project.caseStudyUrl}
+                    className="inline-flex items-center gap-1.5 text-sm font-medium transition-colors hover:text-accent"
+                  >
+                    Read case study
+                    <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                  </Link>
+                ) : (
+                  <span className="text-sm text-muted">Case study coming soon</span>
+                )}
+                {project.demoUrl && project.status === "completed" && (
+                  <a
+                    href={project.demoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-sm font-medium transition-colors hover:text-accent"
+                  >
+                    {project.demoLabel ?? "Demo"}
+                    <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+                  </a>
+                )}
+              </div>
+            </article>
+          ))}
+        </div>
+      </Section>
 
-              {/* exit button */}
-              <button
-                onClick={() => {setLightboxIndex(null)
-                document.body.style.overflow = '' }}
-                className="absolute top-4 right-7 z-10 text-white/70 hover:text-white hover:scale-110 transition-colors"
-                aria-label="Close">
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M6 18L18 6M6 6l12 12"/>
-                  </svg>  
-              </button>
-
-              {/* image container */}
-              <div className="absolute inset-0 flex items-center justify-center">
-
-                  <div className="relative w-[80vw] h-[80vw] md:w-[600px] md:h-[600px]"
-                        onClick={e => e.stopPropagation()}>
-
-                    <Image
-                      src={images[lightboxIndex]}
-                      alt={`Gallery Image ${lightboxIndex + 1}`}
-                      fill
-                      className="object-contain"
-                      sizes="(max-width: 768px) 90vw, 500px"
+      <Section id="stack" index={4} title="Stack">
+        <div className="space-y-8">
+          {stack.map((group) => (
+            <div key={group.category}>
+              <h3 className="font-mono text-xs tracking-[0.2em] text-muted uppercase">
+                {group.category}
+              </h3>
+              <ul className="mt-3 flex flex-wrap gap-2">
+                {group.items.map((item) => (
+                  <li
+                    key={item.name}
+                    className="group/chip inline-flex items-center gap-1.5 rounded-full border border-line px-3 py-1.5 text-xs text-muted transition-colors hover:border-ink/30 hover:text-ink"
+                  >
+                    <TechIcon
+                      name={item.icon}
+                      className="h-3.5 w-3.5 transition-colors group-hover/chip:text-accent"
                     />
-
-                    <div className="absolute top-full mt-4 md:mt-2 left-1/2 -translate-x-1/2 text-white/70 text-xs font-mono">
-                      Use arrow keys to navigate • ESC to close 
-                    </div>
-                  </div> 
-
-              </div>
-
-              {/* next button - outside image container */}
-              <button
-                onClick={(e) => {e.stopPropagation()
-                setLightboxIndex(prev => Math.min(prev! + 1, images.length - 1))}}
-                disabled={lightboxIndex === images.length - 1}
-                className={`absolute right-4 top-1/2 -translate-y-1/2 z-10 p-2 text-white/70 hover:text-white hover:scale-110 transition-colors
-                ${lightboxIndex === images.length - 1 ? 'opacity-30 cursor-not-allowed hidden' : 'opacity-100 cursor-pointer visible'}`}
-                aria-label="Next image">
-                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 5l7 7-7 7"/>
-                </svg>
-              </button>
-
+                    {item.name}
+                  </li>
+                ))}
+              </ul>
             </div>
-        )}
-      </>
-    );
-  }
+          ))}
+        </div>
+      </Section>
+
+      <Section id="gallery" index={5} title="Gallery">
+        <p className="mb-6 max-w-prose text-sm text-muted">
+          A few moments from graduation and the Sun Life internship.
+        </p>
+        <Gallery images={gallery} label="Photo gallery" />
+      </Section>
+
+      <Section id="contact" index={6} title="Contact">
+        <p className="max-w-prose text-sm leading-relaxed md:text-base">
+          I&apos;m open to new opportunities and collaborations. Feel free to reach out.
+        </p>
+        <a
+          href={`mailto:${site.email}`}
+          className="mt-6 block font-mono text-lg break-all underline decoration-line underline-offset-4 transition-colors hover:text-accent"
+        >
+          {site.email}
+        </a>
+        <div className="mt-6 flex flex-wrap items-center gap-3">
+          <CopyEmail email={site.email} />
+          <a
+            href={site.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex h-11 items-center gap-2 rounded-md border border-line px-4 text-sm text-ink transition-colors hover:border-ink/30 hover:bg-ink/5"
+          >
+            LinkedIn
+            <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+          </a>
+          <a
+            href={site.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex h-11 items-center gap-2 rounded-md border border-line px-4 text-sm text-ink transition-colors hover:border-ink/30 hover:bg-ink/5"
+          >
+            GitHub
+            <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+          </a>
+        </div>
+      </Section>
+    </>
+  );
+}
+
+function Timeline({ items }: { items: TimelineItem[] }) {
+  return (
+    <ol>
+      {items.map((item) => (
+        <li
+          key={`${item.title}-${item.org}`}
+          className="grid grid-cols-1 gap-1 border-b border-line py-5 first:pt-0 last:border-none last:pb-0 md:grid-cols-[140px_1fr] md:gap-6"
+        >
+          <p
+            className={`font-mono text-xs md:pt-0.5 ${
+              item.period.includes("Present") ? "text-accent" : "text-muted"
+            }`}
+          >
+            {item.period}
+          </p>
+          <div>
+            <h3 className="text-sm font-semibold md:text-base">{item.title}</h3>
+            <p className="mt-0.5 text-sm text-muted">{item.org}</p>
+            <p className="mt-0.5 text-sm text-muted">{item.location}</p>
+            {item.tech && (
+              <ul className="mt-3 flex flex-wrap gap-1.5">
+                {item.tech.map((tech) => (
+                  <li
+                    key={tech}
+                    className="rounded-full border border-line px-2 py-0.5 font-mono text-xs text-muted"
+                  >
+                    {tech}
+                  </li>
+                ))}
+              </ul>
+            )}
+            {item.summary && (
+              <p className="mt-3 max-w-prose text-sm leading-relaxed">{item.summary}</p>
+            )}
+            {item.points && (
+              <ul className="mt-2 max-w-prose space-y-1.5">
+                {item.points.map((point) => (
+                  <li key={point} className="flex items-start gap-2 text-sm leading-relaxed">
+                    <ArrowRight
+                      className="mt-1 h-3.5 w-3.5 shrink-0 text-accent"
+                      aria-hidden="true"
+                    />
+                    <span>{point}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </li>
+      ))}
+    </ol>
+  );
+}
