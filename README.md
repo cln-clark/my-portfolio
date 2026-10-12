@@ -1,33 +1,40 @@
-# my-portfolio
+# Personal Portfolio
 
-Personal portfolio of Clark Louise Navales — Software Engineer.
+[![Production Deployment](https://img.shields.io/badge/Vercel-Production-black?style=flat&logo=vercel)](https://clarklouise.vercel.app/)
+[![Next.js](https://img.shields.io/badge/Next.js-16-black?style=flat&logo=next.js)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue?style=flat&logo=typescript)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-v4-38B2AC?style=flat&logo=tailwind-css)](https://tailwindcss.com/)
 
-Built with Next.js 16 (App Router), React 19, TypeScript, and Tailwind CSS v4.
+Personal portfolio of Clark Louise Navales, Software Engineer. Projects, experience, and learning notes in a graphite terminal UI.
 
-## Development
+👉 **Live Preview:** [clarklouise.vercel.app](https://clarklouise.vercel.app/)
 
-```bash
-npm install
-npm run dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000).
+## Features
 
-## Scripts
+- **Graphite Terminal Theme:** A clean, developer-focused aesthetic built with custom typography and dark-mode styling.
+- **App Router Architecture:** Leverages Next.js 16 App Router for optimized performance, server components, and dynamic routing.
+- **Typed Content Structure:** Modular data files managing experience, project highlights, tech stack, and interactive galleries.
+- **Responsive & Optimized:** Fully optimized layout with automated Open Graph metadata, sitemaps, and robots configuration.
 
-| Command         | Description                                |
-| --------------- | ------------------------------------------ |
-| `npm run dev`   | Start the development server (Turbopack)   |
-| `npm run build` | Create a production build                  |
-| `npm start`     | Serve the production build                 |
-| `npm run lint`  | Run ESLint                                 |
+---
 
-## Structure
+## Tech Stack
 
-- `app/` — pages, layout, metadata (Open Graph image, sitemap, robots), global styles
-- `components/` — shared UI: header, footer, sections, gallery lightbox, theme toggle
-- `content/` — typed portfolio content: profile, experience, projects, stack, gallery, case study
+- **Framework:** [Next.js 16](https://nextjs.org/) (App Router & Turbopack)
+- **UI Library:** [React 19](https://react.dev/)
+- **Styling:** [Tailwind CSS v4](https://tailwindcss.com/)
+- **Language:** [TypeScript](https://www.typescriptlang.org/)
+- **Deployment:** [Vercel](https://vercel.com/)
 
-## Configuration
+---
 
-- `NEXT_PUBLIC_SITE_URL` — production URL used for canonical and Open Graph metadata (defaults to `http://localhost:3000`)
+## Project Structure
+
+```tree
+├── app/                  # Pages, layouts, metadata (OG image, sitemap, robots), global styles
+├── components/           # Shared UI (header, footer, sections, gallery lightbox, theme toggle)
+├── content/              # Typed portfolio content (profile, experience, projects, stack, gallery)
+├── public/images/        # Static assets and media files
+└── package.json          # Project dependencies and build scripts
