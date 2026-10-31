@@ -2,40 +2,63 @@
 
 @theme inline {
   --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
   --color-ink: var(--ink);
   --color-muted: var(--muted);
+  --color-faint: var(--faint);
   --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
   --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
   --color-accent-ink: var(--accent-ink);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-space-grotesk);
+  --radius-card: 12px;
 }
 
 :root {
-  --canvas: #0b0c0e;
-  --ink: #e6e8eb;
-  --muted: #9ba3ae;
-  --line: rgba(255, 255, 255, 0.08);
+  --canvas: #0a0b0d;
+  --surface: #111317;
+  --surface-raised: #171a1f;
+  --ink: #f1f3f5;
+  --muted: #a3abb6;
+  --faint: #747d89;
+  --line: rgba(255, 255, 255, 0.1);
+  --line-strong: rgba(255, 255, 255, 0.16);
   --grid: rgba(255, 255, 255, 0.035);
+  --grid-dot: rgba(255, 255, 255, 0.11);
+  --vignette: rgba(0, 0, 0, 0.2);
   --accent: #7dd3fc;
+  --accent-soft: rgba(125, 211, 252, 0.12);
   --accent-ink: #06121a;
+  --glow: rgba(125, 211, 252, 0.08);
   color-scheme: dark;
 }
 
 :root[data-theme="light"] {
   --canvas: #f7f7f5;
+  --surface: #ffffff;
+  --surface-raised: #eff1ee;
   --ink: #111214;
   --muted: #5b616b;
-  --line: rgba(0, 0, 0, 0.08);
+  --faint: #646b74;
+  --line: rgba(0, 0, 0, 0.1);
+  --line-strong: rgba(0, 0, 0, 0.16);
   --grid: rgba(0, 0, 0, 0.045);
+  --grid-dot: rgba(0, 0, 0, 0.09);
+  --vignette: rgba(0, 0, 0, 0.025);
   --accent: #0369a1;
+  --accent-soft: rgba(3, 105, 161, 0.1);
   --accent-ink: #ffffff;
+  --glow: rgba(3, 105, 161, 0.06);
   color-scheme: light;
 }
 
 @layer base {
   html {
-    scroll-padding-top: 5.5rem;
+    scroll-padding-top: 6rem;
     scrollbar-gutter: stable;
   }
 
@@ -43,6 +66,19 @@
     background-color: var(--canvas);
     color: var(--ink);
     font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
   }
 
   ::selection {
@@ -52,21 +88,75 @@
 
   :focus-visible {
     outline: 2px solid var(--accent);
-    outline-offset: 2px;
+    outline-offset: 3px;
   }
 
   body::before {
     content: "";
     position: fixed;
     inset: 0;
+    z-index: -2;
+    pointer-events: none;
+    background-image: url("/textures/grain.svg");
+    background-repeat: repeat;
+    background-size: 180px 180px;
+    opacity: 0.06;
+  }
+
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
     z-index: -1;
     pointer-events: none;
+    background: radial-gradient(
+      ellipse at 50% 28%,
+      transparent 55%,
+      var(--vignette) 100%
+    );
+  }
+}
+
+@layer components {
+  .eyebrow {
+    font-family: var(--font-geist-mono), ui-monospace, monospace;
+    font-size: 0.6875rem;
+    line-height: 1.4;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .surface-panel {
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background-color: var(--surface);
+  }
+
+  .prose-editorial {
+    max-width: 62ch;
+    font-size: 1rem;
+    line-height: 1.75;
+  }
+
+  .cover-grid {
     background-image:
       linear-gradient(to right, var(--grid) 1px, transparent 1px),
       linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
-    background-size: 64px 64px;
-    -webkit-mask-image: radial-gradient(ellipse 90% 65% at 50% -5%, #000 35%, transparent 78%);
-    mask-image: radial-gradient(ellipse 90% 65% at 50% -5%, #000 35%, transparent 78%);
+    background-size: 32px 32px;
+  }
+
+  .hero-backdrop {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image:
+      radial-gradient(34rem circle at 78% 18%, var(--glow), transparent 70%),
+      radial-gradient(circle at 1px 1px, var(--grid-dot) 1px, transparent 1.4px);
+    background-size: auto, 24px 24px;
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 58%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 0%, #000 58%, transparent 100%);
   }
 }
 
@@ -77,10 +167,10 @@
 
   html.js .reveal {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(16px);
     transition:
-      opacity 500ms ease,
-      transform 500ms ease;
+      opacity 600ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   html.js .reveal.is-visible {
@@ -89,7 +179,7 @@
   }
 
   .hero-rise {
-    animation: rise-in 500ms ease both;
+    animation: rise-in 600ms cubic-bezier(0.22, 1, 0.36, 1) both;
     animation-delay: var(--rise-delay, 0ms);
   }
 }
@@ -97,7 +187,7 @@
 @keyframes rise-in {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(16px);
   }
   to {
     opacity: 1;
@@ -129,17 +219,18 @@ dialog.lightbox {
 }
 
 dialog.lightbox::backdrop {
-  background: rgba(6, 8, 10, 0.88);
+  background: rgba(6, 8, 10, 0.9);
+  backdrop-filter: blur(6px);
 }
 
 dialog.lightbox[open] {
-  animation: lightbox-in 200ms ease;
+  animation: lightbox-in 220ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @keyframes lightbox-in {
   from {
     opacity: 0;
-    transform: scale(0.98);
+    transform: scale(0.985);
   }
   to {
     opacity: 1;

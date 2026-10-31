@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Local agent skills contain Node scripts that are not part of the app.
+    ".opencode/**",
   ]),
 ]);
 

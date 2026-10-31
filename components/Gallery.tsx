@@ -7,12 +7,35 @@ import { ChevronLeft, ChevronRight, X } from "lucide-react";
 export interface GalleryImage {
   src: string;
   alt: string;
+  caption?: string;
 }
 
-export function Gallery({ images, label }: { images: GalleryImage[]; label: string }) {
+const editorialLayout = [
+  "col-span-2 row-span-2 md:col-span-6 md:row-span-2",
+  "col-span-1 md:col-span-3",
+  "col-span-1 md:col-span-3",
+  "md:col-span-3",
+  "md:col-span-3",
+  "md:col-span-4",
+  "md:col-span-4",
+  "md:col-span-4",
+  "col-span-2 md:col-span-6",
+  "col-span-2 md:col-span-6",
+];
+
+export function Gallery({
+  images,
+  label,
+  variant = "grid",
+}: {
+  images: GalleryImage[];
+  label: string;
+  variant?: "grid" | "editorial";
+}) {
   const [index, setIndex] = useState<number | null>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const triggerRef = useRef<HTMLButtonElement | null>(null);
+  const editorial = variant === "editorial";
 
   const close = useCallback(() => setIndex(null), []);
 
@@ -40,25 +63,50 @@ export function Gallery({ images, label }: { images: GalleryImage[]; label: stri
     setIndex(position);
   };
 
+  const current = index === null ? null : images[index];
+  const caption = current ? (current.caption ?? current.alt) : "";
+
   return (
     <>
-      <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5">
+      <ul
+        className={
+          editorial
+            ? "grid grid-flow-dense grid-cols-2 auto-rows-[132px] gap-3 sm:auto-rows-[150px] md:grid-cols-12 md:auto-rows-[160px]"
+            : "grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5"
+        }
+      >
         {images.map((image, position) => (
-          <li key={image.src}>
+          <li
+            key={image.src}
+            className={editorial ? editorialLayout[position % editorialLayout.length] : undefined}
+          >
             <button
               type="button"
               onClick={(event) => open(position, event)}
               aria-haspopup="dialog"
-              aria-label={`Open photo: ${image.alt}`}
-              className="group relative block aspect-square w-full overflow-hidden rounded-md border border-line"
+              aria-label={`Open photo: ${image.caption ?? image.alt}`}
+              className={`group relative block w-full overflow-hidden rounded-lg border border-line bg-surface ${
+                editorial ? "h-full" : "aspect-square"
+              }`}
             >
               <Image
                 src={image.src}
                 alt=""
                 fill
-                sizes="(max-width: 640px) 45vw, (max-width: 768px) 30vw, 150px"
-                className="object-cover transition-transform duration-300 group-hover:scale-[1.04]"
+                sizes={
+                  editorial
+                    ? "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    : "(max-width: 640px) 45vw, (max-width: 768px) 30vw, 160px"
+                }
+                className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
               />
+              <span
+                className={`pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-canvas/95 to-transparent p-3 pt-10 text-left text-xs text-ink transition-opacity ${
+                  editorial ? "opacity-100 md:opacity-0 md:group-hover:opacity-100 md:group-focus-visible:opacity-100" : "opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100"
+                }`}
+              >
+                {image.caption ?? image.alt}
+              </span>
             </button>
           </li>
         ))}
@@ -68,6 +116,7 @@ export function Gallery({ images, label }: { images: GalleryImage[]; label: stri
         ref={dialogRef}
         className="lightbox"
         aria-label={label}
+        aria-describedby={current ? "lightbox-caption" : undefined}
         onClick={(event) => {
           if (event.target === dialogRef.current) close();
         }}
@@ -80,25 +129,25 @@ export function Gallery({ images, label }: { images: GalleryImage[]; label: stri
           if (event.key === "ArrowRight") step(1);
         }}
       >
-        {index !== null && (
+        {current ? (
           <div className="flex flex-col gap-3">
             <div className="flex items-center justify-between">
-              <p className="font-mono text-xs text-white/70" aria-hidden="true">
-                {index + 1} / {images.length}
+              <p className="font-mono text-xs text-white/70" aria-live="polite">
+                {index! + 1} / {images.length}
               </p>
               <button
                 type="button"
                 onClick={close}
                 aria-label="Close photo viewer"
-                className="flex h-10 w-10 items-center justify-center rounded-md text-white/70 transition-colors hover:bg-white/10 hover:text-white"
+                className="flex h-11 w-11 items-center justify-center rounded-lg text-white/70 transition-colors hover:bg-white/10 hover:text-white"
               >
                 <X className="h-5 w-5" aria-hidden="true" />
               </button>
             </div>
             <div className="relative h-[72vh] w-full">
               <Image
-                src={images[index].src}
-                alt={images[index].alt}
+                src={current.src}
+                alt={current.alt}
                 fill
                 sizes="92vw"
                 className="object-contain"
@@ -109,24 +158,24 @@ export function Gallery({ images, label }: { images: GalleryImage[]; label: stri
                 type="button"
                 onClick={() => step(-1)}
                 aria-label="Previous photo"
-                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md text-white/70 transition-colors hover:bg-white/10 hover:text-white"
+                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-white/70 transition-colors hover:bg-white/10 hover:text-white"
               >
                 <ChevronLeft className="h-5 w-5" aria-hidden="true" />
               </button>
-              <p className="min-w-0 truncate text-center text-xs text-white/70">
-                {images[index].alt}
+              <p id="lightbox-caption" className="min-w-0 truncate text-center text-xs text-white/70">
+                {caption}
               </p>
               <button
                 type="button"
                 onClick={() => step(1)}
                 aria-label="Next photo"
-                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md text-white/70 transition-colors hover:bg-white/10 hover:text-white"
+                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-white/70 transition-colors hover:bg-white/10 hover:text-white"
               >
                 <ChevronRight className="h-5 w-5" aria-hidden="true" />
               </button>
             </div>
           </div>
-        )}
+        ) : null}
       </dialog>
     </>
   );

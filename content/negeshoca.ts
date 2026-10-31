@@ -22,12 +22,16 @@ export const negeshoca = {
   title: "NeGeShoCa",
   subtitle: "Next Generation Shopping Cart Powered by Arduino Technology",
   tags: ["IoT Capstone Project", "Hardware + Software", "Full Stack"],
+  cover: "/images/behind-the-scene/bts5.jpg",
+  coverAlt:
+    "Close-up of the NeGeShoCa checkout hardware printing a receipt beside a QR payment screen",
   demoUrl:
     "https://drive.google.com/drive/folders/16A_1ifhGLFP4fgBMJeN6dk38aG7_q2Vb?usp=sharing",
   meta: [
     { label: "Type", value: "IoT Hardware + Software" },
     { label: "Duration", value: "1 year", note: "Design to defense" },
     { label: "Team", value: "3 members", note: "Team leader" },
+    { label: "Role", value: "Sole developer", note: "Hardware, app, and data" },
   ] as LabelledText[],
   stack: [
     { name: "Kotlin", icon: "kotlin" },

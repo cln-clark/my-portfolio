@@ -29,12 +29,12 @@ export function CopyEmail({ email }: { email: string }) {
     <button
       type="button"
       onClick={copy}
-      className="inline-flex h-11 items-center gap-2 rounded-md border border-line px-4 text-sm text-ink transition-colors hover:border-ink/30 hover:bg-ink/5"
+      className="inline-flex h-11 w-full min-w-[9.5rem] items-center justify-center gap-2 rounded-lg border border-line bg-canvas/40 px-4 text-sm font-medium text-ink transition-colors hover:border-line-strong hover:bg-accent-soft sm:w-auto"
     >
       {copied ? (
         <Check className="h-4 w-4 text-accent" aria-hidden="true" />
       ) : (
-        <Copy className="h-4 w-4" aria-hidden="true" />
+        <Copy className="h-4 w-4 text-muted" aria-hidden="true" />
       )}
       {copied ? "Copied" : "Copy email"}
       <span role="status" aria-live="polite" className="sr-only">

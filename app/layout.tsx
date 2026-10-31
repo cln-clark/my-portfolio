@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
@@ -15,12 +15,18 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space-grotesk",
+  subsets: ["latin"],
+  display: "swap",
+});
+
 const themeScript = `(function(){var d=document.documentElement;try{d.dataset.theme=localStorage.getItem("theme")==="light"?"light":"dark"}catch(e){d.dataset.theme="dark"}d.classList.add("js")})();`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: "Clark Louise Navales — Software Engineer",
+    default: "Clark Louise Navales — Full-Stack Software Engineer",
     template: "%s — Clark Louise Navales",
   },
   description: site.description,
@@ -28,18 +34,19 @@ export const metadata: Metadata = {
     type: "website",
     url: "/",
     siteName: site.name,
-    title: "Clark Louise Navales — Software Engineer",
+    title: "Clark Louise Navales — Full-Stack Software Engineer",
     description: site.description,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Clark Louise Navales — Software Engineer",
+    title: "Clark Louise Navales — Full-Stack Software Engineer",
     description: site.description,
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0b0c0e",
+  themeColor: "#0a0b0d",
+  colorScheme: "dark light",
 };
 
 export default function RootLayout({
@@ -50,7 +57,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable}`}
+      className={`${geistSans.variable} ${geistMono.variable} ${spaceGrotesk.variable}`}
       suppressHydrationWarning
     >
       <body>

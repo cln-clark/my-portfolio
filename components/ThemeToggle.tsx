@@ -1,6 +1,6 @@
 "use client";
 
-import { useSyncExternalStore } from "react";
+import { useEffect, useSyncExternalStore } from "react";
 import { Moon, Sun } from "lucide-react";
 
 function subscribe(onStoreChange: () => void) {
@@ -24,6 +24,13 @@ export function ThemeToggle() {
   const theme = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
   const next = theme === "dark" ? "light" : "dark";
 
+  useEffect(() => {
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) {
+      meta.setAttribute("content", theme === "dark" ? "#0a0b0d" : "#f7f7f5");
+    }
+  }, [theme]);
+
   const toggle = () => {
     document.documentElement.dataset.theme = next;
     try {
@@ -38,12 +45,13 @@ export function ThemeToggle() {
       type="button"
       onClick={toggle}
       aria-label={`Switch to ${next} theme`}
-      className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-line text-muted transition-colors hover:border-ink/30 hover:text-ink"
+      title={`Switch to ${next} theme`}
+      className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-line bg-surface/60 text-muted transition-colors hover:border-line-strong hover:text-ink"
     >
       {theme === "dark" ? (
-        <Moon className="h-4 w-4" aria-hidden="true" />
-      ) : (
         <Sun className="h-4 w-4" aria-hidden="true" />
+      ) : (
+        <Moon className="h-4 w-4" aria-hidden="true" />
       )}
     </button>
   );

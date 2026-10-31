@@ -13,9 +13,10 @@ Personal portfolio of Clark Louise Navales, Software Engineer. Projects, experie
 
 ## Features
 
-- **Graphite Terminal Theme:** A clean, developer-focused aesthetic built with custom typography and dark-mode styling.
+- **Technical Editorial Theme:** Graphite, ice-blue accents, Space Grotesk display type, and a dark/light token system.
+- **Project-First Structure:** Project covers and a full NeGeShoCa case study before the supporting sections.
 - **App Router Architecture:** Leverages Next.js 16 App Router for optimized performance, server components, and dynamic routing.
-- **Typed Content Structure:** Modular data files managing experience, project highlights, tech stack, and interactive galleries.
+- **Typed Content Structure:** Modular data files managing experience, project highlights, tech stack, galleries, and résumé links.
 - **Responsive & Optimized:** Fully optimized layout with automated Open Graph metadata, sitemaps, and robots configuration.
 
 ---
